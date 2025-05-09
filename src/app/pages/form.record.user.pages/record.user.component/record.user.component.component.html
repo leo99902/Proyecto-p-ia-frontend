@@ -1,0 +1,55 @@
+<div class="container">
+    <form>
+       <div class="form-row">
+          <div class="input-data">
+             <input type="text" required>
+             <div class="underline"></div>
+             <label for="">Nombre Completo</label>
+          </div>
+          <div class="input-data">
+             <input type="number" required>
+             <div class="underline"></div>
+             <label for="">Cedula</label>
+          </div>
+       </div>
+       <div class="form-row">
+          <div class="input-data">
+             <input type="email" required>
+             <div class="underline"></div>
+             <label for="">Correo Eletronico</label>
+          </div>
+          <div class="input-data">
+             <input type="number" required>
+             <div class="underline"></div>
+             <label for="">Numero Telefonico</label>
+          </div>
+       </div>
+
+       <div class="form-row">
+         <div class="input-data">
+            <input type="text" required>
+            <div class="underline"></div>
+            <label for="">Usuario</label>
+         </div>
+         <div class="input-data">
+            <input type="text" required>
+            <div class="underline"></div>
+            <label for="">Contraseña</label>
+         </div>
+      </div>
+       <div class="form-column">
+         
+        <mat-form-field style="width: 100%;">
+         <mat-label>Tipo de usuario</mat-label>
+         <mat-select>
+           @for (food of foods; track food) {
+             <mat-option [value]="food.value">{{food.viewValue}}</mat-option>
+           }
+         </mat-select>
+       </mat-form-field>
+
+<button type="submit" style="margin-top: 1rem; border-radius: 8px; padding: 1rem 4rem; border: 1px solid #000;">Registrar Usuario</button>
+
+      </div>
+    </form>
+    </div>
