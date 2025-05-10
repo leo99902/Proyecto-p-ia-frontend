@@ -1,0 +1,12 @@
+<div>
+  <ul>
+    <li>
+        @for (user of userService.users; track $index) {
+            {{ user.name }}
+      }
+    </li>
+  </ul>
+</div>
+<ng-template #noUsers>
+  <p>No users found.</p>
+</ng-template>
