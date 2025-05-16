@@ -1,22 +1,78 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs';
-import {MatInputModule} from '@angular/material/input';
-import {MatSelectModule} from '@angular/material/select';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import { FormsModule } from '@angular/forms';
-import { MatIcon } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { RecordUserService } from '../../../services/record.user.service/record.user.service.service';
+import { NgClass, NgStyle } from '@angular/common';
 
 @Component({
   selector: 'app-record-user',
-  imports: [MatTabsModule, MatFormFieldModule, MatSelectModule, MatInputModule, FormsModule],
+  imports: [MatTabsModule, 
+  MatFormFieldModule, 
+  MatSelectModule,
+  MatInputModule, FormsModule, ReactiveFormsModule, NgStyle],
   templateUrl: './record.user.component.component.html',
-  styleUrl: './record.user.component.component.scss'
+  styleUrls: ['./record.user.component.component.scss'], // Corregido
 })
 export class RecordUserComponentComponent {
-  foods: any[] = [
-    {value: 'usuario 1', viewValue: 'usuario 1'},
-    {value: 'usuario 2', viewValue: 'usuario 2'},
-    {value: 'usuario 3', viewValue: 'usuario 3'},
-  ];
+  public recorUserForm: any
 
+  public parrafoError: any
+  public parrafoData: any
+
+  public modalOpen = {
+    color: false,
+    emptyModalOpen: false,
+    message: '',
+  }
+
+
+  constructor(private recordUser: RecordUserService, private formUserForm: FormBuilder) {}
+
+
+  ngOnInit(): void {
+    this.initializeForm();
+  }
+
+  // Inicializa el formulario con validaciones
+  initializeForm(): void {
+    this.recorUserForm = this.formUserForm.group({
+      name: ['', Validators.required],
+      cedula: ['', [Validators.required, Validators.minLength(8)]],
+      email: ['', [Validators.required, Validators.email]],
+      user: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      role: [],
+      state: [] = 'activo'
+    });
+  }
+
+    
+public recordData(){
+  this.recordUser.createUser(this.recorUserForm.value).subscribe({
+    next: (data) => {
+      setTimeout(() => {                    
+        window.location.reload();
+      }, 1000);
+      console.log(data.message)
+      if(data.message){
+        this.modalOpen.emptyModalOpen = true
+        this.modalOpen.message = data.message
+        this.modalOpen.color = true
+      }else{
+        this.modalOpen.emptyModalOpen = false
+      }
+    },
+    error: (e) => {
+      if(e.error.message){
+        this.modalOpen.emptyModalOpen = true
+        this.modalOpen.message = e.error.message
+      }else{
+        this.modalOpen.emptyModalOpen = false
+      }
+    },
+  });
 }
+  }  

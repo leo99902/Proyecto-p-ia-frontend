@@ -1,27 +1,18 @@
-// import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-// import { Injectable } from '@angular/core';
-// import { Observable, throwError } from 'rxjs';
-// import { catchError } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { Injectable, inject } from '@angular/core';
+import { Observable } from 'rxjs';
 
-// @Injectable({
-//   providedIn: 'root'
-// })
-// export class GetUserServiceService {
+@Injectable({
+  providedIn: 'root'
+})
+export class GetUserService {
 
-//   public users: any;
+  private API_URL = "http://localhost:6060";
+  readonly http = inject(HttpClient)
 
-//   private API_URL = "https://pokeapi.co/api/v2/pokemon/ditto";
+  getUser(idUser:any): Observable<any> {
+    const api = `${this.API_URL}/getUser`;
+    return this.http.post(api, idUser);
+  }
 
-//   constructor(private http: HttpClient) {
-//     this.users = [];
-//   }
-
-//   public getUser(user: any): Observable<any[]> {
-//     return this.http.post<any[]>(this.API_URL, user).pipe(
-//       catchError((error: HttpErrorResponse) => {
-//         console.error('Error en getUser():', error);
-//         return throwError(() => error);
-//       })
-//     );
-//   }
-// }
+}
