@@ -1,0 +1,59 @@
+
+<div 
+  class="custom-modal-overlay" 
+  *ngIf="modalEdit" 
+  (click)="closeModalEdit()"
+>
+  <div  style="padding: 1rem;"
+    class="custom-modal-content animate-drop" 
+    (click)="$event.stopPropagation()"
+  >
+    <div class="custom-modal-close" (click)="closeModalEdit()">
+
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+        </svg>
+
+    </div>
+    <div style="width: 100%; height: 6rem; display: flex; justify-content: center;">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+        </svg>
+    </div>
+    <div class="mt-2 custom-modal-title d-flex justify-content-center">
+      <h6>Modificar usuario</h6>
+    </div>
+    <div class="custom-modal-body" style="margin-top: 20px;">
+      <!-- Aquí puedes mostrar los datos del usuario -->
+       <form action="" [formControl]="userValueEdit">
+        <div style="display: flex;">
+        <p>Nombre: <input [(ngModel)]="userEdit.name" [ngModelOptions]="{standalone: true}" class="input-edit" type="text" [value]="user.name"></p>
+        </div>
+        <div style="display: flex;">
+        <p>Cedula: <input [(ngModel)]="userEdit.cedula" [ngModelOptions]="{standalone: true}" class="input-edit" type="text" [value]="user.cedula"></p>
+        </div>
+        <div style="display: flex;">
+        <p>Usuario: <input [(ngModel)]="userEdit.user" [ngModelOptions]="{standalone: true}" class="input-edit" type="text" [value]="user.user"></p>
+        </div>
+        <div style="display: flex;">
+        <p>Correo: <input [(ngModel)]="userEdit.email" [ngModelOptions]="{standalone: true}" class="input-edit" type="text" [value]="user.email"></p>
+        </div>
+        <div style="display: flex;">
+        <p>Role: <input [(ngModel)]="userEdit.role" [ngModelOptions]="{standalone: true}" class="input-edit" type="text" [value]="user.role"></p>
+        </div>
+        <div style="display: flex;">
+        <p>Estado: <input [(ngModel)]="userEdit.state" [ngModelOptions]="{standalone: true}" class="input-edit" type="text" [value]="user.state"></p>
+        </div>
+         <div style="display: flex;">
+        <p>Contrasena: <input [(ngModel)]="userEdit.password" [ngModelOptions]="{standalone: true}" class="input-edit" type="password" [value]="user.password"></p>
+        </div>
+      
+        <div style="display: flex; width: 100%; gap: 5px;" class="mt-4">
+        <button (click)="closeModalEdit()" style="width: 50%;" type="button" class="btn btn-primary">Cancelar</button>
+        <button (click)="saveUser('')" style="width: 50%;" type="button" class="btn btn-primary">Guardar</button>
+        </div>
+        </form>
+    </div>
+  </div>
+</div>

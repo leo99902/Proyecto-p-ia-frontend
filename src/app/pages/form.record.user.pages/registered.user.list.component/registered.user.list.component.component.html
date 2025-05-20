@@ -1,20 +1,26 @@
-
-<div style="height: 29rem" class="container-lg">
-
-  <div class="input-group">
-  <div class="input-group-text">
-    <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">
-  </div>
-  <input type="text" class="form-control" aria-label="Text input with checkbox">
+<!-- <section class="openModal mt-1" [style.display]="alertEdit">
+<div [style]="" class="" style="width: 100%; height: 3rem">
+<div class="alert alert-danger d-flex justify-content-center" style="width: 100%; height: 100%;" role="alert">
+<div class="d-flex justify-content-center" style="width: 100%; height: 100%;">
+<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-exclamation-circle" viewBox="0 0 16 16">
+<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+<path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z"/>
+</svg>
+<p style="margin-left: 5px;">Registro exitoso</p>
 </div>
 </div>
+</div>
+</section> -->
 
+
+
+<div style="height: 30rem; overflow: hidden;" class="container-lg">
     <div class="table-responsive">
         <div class="table-wrapper">
             <div class="table-title">
                 <div class="row">
-                </div>
-            </div>
+                </div>  
+            </div>    
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -23,8 +29,8 @@
                         <th>Rol</th>
                         <th>Estatus</th>
                         <th>Actions</th>
-                    </tr>
-                </thead>
+                    </tr>    
+                </thead>    
                 <tbody>
                     @for (items of cantidadUsuarios; track $index) {
                     <tr>
@@ -35,30 +41,37 @@
                         <td>
 
                             <form>
-                            <button type="button">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                            <button for="buttonEdit" type="button" (click)="openModalEdit()" (click)="getReturnIdEdit(usuarios.value[$index]._id)" >
+                                <svg id="buttonEdit" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>  
                                 <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
                                 </svg>
-                            </button>
+                            </button>    
 
                             <button style="margin-left: 5px;" (click)="openModal()" (click)="getReturnId(usuarios.value[$index]._id)" type="button">
                                 <svg id="buttonDetails" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
-                                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
+                                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>  
                                 <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
                                 </svg>
-                            </button>       
+                            </button>           
                             </form>  
 
-                        </td>
-                    </tr>
-                }
+                        </td>    
+                    </tr>    
+                }    
                 </tbody>
-            </table>
-        </div>
-    </div>
+            </table>       
 
-<!-- Modal -->
+        </div>    
+        </div>
+
+
+
+
+
+
+
+<!-- Modal getUser-->
 
 <div 
   class="custom-modal-overlay" 
@@ -95,6 +108,7 @@
       <p><b>Estado:</b> {{user.state}}</p>
     </div>
   </div>
+  
 </div>
 
 
@@ -102,34 +116,71 @@
 
 
 
-<!-- 
-<div class="container">
-  <details>
-    <summary>
-      <div class="button">
-        Show me the modal
-      </div>
-      <div class="details-modal-overlay"></div>
-    </summary>
-    <div class="details-modal">
-      <div class="details-modal-close">
-        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
-          <path fill-rule="evenodd" clip-rule="evenodd" d="M13.7071 1.70711C14.0976 1.31658 14.0976 0.683417 13.7071 0.292893C13.3166 -0.0976311 12.6834 -0.0976311 12.2929 0.292893L7 5.58579L1.70711 0.292893C1.31658 -0.0976311 0.683417 -0.0976311 0.292893 0.292893C-0.0976311 0.683417 -0.0976311 1.31658 0.292893 1.70711L5.58579 7L0.292893 12.2929C-0.0976311 12.6834 -0.0976311 13.3166 0.292893 13.7071C0.683417 14.0976 1.31658 14.0976 1.70711 13.7071L7 8.41421L12.2929 13.7071C12.6834 14.0976 13.3166 14.0976 13.7071 13.7071C14.0976 13.3166 14.0976 12.6834 13.7071 12.2929L8.41421 7L13.7071 1.70711Z" fill="black" />
+
+<!--Modal editUser-->
+
+
+
+
+
+<div 
+  class="custom-modal-overlay" 
+  *ngIf="modalEdit" 
+  (click)="closeModalEdit()"
+>
+  <div  style="padding: 1rem;"
+    class="custom-modal-content animate-drop" 
+    (click)="$event.stopPropagation()"
+  >
+    <div class="custom-modal-close" (click)="closeModalEdit()">
+
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
         </svg>
-      </div>
-      <div class="details-modal-title">
-        <h1>My details modal</h1>
-      </div>
-      <div class="details-modal-content">
-        <p>
-          You can click the X in the corner or click the overlay to close this modal.
-          Something like this could be useful as a nice way to show additional information,
-          but that's about as far as I would take it. It's just a nice way of styling the details element.
-        </p>
-      </div>
+
     </div>
-  </details>
-</div> -->
+    <div style="width: 100%; height: 6rem; display: flex; justify-content: center;">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+        </svg>
+    </div>
+    <div class="mt-2 custom-modal-title d-flex justify-content-center">
+      <h6>Modificar usuario</h6>
+    </div>
+    <div class="custom-modal-body" style="margin-top: 20px;">
+      <!-- Aquí puedes mostrar los datos del usuario -->
+       <form action="" [formControl]="userValueEdit">
+        <div style="display: flex;">
+        <p>Nombre: <input [(ngModel)]="userEdit.name" [ngModelOptions]="{standalone: true}" class="input-edit" type="text" [value]="user.name"></p>
+        </div>
+        <div style="display: flex;">
+        <p>Cedula: <input [(ngModel)]="userEdit.cedula" [ngModelOptions]="{standalone: true}" class="input-edit" type="text" [value]="user.cedula"></p>
+        </div>
+        <div style="display: flex;">
+        <p>Usuario: <input [(ngModel)]="userEdit.user" [ngModelOptions]="{standalone: true}" class="input-edit" type="text" [value]="user.user"></p>
+        </div>
+        <div style="display: flex;">
+        <p>Correo: <input [(ngModel)]="userEdit.email" [ngModelOptions]="{standalone: true}" class="input-edit" type="text" [value]="user.email"></p>
+        </div>
+        <div style="display: flex;">
+        <p>Role: <input [(ngModel)]="userEdit.role" [ngModelOptions]="{standalone: true}" class="input-edit" type="text" [value]="user.role"></p>
+        </div>
+        <div style="display: flex;">
+        <p>Estado: <input [(ngModel)]="userEdit.state" [ngModelOptions]="{standalone: true}" class="input-edit" type="text" [value]="user.state"></p>
+        </div>
+         <div style="display: flex;">
+        <p>Contrasena: <input [(ngModel)]="userEdit.password" [ngModelOptions]="{standalone: true}" class="input-edit" type="password" [value]="user.password"></p>
+        </div>
+      
+        <div style="display: flex; width: 100%; gap: 5px;" class="mt-4">
+        <button (click)="closeModalEdit()" style="width: 50%;" type="button" class="btn btn-primary">Cancelar</button>
+        <button (click)="saveUser('')" style="width: 50%;" type="button" class="btn btn-primary">Guardar</button>
+        </div>
+        </form>
+    </div>
+  </div>
+</div>
 
 
 
