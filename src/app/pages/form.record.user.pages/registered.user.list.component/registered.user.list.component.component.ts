@@ -16,7 +16,7 @@ import { UserEditServiceService } from '../../../services/user.edit.service/user
 })
 export class RegisteredUserListComponentComponent implements OnInit {
   public users: any = {id: 123, name: 'jose'};
-  public usuarios : any
+  public usuarios: any
 
   public modalDetails = false;
   public alertEdit = false;
@@ -161,4 +161,43 @@ export class RegisteredUserListComponentComponent implements OnInit {
     })
   }
 
+  public filtro = {
+    filtroRole: '' ,
+    filtroEstado: ''
+  }
+
+
+  public filterGetUserRole(){
+    this.listUser.listUsers({role: this.filtro.filtroRole}).subscribe({
+      next: (data: any) => {
+        this.usuarios = data
+        this.cantidad = data.value.length
+        this.cantidadUsuarios = Array.from({ length: this.cantidad }, (_, index) => index + 1);
+     
+      },
+      error: (e) => {
+        console.error('Error al obtener usuarios:', e);
+      }
+    })
+  }
+
+  public filterGetUserEstado(){
+      this.listUser.listUsers({state: this.filtro.filtroEstado}).subscribe({
+      next: (data: any) => {
+        this.usuarios = data
+        this.cantidad = data.value.length
+        this.cantidadUsuarios = Array.from({ length: this.cantidad }, (_, index) => index + 1);
+     
+      },
+      error: (e) => {
+        console.error('Error al obtener usuarios:', e);
+      }
+    })
+  }
+
+
 }
+
+
+
+

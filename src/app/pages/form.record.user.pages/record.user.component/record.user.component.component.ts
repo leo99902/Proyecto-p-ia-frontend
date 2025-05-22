@@ -28,6 +28,14 @@ export class RecordUserComponentComponent {
     message: '',
   }
 
+  public user = { 
+    user: '',
+    cedula: '',
+    name: '',
+    email: '',
+    rol: '',
+    password: ''
+  }
 
   constructor(private recordUser: RecordUserService, private formUserForm: FormBuilder) {}
 

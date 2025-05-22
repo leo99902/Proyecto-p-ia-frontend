@@ -14,17 +14,56 @@
 
 
 
-<div style="height: 30rem; overflow: hidden;" class="container-lg">
-    <div class="table-responsive">
-        <div class="table-wrapper">
-            <div class="table-title">
-                <div class="row">
-                </div>  
-            </div>    
+<div style="height: 35rem;" class="container-lg">
+  <div class="table-responsive">
+    <div class="table-wrapper">
+      <div class="table-title">
+        <div class="row">
+        </div>  
+      </div>    
+
+
+      <div style="padding: 5px; display: flex; justify-content: space-between;">
+        <div style="width: 70%; height: 100%; display: flex; gap: 3px; margin-right: 1rem;">
+
+
+<select name="filtroEstado" [(ngModel)]="filtro.filtroEstado" (click)="filterGetUserEstado()" class="form-select" aria-label="Default select example">
+  <option name="filtroEstado" value="" selected>Todos los Estados</option>
+  <option name="filtroEstado" value="activo">Usuario activo</option>
+  <option name="filtroEstado" value="inactivo">Usuario inactivo</option>
+</select>
+
+
+
+
+<select name="filtroRol" [(ngModel)]="filtro.filtroRole" (click)="filterGetUserRole()"  class="form-select" aria-label="Default select example">
+  <option name="filtroRol" value="" selected>Todos los roles</option>
+  <option name="filtroRol" value="Administrador">Administrador</option>
+  <option name="filtroRol" value="secretario">Secretario</option>
+  <option name="filtroRol" value="paciente">Paciente</option>
+</select>
+
+
+        </div>
+      <div style="width: 30%; height: 100%">
+          <div class="content-input-search">
+            <input id="search" type="search" placeholder="Buscar Usuario..." autofocus required />
+<button type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+  </svg>
+  </button>
+
+</div>
+
+        </div>
+      </div>
+
+
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>Nombre</th>
+                        <th>Usuario</th>
                         <th>Cedula</th>
                         <th>Rol</th>
                         <th>Estatus</th>
@@ -33,41 +72,59 @@
                 </thead>    
                 <tbody>
                     @for (items of cantidadUsuarios; track $index) {
-                    <tr>
-                        <td>{{usuarios.value[$index].name}}</td>
-                        <td>{{usuarios.value[$index].cedula}}</td>
-                        <td>{{usuarios.value[$index].role}}</td>
-                        <td>{{usuarios.value[$index].state}}</td>
-                        <td>
-
-                            <form>
-                            <button for="buttonEdit" type="button" (click)="openModalEdit()" (click)="getReturnIdEdit(usuarios.value[$index]._id)" >
-                                <svg id="buttonEdit" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>  
-                                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-                                </svg>
-                            </button>    
-
-                            <button style="margin-left: 5px;" (click)="openModal()" (click)="getReturnId(usuarios.value[$index]._id)" type="button">
-                                <svg id="buttonDetails" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
-                                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>  
-                                <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
-                                </svg>
-                            </button>           
-                            </form>  
-
-                        </td>    
-                    </tr>    
+                        <tr>
+                            <td>{{usuarios.value[$index].user}}</td>
+                            <td>{{usuarios.value[$index].cedula}}</td>
+                            <td>{{usuarios.value[$index].role}}</td>
+                            <td>{{usuarios.value[$index].state}}</td>
+                            <td>
+    
+                                <form>
+                                <button for="buttonEdit" type="button" (click)="openModalEdit()" (click)="getReturnIdEdit(usuarios.value[$index]._id)" >
+                                    <svg id="buttonEdit" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>  
+                                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                                    </svg>
+                                </button>    
+    
+                                <button style="margin-left: 5px;" (click)="openModal()" (click)="getReturnId(usuarios.value[$index]._id)" type="button">
+                                    <svg id="buttonDetails" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>  
+                                    <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
+                                    </svg>
+                                </button>           
+                                </form>  
+    
+                            </td>    
+                        </tr>    
                 }    
                 </tbody>
             </table>       
 
-        </div>    
+          </div>    
         </div>
+        
+<div style="width: 100%;">
 
 
 
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+  </ul>
+</nav>
 
+
+
+</div>
+
+        
+        
+        
 
 
 
@@ -180,8 +237,5 @@
         </form>
     </div>
   </div>
+
 </div>
-
-
-
-
