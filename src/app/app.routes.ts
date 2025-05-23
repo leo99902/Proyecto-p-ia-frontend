@@ -6,8 +6,8 @@ import { FormLoginUserPagesComponent } from './pages/form.login.user.pages/form.
 import { User404PagesComponent } from './pages/user.404.pages/user.404.pages.component';
 
 export const routes: Routes = [
-    { path: '', component: FormLoginUserPagesComponent },
-    { path: 'home', component: HomeUserPagesComponent },
-    { path: 'usuarios', component: FormRecordUserPagesComponent},
-    { path: '**', component: User404PagesComponent }
+    { path: '', component: FormLoginUserPagesComponent, title: 'Login' },
+    { path: 'home', component: HomeUserPagesComponent, title: 'Inicio' },
+    { path: 'usuarios', component: FormRecordUserPagesComponent, title: 'Usuarios'},
+    { path: '**', component: User404PagesComponent, title: '404' }
 ];

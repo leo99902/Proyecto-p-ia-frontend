@@ -4,10 +4,11 @@ import { ValuePathnameServiceService } from '../../services/value.pathname.servi
 import { RecordUserComponentComponent } from './record.user.component/record.user.component.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { Router } from '@angular/router';
+import { RegisteredUserListComponentComponent } from './registered.user.list.component/registered.user.list.component.component';
 
 @Component({
   selector: 'app-form.record.user.pages',
-  imports: [MainContainerComponentComponent, RecordUserComponentComponent, MatTabsModule],
+  imports: [MainContainerComponentComponent, RecordUserComponentComponent, MatTabsModule, RegisteredUserListComponentComponent],
   templateUrl: './form.record.user.pages.component.html',
   styleUrl: './form.record.user.pages.component.scss'
 })

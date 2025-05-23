@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NgModel } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -8,5 +9,4 @@ import { RouterLink } from '@angular/router';
   styleUrl: './header.navigation.component.component.scss'
 })
 export class HeaderNavigationComponentComponent {
-
 }
