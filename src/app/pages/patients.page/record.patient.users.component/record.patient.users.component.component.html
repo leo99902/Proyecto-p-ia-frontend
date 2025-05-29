@@ -1,0 +1,36 @@
+
+<div class="signup-form" style="width: 100%; height: 80%; padding: 20px;"> 
+      <form>
+		<h3 style="color: #000">Complete para registrar al paciente</h3>
+		<hr>
+        <div class="form-group">
+			<div class="row">
+				<div class="col"><input formControlName="user" type="text" class="form-control" name="use" placeholder="Usuario" required="required"></div>
+				<div class="col"><input formControlName="cedula" type="text" class="form-control" name="Ci" placeholder="Cedula" required="required" [minLength]="8"></div>
+			</div>        	
+        </div>
+        <div class="form-group">
+        	<input formControlName="name" type="text" class="form-control" name="name" placeholder="Nombre Completo" required="required">
+        </div>
+         <div class="form-group">
+        	<input formControlName="email" type="email" class="form-control" name="email" placeholder="Correo Eletronico" required="required">
+        </div>
+         <div class="form-group">
+
+<label for=""></label>Seleciones su Rol
+<select name="opcionRol" formControlName="role" class="form-select" aria-label="Default select example">
+  <option name="opcionRol" value="Administrador">Administrador</option>
+  <option name="opcionRol" value="Secretario">Secretario</option>
+</select>
+
+
+        </div>
+		<div class="form-group">
+            <input formControlName="password" type="text" class="form-control" name="password" placeholder="Contraseña" required="required">
+        </div>        
+		<div class="form-group" style="margin-bottom: 0;">
+            <button type="submit" class="btn btn-primary btn-lg"> Registrar Usuario </button>
+        </div>
+    </form>
+
+</div>

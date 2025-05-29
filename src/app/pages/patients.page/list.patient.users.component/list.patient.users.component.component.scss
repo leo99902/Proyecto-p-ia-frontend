@@ -1,0 +1,204 @@
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        .container {
+            background-color: #ffffff; /* Fondo blanco para el contenedor principal */
+            border-radius: 12px; /* Esquinas más redondeadas */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Sombra más pronunciada */
+            width: 100%;
+            max-width: 900px; /* Ancho máximo para el contenedor */
+            padding: 30px;
+        }
+
+        .header {
+            border-bottom: 1px solid #e5e7eb; /* Borde inferior más suave */
+            padding-bottom: 24px;
+            margin-bottom: 24px;
+        }
+
+        .header h1 {
+            color: #1f2937; /* Color de texto más oscuro */
+            font-size: 2.25rem; /* Tamaño de fuente más grande */
+            font-weight: 700; /* Negrita */
+        }
+
+        .search-bar {
+            border: 1px solid #d1d5db; /* Borde más claro */
+            border-radius: 8px; /* Esquinas redondeadas */
+            overflow: hidden;
+        }
+
+        .search-bar input {
+            padding: 10px 14px;
+            font-size: 1rem;
+            color: #374151; /* Color de texto para input */
+        }
+
+        .search-bar button {
+            background-color: #f9fafb; /* Fondo claro para el botón de búsqueda */
+            color: #6b7280; /* Color de icono más suave */
+            padding: 10px 14px;
+        }
+
+        .search-bar button:hover {
+            background-color: #e5e7eb; /* Fondo al pasar el ratón */
+        }
+
+        .add-patient-button {
+            background-color: #3b82f6; /* Azul más vibrante */
+            color: #ffffff;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600; /* Seminegrita */
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .add-patient-button:hover {
+            background-color: #2563eb; /* Azul más oscuro al pasar el ratón */
+        }
+
+        .status-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Columnas responsivas */
+            gap: 20px;
+            padding: 20px 0;
+            border-bottom: 1px solid #e5e7eb;
+            margin-bottom: 24px;
+        }
+
+        .status-item {
+            text-align: center;
+            padding: 12px;
+            background-color: #f9fafb; /* Fondo para cada ítem de estado */
+            border-radius: 8px;
+        }
+
+        .status-item span {
+            color: #6b7280;
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .status-item p {
+            color: #1f2937;
+            font-size: 1.6rem; /* Tamaño de fuente más grande para los números */
+            font-weight: 700;
+        }
+
+        .filters {
+            display: flex;
+            flex-wrap: wrap; /* Permite que los filtros se envuelvan en pantallas pequeñas */
+            gap: 20px;
+            padding: 16px 0;
+            margin-bottom: 24px;
+            align-items: center;
+        }
+
+        .filter-group label {
+            color: #4b5563; /* Color de texto más suave */
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-right: 8px;
+        }
+
+        .filter-group select {
+            padding: 8px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            color: #374151;
+            background-color: #ffffff;
+            cursor: pointer;
+            appearance: none; /* Elimina la flecha predeterminada */
+            background-image: url('data:image/svg+xml;charset=UTF-8,<svg fill="%236b7280" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 16px;
+        }
+
+        .filter-group select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+
+        .patient-list .patient-item {
+            padding: 16px 20px;
+            border-bottom: 1px solid #e5e7eb;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .patient-list .patient-item:last-child {
+            border-bottom: none;
+        }
+
+        .patient-list .patient-item:hover {
+            background-color: #f9fafb; /* Fondo al pasar el ratón sobre el paciente */
+        }
+
+        .patient-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .patient-info svg {
+            width: 24px;
+            height: 24px;
+            fill: #6b7280; /* Color de icono de usuario */
+        }
+
+        .patient-info span {
+            color: #1f2937;
+            font-size: 1.05rem;
+            font-weight: 500;
+        }
+
+        .status {
+            margin-left: auto;
+            padding: 6px 12px;
+            border-radius: 9999px; /* Totalmente redondeado */
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status.active {
+            background-color: #dcfce7; /* Verde claro */
+            color: #22c55e; /* Verde oscuro */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+            }
+            .header__actions {
+                flex-direction: column;
+                width: 100%;
+                gap: 10px;
+            }
+            .search-bar {
+                width: 100%;
+            }
+            .add-patient-button {
+                width: 100%;
+            }
+            .status-bar {
+                grid-template-columns: 1fr 1fr; /* 2 columnas en móvil */
+            }
+            .filters {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            .filter-group {
+                width: 100%;
+            }
+            .filter-group select {
+                width: 100%;
+            }
+        }

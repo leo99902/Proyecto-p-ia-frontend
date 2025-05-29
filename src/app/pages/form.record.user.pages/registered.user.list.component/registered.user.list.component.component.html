@@ -47,7 +47,7 @@
         </div>
       <div style="width: 30%; height: 100%">
           <div class="content-input-search">
-            <input id="search" type="search" placeholder="Buscar Usuario..." autofocus required />
+            <input [(ngModel)]="filterSeekerValue" (input)="filterGetUserSeeker()" id="search" type="search" placeholder="Buscar Usuario..." autofocus required />
 <button type="button">
   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
@@ -106,15 +106,15 @@
         
 <div style="width: 100%;">
 
-
-
-<nav aria-label="Page navigation example">
-  <ul class="pagination">
-    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+<nav style="margin-top: -20px;" aria-label="Page navigation example">
+  <ul style="display: flex;" class="pagination">
+      <li style="display: flex; gap: 10px;" class="page-item">
+        <button (click)="setpagedecrease()" type="button" style="color: #fff" class="btn btn-primary">Regresar</button>
+        <button (click)="setpageincrease()" type="button" style="color: #fff" class="btn btn-primary">Siguiente</button>
+        <p>Pagina Actual: {{pageValue}}</p>
+        <p>Cantida de paginas: {{cantidadPages}}</p>
+        <p>Total de registrados: {{this.cantidaUser}}</p>
+      </li>
   </ul>
 </nav>
 

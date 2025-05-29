@@ -37,6 +37,12 @@ export class RecordUserComponentComponent {
     password: ''
   }
 
+  public setCiValue():any{
+    if(typeof this.user.cedula === 'number'){
+      return 'no string'
+    }
+  }
+
   constructor(private recordUser: RecordUserService, private formUserForm: FormBuilder) {}
 
 
