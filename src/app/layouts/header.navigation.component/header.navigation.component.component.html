@@ -14,44 +14,44 @@
   <nav class="sidebar-content">
     <ul class="nav-list">
       <li>
-        <a [routerLink]="['/home']" routerLinkActive="router-link-active" class="nav-link">
+        <a [routerLink]="['/home']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{ exact: true }"  class="nav-link">
           <i class="bx bx-home-alt icon"></i>
           <span>Inicio</span>
         </a>
       </li>
       <li>
-        <a [routerLink]="['/pacientes']" routerLinkActive="router-link-active" href="#" class="nav-link">
+        <a [routerLink]="['/pacientes']" routerLinkActive="router-link-active" routerLinkActive="router-link-active" class="nav-link">
           <i class="bx bx-group icon"></i>
           <span>Pacientes</span>
         </a>
       </li>
       <li>
-        <a href="#" class="nav-link">
+        <a [routerLink]="['/citas']" routerLinkActive="router-link-active" class="nav-link" routerLinkActive="router-link-active">
           <i class="bx bx-calendar icon"></i>
           <span>Citas</span>
         </a>
       </li>
       <li>
-        <a href="#" class="nav-link">
+        <a class="nav-link" routerLinkActive="router-link-active">
           <i class="bx bx-chat icon"></i>
           <span>ChatBot</span>
         </a>
       </li>
       <li>
-        <a [routerLink]="['/usuarios']" routerLinkActive="router-link-active" class="nav-link">
+        <a [routerLink]="['/usuarios']" routerLinkActive="router-link-active" routerLinkActive="router-link-active" class="nav-link">
           <i class="bx bx-user icon"></i>
           <span>Usuarios</span>
         </a>
       </li>
       <li>
-        <a href="#" class="nav-link">
+        <a class="nav-link" routerLinkActive="router-link-active">
           <i class="bx bx-trash icon"></i>
           <span>Papelera</span>
         </a>
       </li>
     </ul>
     <div class="sidebar-footer">
-      <a href="#" class="nav-link">
+      <a class="nav-link">
         <i class="bx bx-log-out icon"></i>
         <span>Cerrar Sesión</span>
       </a>

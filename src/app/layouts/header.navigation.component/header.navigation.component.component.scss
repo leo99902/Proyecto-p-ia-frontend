@@ -74,8 +74,15 @@ body {
   font-size: 1.08rem;
   transition: background 0.2s, color 0.2s;
   margin-bottom: 0.2rem;
-  &:hover, &.router-link-active {
-    background: #0833A2;
+  &:hover {
+    background: #5179dd;
+    color: #fff;
+    .icon {
+      color: #fff;
+    }
+  }
+  &.router-link-active {
+    background: #0833A2; // Rojo
     color: #fff;
     .icon {
       color: #fff;

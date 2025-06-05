@@ -1,6 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 * { box-sizing: border-box; }
 
+.card-row {
+  display: flex;
+  gap: 10px;
+}
+@media (max-width: 700px) {
+  .card-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
 
 .wrapper {
   width: 90%;
@@ -146,5 +156,57 @@
   }
   .wrapper{
     display: flex; flex-direction: column;
+  }
+}
+
+
+@media (max-width: 700px) {
+  .content-home {
+    flex-direction: column;
+    width: 100%;
+    padding: 5px;
+    margin-top: 1.5rem;
+  }
+  .wrapper {
+    width: 100%;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .notifications__item {
+    flex-direction: row;
+    width: 100%;
+    min-width: 0;
+    height: auto;
+    padding: 10px;
+    margin-bottom: 12px;
+    font-size: 1rem;
+  }
+  .notifications__item__avatar {
+    width: 55px;
+    height: 55px;
+    margin-right: 10px;
+  }
+  .notifications__item__content {
+    width: 100%;
+    min-width: 0;
+  }
+  .notifications__item__title {
+    font-size: 15px;
+  }
+  .notifications__item__message {
+    font-size: 12px;
+  }
+  .notifications__item__option {
+    width: 18px;
+    height: 18px;
+    font-size: 9px;
+    line-height: 18px;
+  }
+  /* Ajusta los contenedores de filas para que se apilen */
+  [style*="display: flex; gap: 10px"] {
+    flex-direction: column !important;
+    gap: 10px !important;
   }
 }
