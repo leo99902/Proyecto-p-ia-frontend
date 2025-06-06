@@ -242,10 +242,14 @@
         <p>Role: <input [(ngModel)]="userEdit.role" [ngModelOptions]="{standalone: true}" class="input-edit" type="text" [value]="user.role"></p>
         </div>
         <div style="display: flex;">
-        <p>Estado: <input [(ngModel)]="userEdit.state" [ngModelOptions]="{standalone: true}" class="input-edit" type="text" [value]="user.state"></p>
+        <div style="display: flex; width: 100%;">
+        Estado:
+        <select style="width: 100%;" [(ngModel)]="userEdit.state" [ngModelOptions]="{standalone: true}">
+        <option value="activo">Activo</option>
+        <option value="inactivo">Inactivo</option>
+        </select>
         </div>
-         <div style="display: flex;">
-        <p>Contrasena: <input [(ngModel)]="userEdit.password" [ngModelOptions]="{standalone: true}" class="input-edit" type="password" [value]="user.password"></p>
+        <!-- <p>Estado: <input [(ngModel)]="userEdit.state" [ngModelOptions]="{standalone: true}" class="input-edit" type="text" [value]="user.state"></p> -->
         </div>
       
         <div style="display: flex; width: 100%; gap: 5px;" class="mt-4">

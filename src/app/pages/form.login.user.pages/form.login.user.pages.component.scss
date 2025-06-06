@@ -23,3 +23,202 @@ background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
 
 @media (max-width: 700px) {
 }
+
+
+
+
+
+
+.custom-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(44, 44, 44, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.custom-modal-content {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  min-width: 320px;
+  width: 400px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+
+
+
+        .modal {
+            display: flex; /* Cambiado a 'flex' para que sea visible por defecto sin JS */
+            position: fixed; /* Permanece en su lugar */
+            z-index: 1000; /* Siempre encima */
+            left: 0;
+            top: 0;
+            width: 100%; /* Ancho completo */
+            height: 100%; /* Alto completo */
+            overflow: auto; /* Habilita el scroll si es necesario */
+            background-color: rgba(0, 0, 0, 0.6); /* Negro con opacidad */
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Contenido del Modal */
+        .modal-content {
+            background-color: #ffffff;
+            margin: auto;
+            padding: 20px; /* Reducido el padding para hacerlo más pequeño */
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12); /* Sutilmente ajustado el shadow */
+            width: 90%;
+            position: relative;
+            text-align: center;
+            transform: translateY(-20px);
+            opacity: 0;
+            animation: fadeInSlideUp 0.3s forwards ease-out;
+        }
+
+        /* Animación de entrada */
+        @keyframes fadeInSlideUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Cabecera del Modal */
+        .modal-header {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px; /* Reducido el margen */
+            position: relative;
+        }
+
+        /* Círculo del icono - AUMENTADO EL TAMAÑO */
+        .icon-circle {
+            width: 80px; /* Icono más grande */
+            height: 80px; /* Icono más grande */
+            background-color: #ffebeb; /* Rojo claro para error */
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 3px solid #ff6b6b; /* Borde rojo más fuerte */
+        }
+
+        /* Icono minimalista de error (una X) - AUMENTADO EL TAMAÑO */
+        .icon-error-minimal {
+            color: #ff3838; /* Color del icono rojo */
+            width: 45px; /* Icono más grande */
+            height: 45px; /* Icono más grande */
+        }
+
+        /* Botón de cerrar */
+        .close-button {
+            color: #999;
+            font-size: 24px; /* Un poco más pequeño */
+            font-weight: bold;
+            position: absolute;
+            top: -10px; /* Ajustado la posición */
+            right: -10px; /* Ajustado la posición */
+            cursor: pointer;
+            background-color: #f0f2f5;
+            border-radius: 50%;
+            width: 28px; /* Un poco más pequeño */
+            height: 28px; /* Un poco más pequeño */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            text-decoration: none; /* Quita el subrayado del link */
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: #666;
+            background-color: #e0e2e5;
+        }
+
+        /* Cuerpo del Modal */
+        .modal-body {
+            margin-bottom: 20px; /* Reducido el margen */
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Centrado del contenido */
+        }
+
+
+        .modal-body p {
+            color: #666;
+            font-size: 15px; /* Un poco más pequeño */
+            line-height: 1.5; /* Ajustado el line-height */
+        }
+
+        /* Detalles del error - CLASE NO UTILIZADA, MANTENIDA POR SI SE NECESITA EN EL FUTURO */
+        .error-details {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: left;
+            color: #777;
+            font-size: 13px;
+        }
+
+        .error-details li {
+            margin-bottom: 6px;
+            padding-left: 18px;
+            position: relative;
+        }
+
+        .error-details li::before {
+            content: '•';
+            color: #ff6b6b;
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Pie de página del Modal */
+        .modal-footer {
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        /* Botón del Modal */
+        .modal-button {
+            background-color: #ff6b6b; /* Botón rojo */
+            color: white;
+            padding: 10px 20px; /* Reducido el padding */
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px; /* Un poco más pequeño */
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 3px 8px rgba(255, 107, 107, 0.25); /* Sutilmente ajustado el shadow */
+            text-decoration: none; /* Quita el subrayado del link */
+            display: inline-block; /* Para que el padding y tamaño funcionen bien en 'a' */
+        }
+
+        .modal-button:hover {
+            background-color: #e65c5c;
+            transform: translateY(-1px); /* Menor movimiento en hover */
+        }
+
+        .modal-button:active {
+            transform: translateY(0);
+            box-shadow: 0 1px 3px rgba(255, 107, 107, 0.15);
+        }

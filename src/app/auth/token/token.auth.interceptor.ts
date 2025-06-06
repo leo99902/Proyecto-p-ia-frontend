@@ -1,8 +1,8 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 
 export const tokenAuthInterceptor: HttpInterceptorFn = (req, next) => {
-
-    if (req.url.includes('/login')) {
+  // No agregar el token en la petición de login
+  if (req.url.includes('/login')) {
     return next(req);
   }
 
@@ -10,12 +10,10 @@ export const tokenAuthInterceptor: HttpInterceptorFn = (req, next) => {
   if (token) {
     return next(req.clone({
       setHeaders: {
-        Authorization: `Bearer ${token}`
+        Authorization: `${token}`
       }
     }));
   } else {
     return next(req);
   }
-
-
-  };
+};

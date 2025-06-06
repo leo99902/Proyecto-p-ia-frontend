@@ -65,20 +65,47 @@
     }
   </style>
 
-  <div class=""  [ngClass]="{openModal: openModal, closeModal: closeModal}">
-  <div class="modal-dialog" >
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
+
+
+
+
+
+
+
+
+<div 
+  class="custom-modal-overlay" 
+  *ngIf="modalAlertLogin" 
+  (click)="closeModal()"
+>
+  <div  style="padding: 1.5rem;"
+    class="custom-modal-content animate-drop" 
+    (click)="$event.stopPropagation()"
+  >
+    <div class="custom-modal-close" (click)="closeModal()">
+
+            <div class="modal-header">
+                <!-- El botón de cerrar ahora es un link, no se cerrará realmente sin JS -->
+                <div class="icon-circle">
+                    <!-- Icono minimalista de error (una X para indicar cierre o error) -->
+                    <svg class="icon-error-minimal" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </div>
+            </div>
+            <div class="modal-body">
+                <p>{{modalMessage}}</p>
+            </div>
+            <div class="modal-footer">
+                <!-- El botón del modal ahora es un link, no hará nada sin JS -->
+                <a href="#" class="modal-button">Cerrar</a>
+            </div>
+
+
+
+
+  
 </div>
+
+

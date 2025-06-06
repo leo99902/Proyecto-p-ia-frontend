@@ -185,7 +185,6 @@ export class RegisteredUserListComponentComponent implements OnInit {
     filtroEstado: ''
   }
 
-
   public filterGetUserRole(){
     this.listUser.listUsers({role: this.filtro.filtroRole}).subscribe({
       next: (data: any) => {
