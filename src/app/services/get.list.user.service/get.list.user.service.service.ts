@@ -17,7 +17,7 @@ export class GetListUserService{
   public users = {
     name: 'leonardo'
   };
-  public BASE_URL = "http://192.168.100.30:6060";
+  public BASE_URL = "http://localhost:6060";
 
   constructor(private http: HttpClient) {}
 

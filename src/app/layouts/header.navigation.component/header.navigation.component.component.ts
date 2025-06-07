@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header-navigation',
@@ -12,6 +13,8 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 export class HeaderNavigationComponentComponent {
   public navVisible = false;
 
+  public rute = inject(Router);
+
   toggleNav() {
     this.navVisible = !this.navVisible;
   }
@@ -19,4 +22,20 @@ export class HeaderNavigationComponentComponent {
   closeNav() {
     this.navVisible = false;
   }
+
+
+
+  public closeSession(){
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    setTimeout(() => {
+      this.rute.navigate(['/']);
+      this.navVisible = false;
+    }, 1000);
+  }
+
+
+
+
 }
+
