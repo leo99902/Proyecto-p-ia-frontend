@@ -1,0 +1,321 @@
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 16px; /* Bordes más redondeados */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* Sombra más pronunciada pero suave */
+            width: 100%;
+            padding: 40px;
+            box-sizing: border-box;
+            overflow: hidden; /* Para que las sombras internas no se desborden */
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 35px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #e0e0e0; /* Separador más suave */
+            position: relative; /* Para el icono de volver */
+        }
+
+        .header .back-icon {
+            font-size: 2.2em; /* Ícono un poco más grande */
+            color: #666;
+            margin-right: 20px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            padding: 5px; /* Para hacer el área de clic más fácil */
+        }
+
+        .header .back-icon:hover {
+            color: #007bff;
+        }
+
+        .header h1 {
+            font-size: 2.2em;
+            color: #222;
+            margin: 0;
+            font-weight: 700; /* Fuente más bold para el título */
+        }
+
+        .form-section {
+            margin-bottom: 35px;
+            padding: 25px 0;
+            border-top: 1px solid #f0f0f0; /* Separador de sección muy sutil */
+        }
+
+        .form-section:first-of-type {
+            border-top: none;
+            padding-top: 0;
+        }
+
+        .form-section h2 {
+            font-size: 1.5em; /* Título de sección más grande */
+            color: #444;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1em;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .input-group input[type="text"],
+        .input-group input[type="email"],
+        .input-group input[type="tel"],
+        .input-group input[type="date"],
+        .input-group input[type="time"], /* Añadido para el campo de hora */
+        .input-group input[type="number"],
+        .input-group select,
+        .input-group textarea {
+            width: 100%;
+            padding: 15px 18px; /* Mayor padding para un look más moderno */
+            border: 1px solid #e0e0e0;
+            border-radius: 10px; /* Bordes más redondeados */
+            font-size: 1em;
+            color: #333;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+            background-color: #fdfdfd;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05); /* Sombra interna sutil */
+        }
+
+        .input-group input[type="text"]:focus,
+        .input-group input[type="email"]:focus,
+        .input-group input[type="tel"]:focus,
+        .input-group input[type="date"]:focus,
+        .input-group input[type="time"]:focus, /* Añadido para el campo de hora */
+        .input-group input[type="number"]:focus,
+        .input-group select:focus,
+        .input-group textarea:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.15), inset 0 1px 3px rgba(0, 0, 0, 0.08); /* Sombra de enfoque mejorada */
+            outline: none;
+            background-color: #fff;
+        }
+
+        /* Estilo para los select */
+        .input-group select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg fill="%23666666" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 18px center; /* Posición ajustada del icono */
+            background-size: 20px; /* Tamaño del icono */
+            padding-right: 45px; /* Espacio para el icono de la flecha */
+        }
+
+        /* Estilo para textareas */
+        .input-group textarea {
+            resize: vertical;
+            min-height: 100px; /* Altura mínima un poco mayor */
+        }
+
+        .submit-button {
+            display: block;
+            width: 100%;
+            padding: 18px 25px; /* Padding más generoso */
+            background: linear-gradient(45deg, #007bff, #0056b3); /* Degradado para el botón */
+            color: white;
+            border: none;
+            border-radius: 10px; /* Bordes redondeados */
+            font-size: 1.15em; /* Tamaño de fuente ligeramente mayor */
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease; /* Transición para todas las propiedades */
+            box-shadow: 0 8px 20px rgba(0, 123, 255, 0.3); /* Sombra más fuerte para el botón */
+            margin-top: 40px;
+            letter-spacing: 0.5px; /* Pequeño espaciado entre letras */
+        }
+
+        .submit-button:hover {
+            background: linear-gradient(45deg, #0056b3, #004085); /* Degradado más oscuro al pasar el ratón */
+            transform: translateY(-3px); /* Efecto de "levantar" */
+            box-shadow: 0 12px 25px rgba(0, 123, 255, 0.4);
+        }
+
+        .submit-button:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+            background: linear-gradient(45deg, #004085, #003366);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+
+            .container {
+                padding: 25px;
+                border-radius: 12px;
+            }
+
+            .header {
+                margin-bottom: 25px;
+                padding-bottom: 20px;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .form-section {
+                margin-bottom: 30px;
+                padding: 20px 0;
+            }
+
+            .form-section h2 {
+                font-size: 1.4em;
+                margin-bottom: 20px;
+            }
+
+            .input-group label {
+                font-size: 0.95em;
+                margin-bottom: 8px;
+            }
+
+            .input-group input,
+            .input-group select,
+            .input-group textarea {
+                padding: 14px 16px;
+                font-size: 0.98em;
+            }
+
+            .submit-button {
+                padding: 16px 22px;
+                font-size: 1.05em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                border-radius: 0; /* Sin bordes redondeados en pantallas muy pequeñas */
+                box-shadow: none; /* Sin sombra en pantallas muy pequeñas */
+                padding: 20px 15px; /* Reducir padding horizontal */
+            }
+
+            .header .back-icon {
+                font-size: 2em;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .form-section {
+                margin-bottom: 20px;
+            }
+
+            .form-section h2 {
+                font-size: 1.3em;
+                margin-bottom: 15px;
+            }
+
+            .input-group input,
+            .input-group select,
+            .input-group textarea {
+                padding: 12px 14px;
+                font-size: 0.9em;
+            }
+
+            .submit-button {
+                font-size: 1em;
+                padding: 14px 18px;
+            }
+        }
+
+        /* Estilo para el scrollbar (solo para navegadores basados en WebKit como Chrome/Safari) */
+        .container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .container::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+
+        .container::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+
+
+
+        @media (max-width: 600px) {
+  .container {
+    padding: 14px 6px;
+    border-radius: 0;
+    box-shadow: none;
+    width: 100vw;
+    min-width: 0;
+    max-width: 100vw;
+    padding: 20px 10px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 0 15px 0;
+    margin-bottom: 18px;
+  }
+
+  .header h1 {
+    font-size: 1.3em;
+    text-align: left;
+    width: 100%;
+  }
+
+  .form-section {
+    margin-bottom: 18px;
+    padding: 10px 0;
+  }
+
+  .form-section h2 {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+  }
+
+  .input-group {
+    margin-bottom: 15px;
+  }
+
+  .input-group label {
+    font-size: 0.95em;
+    margin-bottom: 6px;
+  }
+
+  .input-group input,
+  .input-group select,
+  .input-group textarea {
+    padding: 10px 8px;
+    font-size: 0.95em;
+  }
+
+  .submit-button {
+    font-size: 1em;
+    padding: 12px 10px;
+    margin-top: 20px;
+  }
+}
+
+

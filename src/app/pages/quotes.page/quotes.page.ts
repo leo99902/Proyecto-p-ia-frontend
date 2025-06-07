@@ -4,10 +4,11 @@ import { ValuePathnameServiceService } from '../../services/value.pathname.servi
 import { MatTabsModule } from '@angular/material/tabs';
 import { Router } from '@angular/router';
 import { ListQuotesComponentComponent } from './list.quotes.component/list.quotes.component.component';
+import { RecordQuotesComponentComponent } from './record.quotes.component/record.quotes.component.component';
 
 @Component({
   selector: 'app-quotes.page',
-  imports: [MainContainerComponentComponent, MatTabsModule, ListQuotesComponentComponent],
+  imports: [MainContainerComponentComponent, MatTabsModule, ListQuotesComponentComponent, RecordQuotesComponentComponent],
   templateUrl: './quotes.page.html',
   styleUrl: './quotes.page.scss'
 })
