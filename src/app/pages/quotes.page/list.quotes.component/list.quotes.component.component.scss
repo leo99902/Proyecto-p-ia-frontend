@@ -1,0 +1,234 @@
+        :root {
+            --primary-background: #f8f8f8; /* Fondo principal muy claro, casi blanco */
+            --secondary-element-bg: #ffffff; /* Blanco para tarjetas y elementos principales */
+            --accent-color: #5a67d8; /* Un azul/púrpura para acentos y botones, similar a la imagen */
+            --text-dark: #333333; /* Color de texto oscuro para el contenido principal */
+            --text-muted: #777777; /* Color de texto atenuado para información secundaria */
+            --border-light: #eeeeee; /* Color de borde muy claro */
+            --card-shadow: rgba(0, 0, 0, 0.05); /* Sombra sutil para las tarjetas */
+            --pending-color: #ffc107; /* Amarillo para citas pendientes (no usado directamente en este diseño, pero útil) */
+            --completed-color: #28a745; /* Verde para citas completadas (no usado directamente en este diseño, pero útil) */
+            --cancelled-color: #dc3545; /* Rojo para citas canceladas (no usado directamente en este diseño, pero útil) */
+        }
+
+
+        /* Estilos para el encabezado superior */
+        .header {
+            display: flex;
+            justify-content: flex-end; /* Alinea el contenido a la derecha */
+            align-items: center;
+            padding: 20px;
+            background-color: var(--secondary-element-bg); /* Fondo blanco */
+            box-shadow: 0 2px 4px var(--card-shadow); /* Sombra sutil */
+        }
+
+        /* Estilos para el botón "Agendar cita" */
+        .add-appointment-btn {
+            background-color: var(--accent-color); /* Color de acento azul/púrpura */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px; /* Bordes redondeados */
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            font-size: 16px;
+            transition: background-color 0.3s ease; /* Transición suave al pasar el ratón */
+        }
+
+        .add-appointment-btn:hover {
+            background-color: #4a54b3; /* Azul/púrpura más oscuro al pasar el ratón */
+        }
+
+        .add-appointment-btn .material-icons {
+            margin-right: 8px; /* Espacio entre el icono y el texto */
+        }
+
+        /* Contenedor principal del contenido */
+        .container {
+            flex-grow: 1; /* Permite que el contenedor crezca y ocupe el espacio disponible */
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px; /* Espacio entre los elementos hijos */
+        }
+
+        /* Contenedor para las tarjetas de resumen */
+        .summary-cards {
+            display: grid;
+            /* Crea una cuadrícula responsiva: columnas que se ajustan automáticamente, mínimo 180px, máximo 1fr */
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+        }
+
+        /* Estilos para cada tarjeta de resumen individual */
+        .summary-card {
+            background-color: var(--secondary-element-bg); /* Fondo blanco */
+            padding: 20px;
+            border-radius: 8px; /* Bordes redondeados */
+            box-shadow: 0 4px 8px var(--card-shadow);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 100px; /* Altura mínima para consistencia */
+        }
+
+        .summary-card h4 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: var(--text-muted); /* Color de texto atenuado para el título */
+            font-size: 14px;
+        }
+
+        .summary-card p {
+            margin: 0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        /* Estilo específico para la tarjeta de "Ingresos estimados" */
+        .summary-card.estimated-income {
+            background-color: var(--accent-color); /* Fondo de color de acento */
+            color: white; /* Texto blanco */
+            text-align: right; /* Alinea el texto a la derecha */
+        }
+
+        .summary-card.estimated-income h4 {
+            color: rgba(255, 255, 255, 0.8); /* Título ligeramente transparente */
+        }
+
+        /* Estilos para la sección de filtros */
+        .filters {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas pequeñas */
+            background-color: var(--secondary-element-bg); /* Fondo blanco */
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px var(--card-shadow);
+        }
+
+        .filters h4 {
+            margin: 0; /* Elimina el margen por defecto del h4 */
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        /* Estilos para los selectores (dropdowns) de filtro */
+        .filters select {
+            padding: 8px 10px;
+            border-radius: 5px;
+            border: 1px solid var(--border-light); /* Borde sutil y claro */
+            background-color: var(--primary-background); /* Fondo claro para los selectores */
+            color: var(--text-dark);
+            appearance: none; /* Elimina la flecha por defecto del navegador */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            /* Añade una flecha SVG personalizada para consistencia visual */
+            background-image: url('data:image/svg+xml;utf8,<svg fill="%23777777" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 8px center;
+            background-size: 20px;
+            cursor: pointer;
+        }
+
+        /* Estilos para el icono de "refresh" en los filtros */
+        .filters .material-icons {
+            margin-left: auto; /* Empuja el icono al final de la línea */
+            cursor: pointer;
+            color: var(--text-muted);
+            font-size: 24px;
+            transition: color 0.3s ease;
+        }
+
+        .filters .material-icons:hover {
+            color: var(--text-dark); /* Cambia de color al pasar el ratón */
+        }
+
+        /* Contenedor para la lista de citas */
+        .appointments-list {
+            background-color: var(--secondary-element-bg); /* Fondo blanco */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px var(--card-shadow);
+            flex-grow: 1; /* Permite que la lista crezca y ocupe el espacio disponible */
+        }
+
+        /* Estilos para cada elemento individual de la cita */
+        .appointment-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-light); /* Separador claro entre citas */
+        }
+
+        .appointment-item:last-child {
+            border-bottom: none; /* Elimina el borde inferior del último elemento */
+        }
+
+        /* Estilos para el radio button de cada cita */
+        .appointment-item input[type="radio"] {
+            margin-right: 15px;
+            transform: scale(1.2); /* Aumenta ligeramente el tamaño del radio button */
+            accent-color: var(--accent-color); /* Color del radio button cuando está seleccionado */
+            cursor: pointer;
+        }
+
+        /* Contenedor de la información de la cita */
+        .appointment-info {
+            flex-grow: 1;
+        }
+
+        .appointment-info p {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .appointment-info .details {
+            font-size: 14px;
+            color: var(--text-muted); /* Color atenuado para los detalles */
+        }
+
+        /* Contenedor para el botón "Cargar más" */
+        .load-more-btn-wrapper {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        /* Estilos para el botón "Cargar más" */
+        .load-more-btn {
+            background-color: var(--secondary-element-bg); /* Fondo blanco */
+            color: var(--text-dark); /* Texto oscuro */
+            border: 1px solid var(--border-light); /* Borde claro */
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: 0 2px 4px var(--card-shadow);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .load-more-btn:hover {
+            background-color: var(--primary-background); /* Fondo más claro al pasar el ratón */
+            border-color: var(--accent-color); /* Borde de color de acento al pasar el ratón */
+        }
+
+        /* Ajustes responsivos para pantallas más pequeñas (tabletas y móviles) */
+        @media (max-width: 768px) {
+            .summary-cards {
+                grid-template-columns: 1fr; /* Una sola columna para las tarjetas de resumen */
+            }
+            .filters {
+                flex-direction: column; /* Apila los filtros verticalmente */
+                align-items: stretch; /* Estira los elementos para ocupar el ancho completo */
+            }
+            .filters select {
+                width: 100%; /* Los selectores ocupan todo el ancho */
+                margin-bottom: 10px; /* Espacio entre selectores apilados */
+            }
+            .filters .material-icons {
+                margin-left: 0; /* Elimina el margen izquierdo automático */
+                align-self: flex-end; /* Alinea el icono de refresh a la derecha */
+            }
+        }

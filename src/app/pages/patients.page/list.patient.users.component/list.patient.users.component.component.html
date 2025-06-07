@@ -1,0 +1,84 @@
+  <div class="container" style="width: 100%;">
+
+        <section class="status-bar">
+            <div class="status-item">
+                <span>Totales</span>
+                <p>13</p>
+            </div>
+            <div class="status-item">
+                <span>Activos</span>
+                <p>13</p>
+            </div>
+            <div class="status-item">
+                <span>Con cita</span>
+                <p>2</p>
+            </div>
+            <div class="status-item">
+                <span>Inactivos</span>
+                <p>0</p>
+            </div>
+        </section>
+
+        <section class="filters" style="display: 100%; display: flex; justify-content: space-between;">
+            <div style="display: flex; gap: 20px; align-items: center;">
+            <div class="filter-group flex items-center">
+                <label for="estado">Estado:</label>
+                <select id="estado">
+                    <option>Todos</option>
+                    <option>Activos</option>
+                    <option>Inactivos</option>
+                </select>
+            </div>
+            <div class="filter-group flex items-center">
+                <label for="ordenar-por">Ordenar por:</label>
+                <select id="ordenar-por">
+                    <option>Nombre</option>
+                    <option>Fecha de alta</option>
+                </select>
+            </div>
+            </div>
+            <div class="search-bar flex w-full max-w-xs">
+                    <input type="text" placeholder="Buscar" class="flex-grow focus:outline-none">
+                    <button class="flex-shrink-0">
+                        <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                            <path d="M10 18a7.952 7.952 0 0 0 4.897-1.688l4.396 4.396 1.414-1.414-4.396-4.396A7.952 7.952 0 0 0 18 10c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8zm0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6-6-2.691-6-6 2.691-6 6-6z"/>
+                        </svg>
+                    </button>
+                </div>
+        </section>
+
+        <main class="patient-list">
+
+
+            <div class="patient-item">
+                <div class="patient-info" style="display: flex; justify-content: space-between;">
+                    
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.411 0 8 1.79 8 4v2H4v-2c0-2.21 3.589-4 8-4z"/>
+                    </svg>
+                    <span>Baltasar Ríos</span>
+                    </div>
+
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                   
+                        <span class="status active" style="font-size: .9rem;">Activo</span>
+                        <button for="buttonEdit" type="button">
+                            <svg id="buttonEdit" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>  
+                            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                            </svg>
+                        </button>    
+    
+                        <button style="margin-left: 5px;" type="button">
+                            <svg id="buttonDetails" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                            <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>  
+                            <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
+                            </svg>
+                        </button>          
+                   
+                    </div> 
+                </div>
+            </div>
+        </main>
+    </div>

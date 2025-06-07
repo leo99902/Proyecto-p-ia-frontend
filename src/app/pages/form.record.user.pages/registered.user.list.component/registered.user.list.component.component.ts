@@ -140,8 +140,25 @@ export class RegisteredUserListComponentComponent implements OnInit {
 
   public cantidad: any
   public cantidadUsuarios: any
+  public pageValue:any = 1
+  public cantidadPages = 0;
+  public cantidaUser: any
 
+  public setpageincrease(): void{
+    this.pageValue++
+    if(this.pageValue > this.cantidadPages){
+      this.pageValue = this.cantidadPages
+    }
+    this.ngOnInit()
+    }
 
+  public setpagedecrease():void{
+    this.pageValue--
+    if(this.pageValue < 1){
+      this.pageValue = 1
+    }
+    this.ngOnInit()
+  }
 
   // getButtonValue() {
   //   const value = this.myForm.get('myButton')?.value;
@@ -149,11 +166,13 @@ export class RegisteredUserListComponentComponent implements OnInit {
   // }
 
   ngOnInit(): void {
-    this.listUser.listUsers(this.users).subscribe({
+    this.listUser.listUsers({page: this.pageValue}).subscribe({
       next: (data: any) => {
-        this.usuarios = data; // Almacena los datos en la propiedad usuario
+        this.usuarios = data;
         this.cantidad = data.value.length
         this.cantidadUsuarios = Array.from({ length: this.cantidad }, (_, index) => index + 1);
+        this.cantidadPages = data.total_paginas
+        this.cantidaUser = data.total_registros
       },
       error: (e) => {
         console.error('Error al obtener usuarios:', e);
@@ -165,7 +184,6 @@ export class RegisteredUserListComponentComponent implements OnInit {
     filtroRole: '' ,
     filtroEstado: ''
   }
-
 
   public filterGetUserRole(){
     this.listUser.listUsers({role: this.filtro.filtroRole}).subscribe({
@@ -195,6 +213,22 @@ export class RegisteredUserListComponentComponent implements OnInit {
     })
   }
 
+  public filterSeekerValue: string = ''
+
+  public filterGetUserSeeker(){
+      this.listUser.listUsers({user: this.filterSeekerValue}).subscribe({
+      next: (data: any) => {
+        this.usuarios = data
+        this.cantidad = data.value.length
+        this.cantidadUsuarios = Array.from({ length: this.cantidad }, (_, index) => index + 1);
+        console.log('leonardo')
+      },
+      error: (e) => {
+        console.error('Error al obtener usuarios:', e);
+      }
+    })
+    console.log('leonardo')
+  }
 
 }
 

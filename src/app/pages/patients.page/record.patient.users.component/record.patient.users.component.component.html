@@ -1,0 +1,230 @@
+ <div class="container">
+        <div class="header">
+            <!-- Botón de volver, ya no funcional sin JS -->
+            <h1>Agregar nuevo paciente</h1>
+        </div>
+
+        <form class="patient-form">
+            <section class="form-section">
+                <h2>Información básica del paciente</h2>
+                <div class="input-group">
+                    <label for="nombre-completo">Nombre completo</label>
+                    <input type="text" id="nombre-completo" placeholder="Manolito Ferragamo" value="Manolito Ferragamo">
+                </div>
+                <div class="input-group">
+                    <label for="genero">Género</label>
+                    <select id="genero">
+                        <option value="masculino" selected>Masculino</option>
+                        <option value="femenino">Femenino</option>
+                        <option value="otro">Otro</option>
+                        <option value="no-especificar">Prefiero no especificar</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="fecha-nacimiento">Fecha de nacimiento</label>
+                    <input type="date" id="fecha-nacimiento">
+                </div>
+                <div class="input-group">
+                    <label for="nacionalidad">Nacionalidad</label>
+                    <input type="text" id="nacionalidad" placeholder="Ej: Venezolana">
+                </div>
+                <div class="input-group">
+                    <label for="estado-civil">Estado civil</label>
+                    <select id="estado-civil">
+                        <option value="">Seleccione</option>
+                        <option value="soltero">Soltero/a</option>
+                        <option value="casado">Casado/a</option>
+                        <option value="union-libre">Unión Libre</option>
+                        <option value="divorciado">Divorciado/a</option>
+                        <option value="viudo">Viudo/a</option>
+                    </select>
+                </div>
+            </section>
+
+            <section class="form-section">
+                <h2>Contacto</h2>
+                <div class="input-group">
+                    <label for="correo-contacto">Correo de contacto</label>
+                    <input type="email" id="correo-contacto" placeholder="ejemplo@dominio.com">
+                </div>
+                <div class="input-group">
+                    <label for="telefono-contacto">Teléfono de contacto</label>
+                    <input type="tel" id="telefono-contacto" placeholder="Ej: +58 412 1234567">
+                </div>
+                <div class="input-group">
+                    <label for="direccion">Dirección</label>
+                    <textarea id="direccion" rows="3" placeholder="Calle, número, ciudad, estado, país"></textarea>
+                </div>
+            </section>
+
+            <section class="form-section">
+                <h2>Educación</h2>
+                <div class="input-group">
+                    <label for="centro-estudios">Centro de estudios (si aplica)</label>
+                    <input type="text" id="centro-estudios" placeholder="Nombre de la institución">
+                </div>
+                <div class="input-group">
+                    <label for="nivel-estudios">Nivel de estudios</label>
+                    <select id="nivel-estudios">
+                        <option value="">Seleccione</option>
+                        <option value="primaria">Primaria</option>
+                        <option value="bachillerato">Bachillerato</option>
+                        <option value="universitario">Universitario (pregrado)</option>
+                        <option value="postgrado">Postgrado</option>
+                        <option value="ninguno">Ninguno</option>
+                    </select>
+                </div>
+            </section>
+
+            <section class="form-section">
+                <h2>Identificación</h2>
+                <div class="input-group">
+                    <label for="numero-id">Número de Cedula</label>
+                    <input type="text" id="numero-id" placeholder="Número de cédula o identificación">
+                </div>
+            </section>
+
+            <section class="form-section">
+                <h2>Información Médica Relevante</h2>
+                <div class="input-group">
+                    <label for="condiciones-medicas">Condiciones médicas preexistentes</label>
+                    <textarea id="condiciones-medicas" rows="3" placeholder="Alergias, enfermedades crónicas, medicamentos actuales..."></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="medicacion-psicologica">¿Está tomando medicación psicológica?</label>
+                    <select id="medicacion-psicologica">
+                        <option value="no">No</option>
+                        <option value="si">Sí</option>
+                    </select>
+                </div>
+                <!-- Este div estará oculto por defecto y no se mostrará sin JavaScript -->
+                <div class="input-group" id="detalle-medicacion-psicologica" style="display: none;">
+                    <label for="detalle-medicacion">Detalle de medicación (nombre, dosis, psiquiatra)</label>
+                    <textarea id="detalle-medicacion" rows="2" placeholder="Ej: Sertralina 50mg, Dr. Juan Pérez"></textarea>
+                </div>
+            </section>
+
+            <section class="form-section">
+                <h2>Historial Psicológico Previo</h2>
+                <div class="input-group">
+                    <label for="terapia-previa">¿Ha recibido terapia psicológica anteriormente?</label>
+                    <select id="terapia-previa">
+                        <option value="no">No</option>
+                        <option value="si">Sí</option>
+                    </select>
+                </div>
+                <!-- Este div estará oculto por defecto y no se mostrará sin JavaScript -->
+                <div class="input-group" id="detalle-terapia-previa" style="display: none;">
+                    <label for="detalle-terapia">Detalle de terapia previa (tipo, duración, motivo, resultados)</label>
+                    <textarea id="detalle-terapia" rows="3" placeholder="Ej: Terapia cognitivo-conductual, 6 meses, por ansiedad"></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="motivo-consulta">Motivo principal de la consulta actual</label>
+                    <textarea id="motivo-consulta" rows="4" placeholder="Describe brevemente por qué busca ayuda psicológica..."></textarea>
+                </div>
+            </section>
+
+            <section class="form-section">
+                <h2>Antecedentes Familiares</h2>
+                <div class="input-group">
+                    <label for="historia-mental-familiar">Historia de enfermedades mentales en la familia</label>
+                    <textarea id="historia-mental-familiar" rows="3" placeholder="Ej: Depresión en madre, ansiedad en abuelo..."></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="dinamica-familiar">Dinámica familiar relevante (ej: divorcio, fallecimientos, conflictos)</label>
+                    <textarea id="dinamica-familiar" rows="3" placeholder="Describa la dinámica familiar o eventos significativos..."></textarea>
+                </div>
+            </section>
+
+            <section class="form-section">
+                <h2>Historia de Desarrollo</h2>
+                <div class="input-group">
+                    <label for="eventos-infancia">Eventos significativos en la infancia/adolescencia</label>
+                    <textarea id="eventos-infancia" rows="3" placeholder="Ej: Cambios de escuela, bullying, logros importantes..."></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="relaciones-interpersonales">Relaciones interpersonales clave (amistades, parejas, figuras de autoridad)</label>
+                    <textarea id="relaciones-interpersonales" rows="3" placeholder="Describa patrones o experiencias importantes en relaciones..."></textarea>
+                </div>
+            </section>
+
+            <section class="form-section">
+                <h2>Hábitos y Estilo de Vida</h2>
+                <div class="input-group">
+                    <label for="consumo-sustancias">Consumo de sustancias (alcohol, tabaco, drogas)</label>
+                    <select id="consumo-sustancias">
+                        <option value="no">No</option>
+                        <option value="si">Sí</option>
+                    </select>
+                </div>
+                <!-- Este div estará oculto por defecto y no se mostrará sin JavaScript -->
+                <div class="input-group" id="detalle-consumo-sustancias" style="display: none;">
+                    <label for="detalle-sustancias">Detalle del consumo (tipo, frecuencia, cantidad)</label>
+                    <textarea id="detalle-sustancias" rows="2" placeholder="Ej: Alcohol ocasionalmente, 1 vez/semana..."></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="patrones-sueno">Patrones de sueño (horas, calidad, insomnio, etc.)</label>
+                    <textarea id="patrones-sueno" rows="2" placeholder="Ej: Duerme 6 horas, dificultad para conciliar el sueño..."></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="actividad-fisica">Nivel de actividad física</label>
+                    <select id="actividad-fisica">
+                        <option value="">Seleccione</option>
+                        <option value="sedentario">Sedentario</option>
+                        <option value="moderado">Moderado</option>
+                        <option value="activo">Activo</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="habitos-alimenticios">Hábitos alimenticios</label>
+                    <textarea id="habitos-alimenticios" rows="2" placeholder="Ej: Dieta equilibrada, come fuera con frecuencia..."></textarea>
+                </div>
+            </section>
+            
+            <section class="form-section">
+                <h2>Otros Profesionales Implicados</h2>
+                <div class="input-group">
+                    <label for="otros-profesionales">Otros profesionales de la salud involucrados (psiquiatra, médico general, nutricionista, etc.)</label>
+                    <textarea id="otros-profesionales" rows="3" placeholder="Nombre, especialidad, contacto, motivo de consulta..."></textarea>
+                </div>
+            </section>
+
+            <section class="form-section">
+                <h2>Emergencia</h2>
+                <div class="input-group">
+                    <label for="nombre-contacto-emergencia">Nombre del contacto de emergencia</label>
+                    <input type="text" id="nombre-contacto-emergencia" placeholder="Nombre completo">
+                </div>
+                <div class="input-group">
+                    <label for="telefono-contacto-emergencia">Teléfono del contacto de emergencia</label>
+                    <input type="tel" id="telefono-contacto-emergencia" placeholder="Ej: +58 414 7654321">
+                </div>
+                <div class="input-group">
+                    <label for="relacion-contacto-emergencia">Relación con el contacto de emergencia</label>
+                    <input type="text" id="relacion-contacto-emergencia" placeholder="Ej: Padre, Hermana, Amigo">
+                </div>
+            </section>
+
+            <section class="form-section">
+                <h2>Expectativas y Objetivos de la Terapia</h2>
+                <div class="input-group">
+                    <label for="expectativas-terapia">¿Qué espera lograr el paciente con la terapia?</label>
+                    <textarea id="expectativas-terapia" rows="3" placeholder="Ej: Manejar la ansiedad, mejorar relaciones, autoconocimiento..."></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="objetivos-terapia">¿Cuáles son sus objetivos a corto y largo plazo para la terapia?</label>
+                    <textarea id="objetivos-terapia" rows="3" placeholder="Ej: Corto plazo: reducir ataques de pánico; Largo plazo: mejorar autoestima..."></textarea>
+                </div>
+            </section>
+
+            <section class="form-section">
+                <h2>Información Adicional</h2>
+                <div class="input-group">
+                    <label for="notas-adicionales">Cualquier otra información relevante no cubierta anteriormente</label>
+                    <textarea id="notas-adicionales" rows="4" placeholder="Comentarios adicionales..."></textarea>
+                </div>
+            </section>
+
+            <button type="submit" class="submit-button">Guardar paciente</button>
+        </form>
+    </div>

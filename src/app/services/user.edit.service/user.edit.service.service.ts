@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class UserEditServiceService {
 
-  private API_URL = "http://localhost:6060";
+  private API_URL = "http://192.168.100.30:6060";
   readonly http = inject(HttpClient)
 
   editUser(user: any): Observable<any> {

@@ -1,12 +1,22 @@
 import { Component } from '@angular/core';
-import { NgModel } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-header-navigation',
-  imports: [RouterLink],
+  standalone: true,
+  imports: [CommonModule, RouterLink, RouterLinkActive],
   templateUrl: './header.navigation.component.component.html',
-  styleUrl: './header.navigation.component.component.scss'
+  styleUrls: ['./header.navigation.component.component.scss']
 })
 export class HeaderNavigationComponentComponent {
+  public navVisible = false;
+
+  toggleNav() {
+    this.navVisible = !this.navVisible;
+  }
+
+  closeNav() {
+    this.navVisible = false;
+  }
 }
