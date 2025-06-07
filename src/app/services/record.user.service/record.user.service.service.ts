@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class RecordUserService {
 
   public users: any;
-  private API_URL = "http://192.168.100.30:6060";
+  private API_URL = "http://0.0.0.0:6060";
   readonly http = inject(HttpClient)
 
   constructor() {
