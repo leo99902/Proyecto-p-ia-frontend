@@ -7,7 +7,7 @@ import { catchError, Observable, throwError } from 'rxjs';
 })
 export class LoginServiceService {
 
-  private API_URL = "http://192.168.100.30:6060";
+  private API_URL = "localhost";
   readonly http = inject(HttpClient)
 
   // loginUser(user:any, password: any): Observable<any> {
