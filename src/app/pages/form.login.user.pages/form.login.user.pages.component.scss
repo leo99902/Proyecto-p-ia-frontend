@@ -1,224 +1,340 @@
-.gradient-custom-2 {
-/* fallback for old browsers */
-background: #fccb90;
+/* Variables CSS para la paleta de colores armoniosos (estilo CodingLab) */
+        :root {
+            --primary-blue: hsl(210, 80%, 50%);
+            --danger-red: hsl(0, 70%, 55%);
+            --success-green: hsl(140, 60%, 45%);
+            --background-body: hsl(220, 5%, 96%);
+            --form-background: #FFFFFF;
+            --input-background: hsl(210, 5%, 96%);
+            --text-dark: hsl(220, 15%, 25%);
+            --text-medium: hsl(220, 10%, 55%);
+            --border-light: hsl(210, 10%, 88%);
+            --button-hover: hsl(210, 80%, 45%);
+            --shadow-subtle: 0 4px 15px rgba(0, 0, 0, 0.06);
+            --shadow-input-focus: 0 0 0 4px hsla(210, 80%, 50%, 0.25);
 
-/* Chrome 10-25, Safari 5.1-6 */
-background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+            /* Colores específicos del modal */
+            --modal-overlay-bg: rgba(0, 0, 0, 0.4);
+            --modal-content-bg: #FFFFFF;
+            --modal-text: var(--text-dark);
+            --modal-border: var(--border-light);
+            --modal-icon-circle-bg: hsla(0, 70%, 55%, 0.1);
+            --modal-icon-color: var(--danger-red);
+            --modal-button-bg: var(--primary-blue);
+            --modal-button-text: white;
+            --modal-button-hover-bg: var(--button-hover);
+        }
 
-/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
-}
-
-// @media (min-width: 768px) {
-// .gradient-form {
-// height: 100vh !important;
-// }
-// }
-// @media (min-width: 769px) {
-//     .gradient-custom-2 {
-//         border-top-right-radius: .3rem;
-//         border-bottom-right-radius: .3rem;
-//     }
-// }
-
-@media (max-width: 700px) {
-}
-
-
-
-
-
-
-.custom-modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(44, 44, 44, 0.45);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-}
-
-.custom-modal-content {
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-  min-width: 320px;
-  width: 400px;
-  max-height: 90vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-
-
-
-
-        .modal {
-            display: flex; /* Cambiado a 'flex' para que sea visible por defecto sin JS */
-            position: fixed; /* Permanece en su lugar */
-            z-index: 1000; /* Siempre encima */
-            left: 0;
-            top: 0;
-            width: 100%; /* Ancho completo */
-            height: 100%; /* Alto completo */
-            overflow: auto; /* Habilita el scroll si es necesario */
-            background-color: rgba(0, 0, 0, 0.6); /* Negro con opacidad */
+        /* Estilos generales del cuerpo */
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
             justify-content: center;
             align-items: center;
+            min-height: 100vh;
+            background-color: var(--background-body);
+            color: var(--text-dark);
+            overflow: hidden; /* Evita el scroll */
         }
 
-        /* Contenido del Modal */
-        .modal-content {
-            background-color: #ffffff;
-            margin: auto;
-            padding: 20px; /* Reducido el padding para hacerlo más pequeño */
-            border-radius: 12px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12); /* Sutilmente ajustado el shadow */
-            width: 90%;
-            position: relative;
-            text-align: center;
-            transform: translateY(-20px);
-            opacity: 0;
-            animation: fadeInSlideUp 0.3s forwards ease-out;
+        /* Estilos de la sección y contenedores principales */
+        .content-login {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 1rem;
         }
 
-        /* Animación de entrada */
-        @keyframes fadeInSlideUp {
-            to {
-                transform: translateY(0);
-                opacity: 1;
+        .container {
+            height: 100%; /* Ajustado para el contenido */
+            width: 100%;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap; /* Permite que los elementos se envuelvan */
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        .col-xl-10 {
+            flex: 0 0 auto;
+            width: 100%;
+            max-width: 1000px; /* Ancho máximo para el contenedor principal */
+        }
+
+        .col-lg-6 {
+            flex: 0 0 auto;
+            width: 100%;
+        }
+        @media (min-width: 992px) { /* Breakpoint para pantallas grandes (lg) */
+            .col-lg-6 {
+                width: 50%;
             }
         }
 
-        /* Cabecera del Modal */
+
+        /* Estilos de la tarjeta principal (login-container) */
+        .card {
+            background-color: var(--form-background);
+            border-radius: 1rem; /* Borde más redondeado */
+            text-black: var(--text-dark); /* Color del texto dentro de la tarjeta */
+            box-shadow: var(--shadow-subtle);
+            display: flex; /* Usar flex para la estructura interna */
+        }
+
+        .row.g-0 {
+            display: flex;
+            width: 100%;
+        }
+
+        /* Columna del formulario */
+        .card-body {
+            padding: 2.5rem; /* Ajustado para un mejor look */
+            flex: 1; /* Permite que el cuerpo del formulario ocupe el espacio disponible */
+        }
+        @media (min-width: 768px) {
+            .card-body {
+                padding: 3rem 4rem; /* Más padding en desktop */
+            }
+        }
+
+
+        /* Estilos del logo dentro del formulario */
+        .text-center {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1.5rem; /* Espacio debajo del logo */
+        }
+
+        .text-center img {
+            width: 150px; /* Tamaño del logo */
+            height: auto;
+            display: block; /* Asegura que la imagen sea un bloque */
+            max-width: 100%; /* Responsivo */
+        }
+
+        /* Estilos del párrafo de bienvenida */
+        .card-body p {
+            font-size: 1rem;
+            color: var(--text-medium);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        /* Estilos de los campos de formulario */
+        .form-outline {
+            margin-bottom: 1.5rem; /* Espacio entre campos */
+            text-align: left;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.95rem;
+            color: var(--text-medium);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control {
+            width: calc(100% - 24px); /* Restar padding para ancho total */
+            padding: 12px;
+            background-color: var(--input-background);
+            border: 1px solid var(--border-light);
+            border-radius: 8px; /* Bordes redondeados */
+            color: var(--text-dark);
+            font-size: 1rem;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .form-control::placeholder {
+            color: var(--text-medium);
+            opacity: 0.8;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: var(--shadow-input-focus);
+        }
+
+        /* Estilos del botón de iniciar sesión */
+        .btn.btn-primary {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--primary-blue);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 15px hsla(210, 80%, 50%, 0.2);
+            margin-top: 1.5rem; /* Espacio arriba del botón */
+            margin-bottom: 0.8rem; /* Espacio debajo del botón */
+        }
+
+        .btn.btn-primary:hover {
+            background-color: var(--button-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px hsla(210, 80%, 50%, 0.3);
+        }
+
+        /* Estilos del enlace "Olvidaste tu contraseña" */
+        .text-muted {
+            font-size: 0.9rem;
+            color: var(--text-medium);
+            text-decoration: none;
+            display: block; /* Asegura que el enlace ocupe su propia línea */
+            transition: color 0.2s ease;
+        }
+
+        .text-muted:hover {
+            color: var(--primary-blue);
+            text-decoration: underline;
+        }
+
+        /* Estilos de la columna derecha (gradient-custom-2) */
+        .gradient-custom-2 {
+            background: linear-gradient(to right, hsl(210, 80%, 50%), hsl(190, 80%, 60%)); /* Degradado azul/turquesa */
+            border-radius: 0 1rem 1rem 0; /* Bordes redondeados solo a la derecha */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2.5rem; /* Padding para el contenido */
+        }
+        @media (max-width: 991px) { /* En móvil, esta columna se oculta */
+            .gradient-custom-2 {
+                display: none;
+            }
+        }
+
+
+        .text-white {
+            color: white;
+        }
+
+        .px-3 { padding-left: 1rem; padding-right: 1rem; }
+        .py-4 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+        .p-md-5 { padding: 3rem; }
+        .mx-md-4 { margin-left: 1.5rem; margin-right: 1.5rem; }
+
+        .mb-4 { margin-bottom: 1.5rem; }
+        .mb-0 { margin-bottom: 0; }
+        .small { font-size: 0.875em; }
+
+        .gradient-custom-2 h4 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .gradient-custom-2 p {
+            line-height: 1.6;
+        }
+
+        /* Estilos del modal (solo visual sin JS) */
+        .custom-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--modal-overlay-bg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .custom-modal-content {
+            background-color: var(--modal-content-bg);
+            border-radius: 12px;
+            box-shadow: var(--shadow-subtle);
+            max-width: 400px;
+            width: 90%;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            border: 1px solid var(--modal-border);
+        }
+
+        .custom-modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: var(--text-medium);
+            cursor: pointer;
+            line-height: 1;
+            padding: 0;
+            display: none; /* Oculto, ya que la funcionalidad de cerrar no existe sin JS */
+        }
+
         .modal-header {
             display: flex;
             justify-content: center;
-            margin-bottom: 20px; /* Reducido el margen */
-            position: relative;
+            margin-bottom: 1.5rem;
         }
 
-        /* Círculo del icono - AUMENTADO EL TAMAÑO */
         .icon-circle {
-            width: 80px; /* Icono más grande */
-            height: 80px; /* Icono más grande */
-            background-color: #ffebeb; /* Rojo claro para error */
+            width: 60px;
+            height: 60px;
+            background-color: var(--modal-icon-circle-bg);
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            border: 3px solid #ff6b6b; /* Borde rojo más fuerte */
         }
 
-        /* Icono minimalista de error (una X) - AUMENTADO EL TAMAÑO */
         .icon-error-minimal {
-            color: #ff3838; /* Color del icono rojo */
-            width: 45px; /* Icono más grande */
-            height: 45px; /* Icono más grande */
+            width: 30px;
+            height: 30px;
+            stroke: var(--modal-icon-color);
+            stroke-width: 2;
         }
-
-        /* Botón de cerrar */
-        .close-button {
-            color: #999;
-            font-size: 24px; /* Un poco más pequeño */
-            font-weight: bold;
-            position: absolute;
-            top: -10px; /* Ajustado la posición */
-            right: -10px; /* Ajustado la posición */
-            cursor: pointer;
-            background-color: #f0f2f5;
-            border-radius: 50%;
-            width: 28px; /* Un poco más pequeño */
-            height: 28px; /* Un poco más pequeño */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s ease, color 0.3s ease;
-            text-decoration: none; /* Quita el subrayado del link */
-        }
-
-        .close-button:hover,
-        .close-button:focus {
-            color: #666;
-            background-color: #e0e2e5;
-        }
-
-        /* Cuerpo del Modal */
-        .modal-body {
-            margin-bottom: 20px; /* Reducido el margen */
-            display: flex;
-            flex-direction: column;
-            align-items: center; /* Centrado del contenido */
-        }
-
 
         .modal-body p {
-            color: #666;
-            font-size: 15px; /* Un poco más pequeño */
-            line-height: 1.5; /* Ajustado el line-height */
+            font-size: 1.1rem;
+            color: var(--modal-text);
+            margin-bottom: 2rem;
         }
 
-        /* Detalles del error - CLASE NO UTILIZADA, MANTENIDA POR SI SE NECESITA EN EL FUTURO */
-        .error-details {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            text-align: left;
-            color: #777;
-            font-size: 13px;
-        }
-
-        .error-details li {
-            margin-bottom: 6px;
-            padding-left: 18px;
-            position: relative;
-        }
-
-        .error-details li::before {
-            content: '•';
-            color: #ff6b6b;
-            font-weight: bold;
-            display: inline-block;
-            width: 1em;
-            margin-left: -1em;
-            position: absolute;
-            left: 0;
-        }
-
-        /* Pie de página del Modal */
         .modal-footer {
-            padding-top: 15px;
-            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: center;
         }
 
-        /* Botón del Modal */
         .modal-button {
-            background-color: #ff6b6b; /* Botón rojo */
-            color: white;
-            padding: 10px 20px; /* Reducido el padding */
+            padding: 10px 25px;
+            background-color: var(--modal-button-bg);
+            color: var(--modal-button-text);
             border: none;
             border-radius: 8px;
-            cursor: pointer;
-            font-size: 15px; /* Un poco más pequeño */
+            text-decoration: none;
+            font-size: 1rem;
             font-weight: 600;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            box-shadow: 0 3px 8px rgba(255, 107, 107, 0.25); /* Sutilmente ajustado el shadow */
-            text-decoration: none; /* Quita el subrayado del link */
-            display: inline-block; /* Para que el padding y tamaño funcionen bien en 'a' */
+            transition: background-color 0.2s ease;
         }
 
         .modal-button:hover {
-            background-color: #e65c5c;
-            transform: translateY(-1px); /* Menor movimiento en hover */
+            background-color: var(--modal-button-hover-bg);
         }
 
-        .modal-button:active {
-            transform: translateY(0);
-            box-shadow: 0 1px 3px rgba(255, 107, 107, 0.15);
+        /* Clases de utilidad (mantener si se usan en el HTML, pero sin funcionalidad JS) */
+        .openModal { display: flex; }
+        .closeModal { display: none; }
+
+        /* Animación (solo CSS, se activaría si se gestiona el display con JS) */
+        .animate-drop {
+            animation: dropIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        @keyframes dropIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }

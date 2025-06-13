@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { API_URL } from '../../../shared/constants/app.constants'
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ import { Observable } from 'rxjs';
 export class RecordUserService {
 
   public users: any;
-  private API_URL = "http://localhost:6060";
+  private API_URL = API_URL;
   readonly http = inject(HttpClient)
 
   constructor() {

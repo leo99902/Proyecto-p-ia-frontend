@@ -1,0 +1,49 @@
+:root {
+            --primary-blue-calm: #5B84B1; /* Azul calmado y profesional */
+            --sidebar-background: #FFFFFF; /* Blanco puro para la barra lateral */
+            --main-background: #F0F2F5; /* Gris azulado muy claro para el fondo principal (anteriormente #F8FAFC) */
+            --card-background: #FFFFFF; /* Blanco puro para las tarjetas */
+            --text-dark: #2F4858; /* Azul grisáceo oscuro para texto principal */
+            --text-medium: #6E8495; /* Gris azulado medio para texto secundario */
+            --text-light-on-dark: #C0D3E1; /* Gris claro para texto sutil en fondos oscuros (si aplica) */
+            --border-subtle: #DDE8F0; /* Borde muy sutil y claro */
+            --hover-sidebar-bg: #EAF2F8; /* Azul muy claro para hover de sidebar */
+            --active-sidebar-bg: #E0EBF5; /* Azul más claro para el estado activo de la barra lateral */
+            --active-sidebar-text: var(--primary-blue-calm);
+            --mobile-nav-active-bg: #E8F3FA; /* Fondo activo para nav móvil */
+            --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.04); /* Sombra muy suave */
+            --shadow-card-hover: 0 6px 15px rgba(0, 0, 0, 0.08); /* Sombra un poco más visible al hover */
+        }
+
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  min-width: 100vw;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+}
+
+header, .header {
+  width: 100vw;
+  min-width: 100vw;
+  flex-shrink: 0;
+}
+
+.main-content, .content-home-wrapper {
+  flex: 1 1 auto;
+  width: 100vw;
+  min-width: 100vw;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
