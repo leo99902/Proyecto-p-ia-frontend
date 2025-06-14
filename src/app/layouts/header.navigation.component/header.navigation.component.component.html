@@ -1,9 +1,7 @@
-
 <!-- Barra lateral -->
 <aside class="sidebar" [class.sidebar-open]="navVisible">
-  <div class="sidebar-header">
-    <span class="logo-name">CodingLab</span>
-    <button class="close-btn" (click)="closeNav()">×</button>
+  <div class="sidebar-header" style="display: flex; align-items: center; justify-content: center; padding: 1rem;">
+    <div style="width: 4.5rem; height: 4rem; border: 1px solid #fff; border-radius: 8px;"></div>
   </div>
   <nav class="sidebar-content">
     <ul class="nav-list">
@@ -42,7 +40,7 @@
     <div class="sidebar-footer">
       <a (click)="closeSession()" class="nav-link">
         <i class="bx bx-log-out icon"></i>
-        <span>Cerrar Sesión</span>
+        <span style="font-size: .9rem;">Cerrar Sesión</span>
       </a>
     </div>
   </nav>
@@ -72,5 +70,3 @@
     <span>Salir</span>
   </a>
 </nav>
-
-

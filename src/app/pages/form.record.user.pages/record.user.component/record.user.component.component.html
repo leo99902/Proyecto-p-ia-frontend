@@ -18,25 +18,53 @@
 		<h3 style="color: #000">Complete para registrar</h3>
 		<hr>
         <div class="form-group">
-			<div class="row">
-                <label style="display: flex; align-items: center;" for="">Usuario: 
-                <div class="col"><input [(ngModel)]="user.user" formControlName="user" type="text" class="form-control" name="use" placeholder="Registre su usuario" required="required"></div>
-                </label>
-                <label style="display: flex; align-items: center;" for="">Cedula:
-				<div class="col"><input [(ngModel)]="user.cedula" formControlName="cedula" type="text" class="form-control" name="Ci" placeholder="Registre su cedula" required="required" [minLength]="8"></div>
-                </label>
-			</div>        	
-        </div>
-        <div class="form-group">
-            <label style="display: flex; align-items: center;" for="">Nombre:    
-        	<input [(ngModel)]="user.name" formControlName="name" type="text" class="form-control" name="name" placeholder="Registre su nombre completo" required="required">
-            </label> 
-        </div>
-         <div class="form-group">
-            <label style="display: flex; align-items: center;" for="">Correo:
-        	<input [(ngModel)]="user.email" formControlName="email" type="email" class="form-control" name="email" placeholder="Ingrese su correo eletronico" required="required">
-            </label>
-        </div>
+
+<div class="input-group" style="display: flex; flex-direction: column; width: 100%;">
+  <label for="usuario">Usuario*</label>
+  <div class="input-container">
+    <input [(ngModel)]="user.user" formControlName="user"
+      id="usuario"
+      type="text"
+      class="input-field"
+      placeholder="Ingresa tu usuario"
+      name="usuario"
+    />
+  </div>
+</div>
+
+                
+<div class="input-group" style="display: flex; flex-direction: column; width: 100%;">
+  <label for="usuario">Cedula*</label>
+  <div class="input-container">
+    <input [(ngModel)]="user.cedula" formControlName="cedula"
+      id="usuario"
+      type="text"
+      class="input-field"
+      placeholder="Ingresa tu usuario"
+      name="usuario"
+    />
+  </div>
+</div>
+
+
+
+
+<div class="input-group" style="display: flex; flex-direction: column; width: 100%;">
+  <label for="usuario">Nombre*</label>
+  <div class="input-container">
+    <input [(ngModel)]="user.name" formControlName="name"
+      id="usuario"
+      type="text"
+      class="input-field"
+      placeholder="Ingresa tu usuario"
+      name="usuario"
+    />
+  </div>
+</div>
+
+
+</div>
+
          <div class="form-group">
 
 <label for=""></label>Seleciones su Rol
@@ -47,11 +75,24 @@
 
 
         </div>
-		<div class="form-group">
-            <label style="display: flex; align-items: center;" for="">Contraseña:
-            <input [(ngModel)]="user.password" formControlName="password" type="text" class="form-control" name="password" placeholder="Contraseña" required="required">
-            </label>
-        </div>        
+
+
+<div class="input-group" style="display: flex; flex-direction: column; width: 100%;">
+  <label for="usuario">Contrasena*</label>
+  <div class="input-container">
+    <input [(ngModel)]="user.password" formControlName="password"
+      id="usuario"
+      type="text"
+      class="input-field"
+      placeholder="Ingresa tu usuario"
+      name="usuario"
+    />
+  </div>
+</div>
+
+
+
+
 		<div class="form-group" style="margin-bottom: 0;">
             <button (click)="recordData()" type="submit" class="btn btn-primary btn-lg"> Registrar Usuario </button>
         </div>
