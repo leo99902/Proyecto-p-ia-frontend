@@ -1,15 +1,7 @@
-<!-- Botón para abrir la barra lateral en móvil -->
-
-<button class="sidebar-toggle" (click)="toggleNav()" [class.hide-toggle]="navVisible">☰</button>
-
-<!-- Overlay para cerrar la barra lateral en móvil -->
-<div class="sidebar-overlay" *ngIf="navVisible" (click)="closeNav()"></div>
-
 <!-- Barra lateral -->
 <aside class="sidebar" [class.sidebar-open]="navVisible">
-  <div class="sidebar-header">
-    <span class="logo-name">CodingLab</span>
-    <button class="close-btn" (click)="closeNav()">×</button>
+  <div class="sidebar-header" style="display: flex; align-items: center; justify-content: center; padding: 1rem;">
+    <div style="width: 4.5rem; height: 4rem; border: 1px solid #fff; border-radius: 8px;"></div>
   </div>
   <nav class="sidebar-content">
     <ul class="nav-list">
@@ -25,12 +17,12 @@
           <span>Pacientes</span>
         </a>
       </li>
-      <li>
+      <!-- <li>
         <a [routerLink]="['/citas']" routerLinkActive="router-link-active" class="nav-link" routerLinkActive="router-link-active">
           <i class="bx bx-calendar icon"></i>
           <span>Citas</span>
         </a>
-      </li>
+      </li> -->
       <li>
         <a class="nav-link" routerLinkActive="router-link-active">
           <i class="bx bx-chat icon"></i>
@@ -48,8 +40,33 @@
     <div class="sidebar-footer">
       <a (click)="closeSession()" class="nav-link">
         <i class="bx bx-log-out icon"></i>
-        <span>Cerrar Sesión</span>
+        <span style="font-size: .9rem;">Cerrar Sesión</span>
       </a>
     </div>
   </nav>
 </aside>
+
+<!-- Barra de navegación -->
+
+<nav class="tab-link">
+  <a [routerLink]="['/home']" routerLinkActive="active">
+    <i class="bx bx-home"></i>
+    <span>Inicio</span>
+  </a>
+  <a [routerLink]="['/pacientes']" routerLinkActive="active">
+    <i class="bx bx-group"></i>
+    <span>Pacientes</span>
+  </a>
+  <a>
+    <i class="bx bx-calendar"></i>
+    <span>ChatBot</span>
+  </a>
+  <a [routerLink]="['/usuarios']" routerLinkActive="active">
+    <i class="bx bx-user"></i>
+    <span>Usuarios</span>
+  </a>
+  <a (click)="closeSession()">
+    <i class="bx bx-log-out"></i>
+    <span>Salir</span>
+  </a>
+</nav>

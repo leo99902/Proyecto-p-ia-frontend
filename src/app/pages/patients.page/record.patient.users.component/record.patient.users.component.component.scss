@@ -42,9 +42,7 @@
 }
 
 .form-section {
-  margin-bottom: 35px;
   padding: 25px 0;
-  border-top: 1px solid #f0f0f0;
 }
 
 .form-section:first-of-type {
@@ -172,6 +170,24 @@
   transform: translateY(0);
   box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
   background: linear-gradient(45deg, #004085, #003366);
+}
+
+.enfermedad-animada {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  pointer-events: none;
+  padding-top: 0;
+  margin-bottom: 0;
+}
+
+.enfermedad-animada.show {
+  max-height: 200px; // Ajusta según el contenido
+  opacity: 1;
+  pointer-events: auto;
+  padding-top: 10px;
+  margin-bottom: 16px;
 }
 
 /* Responsive adjustments */

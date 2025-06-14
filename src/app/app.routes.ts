@@ -10,10 +10,10 @@ import { QuotesPagesComponent } from './pages/quotes.page/quotes.page';
 import { authGuard } from './auth/auth.guard/auth.guard';
 
 export const routes: Routes = [
-    { path: '', component: FormLoginUserPagesComponent, title: 'Login' },
-    { path: 'home', component: HomeUserPagesComponent, title: 'Inicio', canActivate: [authGuard] },
-    { path: 'usuarios', component: FormRecordUserPagesComponent, title: 'Usuarios', canActivate: [authGuard] },
-    { path: 'pacientes', component: PatientsPageComponent, title:'Pacientes', canActivate: [authGuard] },
-    { path: 'citas', component: QuotesPagesComponent, title: 'Citas', canActivate: [authGuard] },
+    { path: '', component: FormLoginUserPagesComponent },
+    { path: 'home', component: HomeUserPagesComponent, canActivate: [authGuard] },
+    { path: 'usuarios', component: FormRecordUserPagesComponent, canActivate: [authGuard] },
+    { path: 'pacientes', component: PatientsPageComponent, canActivate: [authGuard] },
+    { path: 'citas', component: QuotesPagesComponent, canActivate: [authGuard] },
     { path: '**', component: User404PagesComponent, title: '404' }
 ];
