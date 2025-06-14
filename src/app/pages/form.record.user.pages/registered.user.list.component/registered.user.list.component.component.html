@@ -28,6 +28,7 @@
 
 
 <select name="filtroEstado" [(ngModel)]="filtro.filtroEstado" (click)="filterGetUserEstado()" class="form-select" aria-label="Default select example">
+  <option value="" disabled selected hidden>Estado</option>
   <option name="filtroEstado" value="" selected>Todos los Estados</option>
   <option name="filtroEstado" value="activo">Usuario activo</option>
   <option name="filtroEstado" value="inactivo">Usuario inactivo</option>
@@ -37,10 +38,10 @@
 
 
 <select name="filtroRol" [(ngModel)]="filtro.filtroRole" (click)="filterGetUserRole()"  class="form-select" aria-label="Default select example">
+    <option value="" disabled selected hidden>Rol</option>
   <option name="filtroRol" value="" selected>Todos los roles</option>
   <option name="filtroRol" value="Administrador">Administrador</option>
   <option name="filtroRol" value="secretario">Secretario</option>
-  <option name="filtroRol" value="paciente">Paciente</option>
 </select>
 
 
@@ -65,8 +66,8 @@
                         <th>Usuario</th>
                         <th>Cedula</th>
                         <th>Rol</th>
-                        <th>Estatus</th>
-                        <th>Actions</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
                     </tr>    
                 </thead>    
                 <tbody>
@@ -117,19 +118,27 @@
   </ul>
 </nav> -->
 
-    <nav class="pagination-nav" aria-label="Navegación de página">
-        <ul class="pagination-list" style="display: flex; gap: 10px;">
-            <li (click)="setpagedecrease()" class="pagination-item">
-                <a class="pagination-link pagination-link--arrow" aria-label="Página anterior">
-                    &laquo; Regresar
-                </a>
-            </li>
-            <li (click)="setpageincrease()" class="pagination-item">
-                <a class="pagination-link pagination-link--arrow" aria-label="Página siguiente">
-                    Siguiente &raquo;
-                </a>
-            </li>
-        </ul>
+    <nav class="pagination-nav" aria-label="Navegación de página" style="margin-top: 1.5rem;">
+      <ul class="pagination-list" style="display: flex; align-items: center; justify-content: center; gap: 18px; flex-wrap: wrap;">
+        <li (click)="setpagedecrease()" class="pagination-item">
+          <button class="pagination-link pagination-link--arrow" aria-label="Página anterior">
+            &laquo; Regresar
+          </button>
+        </li>
+        <li class="pagination-info" style="display: flex; flex-direction: column; align-items: center; min-width: 180px;">
+          <span style="font-size: 1rem; color: #2563eb; font-weight: 600;">
+            Página {{pageValue}} de {{cantidadPages}}
+          </span>
+          <span style="font-size: 0.95rem; color: #34495E;">
+            Total registros: {{cantidaUser}}
+          </span>
+        </li>
+        <li (click)="setpageincrease()" class="pagination-item">
+          <button class="pagination-link pagination-link--arrow" aria-label="Página siguiente">
+            Siguiente &raquo;
+          </button>
+        </li>
+      </ul>
     </nav>
 
 
