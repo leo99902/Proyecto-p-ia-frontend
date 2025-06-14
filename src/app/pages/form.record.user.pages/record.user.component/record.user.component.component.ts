@@ -5,14 +5,14 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RecordUserService } from '../../../services/record.user.service/record.user.service.service';
-import { NgClass, NgStyle } from '@angular/common';
+import { NgClass, NgIf, NgStyle } from '@angular/common';
 
 @Component({
   selector: 'app-record-user',
   imports: [MatTabsModule, 
   MatFormFieldModule, 
   MatSelectModule,
-  MatInputModule, FormsModule, ReactiveFormsModule, NgStyle],
+  MatInputModule, FormsModule, ReactiveFormsModule, NgStyle,NgIf],
   templateUrl: './record.user.component.component.html',
   styleUrls: ['./record.user.component.component.scss'], // Corregido
 })
@@ -69,11 +69,11 @@ public recordData(){
     next: (data) => {
       setTimeout(() => {                    
         window.location.reload();
-      }, 1000);
+      }, 3000);
       console.log(data.message)
       if(data.message){
         this.modalOpen.emptyModalOpen = true
-        this.modalOpen.message = data.message
+        this.modalOpen.message = data.message;
         this.modalOpen.color = true
       }else{
         this.modalOpen.emptyModalOpen = false
@@ -88,5 +88,14 @@ public recordData(){
       }
     },
   });
+  this.modalOpen.color = true;
+  this.modalOpen.emptyModalOpen = true;
+  this.modalOpen.message = '¡Usuario registrado exitosamente!';
 }
-  }  
+
+closeModal() {
+  this.modalOpen.emptyModalOpen = false;
+}
+  }
+
+  // gey quien lo lea
