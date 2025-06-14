@@ -39,35 +39,37 @@
             overflow: hidden; /* Evita el scroll */
         }
 
-        /* Estilos de la sección y contenedores principales */
+        /* Contenedor principal */
         .content-login {
-            width: 100%;
+            width: 100vw;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
+            align-items: center;
             padding: 1rem;
+            box-sizing: border-box;
         }
 
         .container {
-            height: 100%; /* Ajustado para el contenido */
             width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
         }
 
         .row {
             display: flex;
             flex-wrap: wrap; /* Permite que los elementos se envuelvan */
             justify-content: center;
-            align-items: center;
-            height: 100%;
+            align-items: stretch;
+            width: 100%;
         }
 
         .col-xl-10 {
-            flex: 0 0 auto;
             width: 100%;
             max-width: 1000px; /* Ancho máximo para el contenedor principal */
         }
 
         .col-lg-6 {
-            flex: 0 0 auto;
             width: 100%;
         }
         @media (min-width: 992px) { /* Breakpoint para pantallas grandes (lg) */
@@ -81,9 +83,13 @@
         .card {
             background-color: var(--form-background);
             border-radius: 1rem; /* Borde más redondeado */
-            text-black: var(--text-dark); /* Color del texto dentro de la tarjeta */
+            color: var(--text-dark); /* Color del texto dentro de la tarjeta */
             box-shadow: var(--shadow-subtle);
             display: flex; /* Usar flex para la estructura interna */
+            flex-direction: row;
+            width: 100%;
+            min-width: 0;
+            overflow: visible;
         }
 
         .row.g-0 {
@@ -93,8 +99,11 @@
 
         /* Columna del formulario */
         .card-body {
-            padding: 2.5rem; /* Ajustado para un mejor look */
-            flex: 1; /* Permite que el cuerpo del formulario ocupe el espacio disponible */
+            padding: 2rem 1.5rem; /* Ajustado para un mejor look */
+            flex: 1 1 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         @media (min-width: 768px) {
             .card-body {
@@ -139,14 +148,15 @@
         }
 
         .form-control {
-            width: calc(100% - 24px); /* Restar padding para ancho total */
+            width: 100%;
             padding: 12px;
             background-color: var(--input-background);
-            border: 1px solid var(--border-light);
+            border: 1px solid #000;
             border-radius: 8px; /* Bordes redondeados */
             color: var(--text-dark);
             font-size: 1rem;
             transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            box-sizing: border-box;
         }
 
         .form-control::placeholder {
@@ -175,6 +185,7 @@
             box-shadow: 0 4px 15px hsla(210, 80%, 50%, 0.2);
             margin-top: 1.5rem; /* Espacio arriba del botón */
             margin-bottom: 0.8rem; /* Espacio debajo del botón */
+            display: block;
         }
 
         .btn.btn-primary:hover {
@@ -337,4 +348,20 @@
         @keyframes dropIn {
             from { transform: translateY(-50px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Responsividad extra para móvil */
+        @media (max-width: 600px) {
+            .card {
+                flex-direction: column;
+                border-radius: 1rem;
+                min-width: 0;
+            }
+            .card-body {
+                padding: 1.5rem 0.7rem;
+            }
+            .container, .col-xl-10 {
+                max-width: 100vw;
+                padding: 0;
+            }
         }
