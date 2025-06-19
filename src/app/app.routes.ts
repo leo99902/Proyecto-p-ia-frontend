@@ -8,6 +8,7 @@ import { PatientsPageComponent } from './pages/patients.page/patients.page.compo
 import { QuotesPagesComponent } from './pages/quotes.page/quotes.page';
 // Importa el guard
 import { authGuard } from './auth/auth.guard/auth.guard';
+import { GamesPatientsPageComponent } from './pages/games.patients.page/games.patients.page.component';
 
 export const routes: Routes = [
     { path: '', component: FormLoginUserPagesComponent },
@@ -15,5 +16,6 @@ export const routes: Routes = [
     { path: 'usuarios', component: FormRecordUserPagesComponent, canActivate: [authGuard] },
     { path: 'pacientes', component: PatientsPageComponent, canActivate: [authGuard] },
     { path: 'citas', component: QuotesPagesComponent, canActivate: [authGuard] },
+    { path: 'juegos', component: GamesPatientsPageComponent, canActivate: [authGuard] },
     { path: '**', component: User404PagesComponent, title: '404' }
 ];

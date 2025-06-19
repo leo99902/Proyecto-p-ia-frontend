@@ -36,6 +36,18 @@
           placeholder="Ej: +58 412 1234567"
         />
       </div>
+
+
+      <div class="input-group">
+        <label for="numero-id">Correo eletronico</label>
+        <input
+          type="email"
+          id="correo-electronico"
+          placeholder="Correo electrónico del paciente"
+        />
+      </div>
+
+
     </section>
 
     <section class="form-section">
@@ -48,48 +60,50 @@
           placeholder="Número de cédula o identificación"
         />
       </div>
+
     </section>
 
     <section class="form-section">
-      <h2>Información Adicional</h2>
-      <div class="input-group">
-        <label for="nombre-completo">Direccion</label>
-        <input
-          type="text"
-          id="dirrecion"
-          placeholder="Dirrecion que tiene el paciente"
-        />
-      </div>
-      <div class="input-group">
-        <label for="nombre-completo">Ocupadocion</label>
-        <input
-          type="text"
-          id="ocupacion"
-          placeholder="Ocupacion que tiene el paciente"
-        />
-      </div>
+  <h2>Información Adicional</h2>
 
-      <div class="input-group">
-  <label>
-    <input type="checkbox" [(ngModel)]="tieneEnfermedad" />
-    ¿Sufre de alguna enfermedad?
-  </label>
-</div>
-<div
-  class="input-group enfermedad-animada"
-  [class.show]="tieneEnfermedad"
->
-  <label for="notas-adicionales">Describa la enfermedad</label>
-  <textarea
-    id="enfermedad"
-    rows="4"
-    placeholder="Especifique una descripción de la enfermedad..."
-    [(ngModel)]="descripcionEnfermedad"
-  ></textarea>
-</div>
+  <div class="input-group">
+    <label for="ocupacion">Ocupacion</label>
+    <input
+      type="text"
+      id="ocupacion"
+      placeholder="Ocupacion que tiene el paciente"
+    />
+  </div>
 
-    </section>
+  <div class="input-group">
+    <label for="nombre-enfermedad">¿Sufre de alguna enfermedad?</label>
+    <input
+      type="text"
+      id="nombre-enfermedad"
+      placeholder="Ej: Diabetes, Hipertensión, Asma, etc."
+      [(ngModel)]="enfermedadPrincipal"
+      name="enfermedadPrincipal"
+    />
+  </div>
 
-    <button type="submit" class="submit-button">Guardar paciente</button>
+  <div
+    class="input-group enfermedad-animada"
+    [class.show]="enfermedadPrincipal && enfermedadPrincipal.length > 0"
+  >
+    <label for="descripcion-enfermedad">Describa la enfermedad (opcional)</label>
+    <textarea style="margin-left: 0.5rem"
+      id="descripcion-enfermedad"
+      rows="4"
+      placeholder="Especifique una descripción detallada de la enfermedad..."
+      [(ngModel)]="descripcionEnfermedad"
+      name="descripcionEnfermedad"
+    ></textarea>
+  </div>
+</section>
+
+<button type="submit" class="submit-button">Guardar paciente</button>
+
+   
+
   </form>
 </div>

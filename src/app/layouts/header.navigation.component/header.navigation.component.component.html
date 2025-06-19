@@ -1,44 +1,23 @@
-<!-- Barra lateral -->
 <aside class="sidebar" [class.sidebar-open]="navVisible">
-  <div class="sidebar-header" style="display: flex; align-items: center; justify-content: center; padding: 1rem;">
-    <div style="width: 4.5rem; height: 4rem; border: 1px solid #fff; border-radius: 8px;"></div>
+  <div class="sidebar-header" style="display: flex; align-items: center; justify-content: center; padding: 1rem; margin-bottom: 3rem;">
+    <div style="width: 6rem; height: 6rem; border-bottom: 1px solid #000;">
+      <img src="logo.png">
+      <h2>ATI</h2>
+    </div>
   </div>
   <nav class="sidebar-content">
     <ul class="nav-list">
-      <li>
-        <a [routerLink]="['/home']" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{ exact: true }"  class="nav-link">
-          <i class="bx bx-home-alt icon"></i>
-          <span>Inicio</span>
-        </a>
-      </li>
-      <li>
-        <a [routerLink]="['/pacientes']" routerLinkActive="router-link-active" routerLinkActive="router-link-active" class="nav-link">
-          <i class="bx bx-group icon"></i>
-          <span>Pacientes</span>
-        </a>
-      </li>
-      <!-- <li>
-        <a [routerLink]="['/citas']" routerLinkActive="router-link-active" class="nav-link" routerLinkActive="router-link-active">
-          <i class="bx bx-calendar icon"></i>
-          <span>Citas</span>
-        </a>
-      </li> -->
-      <li>
-        <a class="nav-link" routerLinkActive="router-link-active">
-          <i class="bx bx-chat icon"></i>
-          <span>ChatBot</span>
-        </a>
-      </li>
-      <li>
-        <a [routerLink]="['/usuarios']" routerLinkActive="router-link-active" routerLinkActive="router-link-active" class="nav-link">
-          <i class="bx bx-user icon"></i>
-          <span>Usuarios</span>
-        </a>
-      </li>
-
-    </ul>
+      <ng-container *ngIf="menuItems$ | async as menus">
+        <li *ngFor="let item of menus">
+          <a [routerLink]="item.path" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{ exact: true }" class="nav-link">
+            <i class="bx {{ item.icon }} icon"></i>
+            <span>{{ item.name }}</span>
+          </a>
+        </li>
+      </ng-container>
+      </ul>
     <div class="sidebar-footer">
-      <a (click)="closeSession()" class="nav-link">
+      <a (click)="showLogoutModal()" class="nav-link" *ngIf="isLoggedIn">
         <i class="bx bx-log-out icon"></i>
         <span style="font-size: .9rem;">Cerrar Sesión</span>
       </a>
@@ -46,27 +25,32 @@
   </nav>
 </aside>
 
-<!-- Barra de navegación -->
-
 <nav class="tab-link">
-  <a [routerLink]="['/home']" routerLinkActive="active">
-    <i class="bx bx-home"></i>
-    <span>Inicio</span>
-  </a>
-  <a [routerLink]="['/pacientes']" routerLinkActive="active">
-    <i class="bx bx-group"></i>
-    <span>Pacientes</span>
-  </a>
-  <a>
-    <i class="bx bx-calendar"></i>
-    <span>ChatBot</span>
-  </a>
-  <a [routerLink]="['/usuarios']" routerLinkActive="active">
-    <i class="bx bx-user"></i>
-    <span>Usuarios</span>
-  </a>
-  <a (click)="closeSession()">
+  <ng-container *ngIf="menuItems$ | async as menus">
+    <a [routerLink]="item.path" routerLinkActive="active" *ngFor="let item of menus">
+      <i class="bx {{ item.icon }}"></i>
+      <span>{{ item.name }}</span>
+    </a>
+  </ng-container>
+  <a (click)="showLogoutModal()" *ngIf="isLoggedIn">
     <i class="bx bx-log-out"></i>
     <span>Salir</span>
   </a>
 </nav>
+
+
+<div class="modal-overlay" *ngIf="showModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 class="modal-title">Confirmar Cierre de Sesión</h3>
+    </div>
+    <div class="modal-body">
+      <p>¿Estás seguro de que deseas cerrar tu sesión?</p>
+      <p class="timer">Tiempo restante: <span class="timer-count">{{ timerCount }}</span> segundos</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-cancel" (click)="cancelLogout()">Cancelar</button>
+      <button class="btn btn-confirm" (click)="confirmLogout()">Cerrar Sesión</button>
+    </div>
+  </div>
+</div>
