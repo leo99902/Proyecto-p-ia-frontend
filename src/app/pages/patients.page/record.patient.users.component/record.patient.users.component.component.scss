@@ -183,7 +183,7 @@
 }
 
 .enfermedad-animada.show {
-  max-height: 200px; // Ajusta según el contenido
+  max-height: 200px; // Adjust as needed
   opacity: 1;
   pointer-events: auto;
   padding-top: 10px;
@@ -285,4 +285,95 @@
 }
 .container::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+/* Styles for the modal (reusing previous, consistent with the existing modal styles) */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(31, 41, 55, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s;
+  backdrop-filter: blur(3px);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.modal-content {
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 10px 32px -3px rgba(0,0,0,0.18), 0 4px 12px -2px rgba(0,0,0,0.10);
+  padding: 2.5rem 2rem;
+  width: 100%;
+  max-width: 450px; /* Adjust max-width for alert modal */
+  position: relative;
+  animation: modalPop 0.35s cubic-bezier(.68,-0.55,.27,1.55);
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  text-align: center; /* Center content for alert modal */
+}
+
+@keyframes modalPop {
+  0%   { transform: scale(0.7) translateY(60px); opacity: 0; }
+  80%  { transform: scale(1.05) translateY(-8px); opacity: 1; }
+  100% { transform: scale(1) translateY(0); }
+}
+
+.modal-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #34495e;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.modal-body {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 1rem;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.btn {
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Styles for success and error messages */
+.modal-content.modal-success .modal-title {
+    color: #28a745; /* Green for success title */
+}
+.modal-content.modal-error .modal-title {
+    color: #dc3545; /* Red for error title */
+}
+
+.modal-content.modal-success .btn.btn-success {
+    background-color: #28a745; /* Green for success button */
+    &:hover {
+        background-color: #218838;
+    }
+}
+.modal-content.modal-error .btn.btn-error {
+    background-color: #dc3545; /* Red for error button */
+    &:hover {
+        background-color: #c82333;
+    }
 }

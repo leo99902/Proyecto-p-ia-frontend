@@ -1,6 +1,7 @@
 // src/app/core/services/auth.service/auth.service.ts
 
-import { Injectable } from '@angular/core';
+import { Injectable, PLATFORM_ID, inject } from '@angular/core'; // Importar PLATFORM_ID e inject
+import { isPlatformBrowser } from '@angular/common'; // Importar isPlatformBrowser
 import { BehaviorSubject, Observable } from 'rxjs';
 import { jwtDecode } from 'jwt-decode'; // Importación correcta de la librería instalada
 
@@ -30,8 +31,18 @@ export interface MenuItem {
   providedIn: 'root' // Hace que este servicio sea un singleton y esté disponible en toda la aplicación
 })
 export class AuthService {
+  private platformId = inject(PLATFORM_ID); // Inyectar PLATFORM_ID
+
+  // Obtener el token de forma segura para SSR
+  private get _tokenFromLocalStorage(): string | null {
+    if (isPlatformBrowser(this.platformId)) {
+      return localStorage.getItem('token');
+    }
+    return null;
+  }
+
   // BehaviorSubject para el estado de autenticación (true si hay token, false si no)
-  private _isLoggedIn = new BehaviorSubject<boolean>(!!localStorage.getItem('token'));
+  private _isLoggedIn = new BehaviorSubject<boolean>(!!this._tokenFromLocalStorage); // Usar el getter seguro
   readonly isLoggedIn$ = this._isLoggedIn.asObservable(); // Observable público para suscribirse
 
   // BehaviorSubject para la lista de menús que el usuario tiene permitido ver
@@ -78,11 +89,11 @@ export class AuthService {
   }
 
   /**
-   * Obtiene el token JWT del `localStorage`.
-   * @returns El token como string o `null` si no existe.
+   * Obtiene el token JWT del `localStorage` de forma segura para SSR.
+   * @returns El token como string o `null` si no existe o no está en el navegador.
    */
   getToken(): string | null {
-    return localStorage.getItem('token');
+    return this._tokenFromLocalStorage; // Usar el getter seguro
   }
 
   /**
@@ -108,6 +119,12 @@ export class AuthService {
    * Los menús filtrados se emiten a través del `_userMenus` BehaviorSubject.
    */
   private loadMenusFromToken(): void {
+    // Solo intentar cargar menús si estamos en un navegador
+    if (!isPlatformBrowser(this.platformId)) {
+      this._userMenus.next([]);
+      return;
+    }
+
     const decodedToken = this.getDecodedToken();
     // Verifica si hay un token decodificado y si contiene un array 'menu' válido
     if (decodedToken && decodedToken.menu && Array.isArray(decodedToken.menu)) {
@@ -144,9 +161,12 @@ export class AuthService {
    * Cierra la sesión del usuario: remueve el token, actualiza el estado de login y limpia los menús.
    */
   logout(): void {
-    localStorage.removeItem('token'); // Remueve el token del localStorage
-    // Si tu backend guarda información de usuario extra en localStorage (ej. 'user'), bórrala también
-    localStorage.removeItem('user');
+    // Solo remover de localStorage si estamos en un navegador
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.removeItem('token'); // Remueve el token del localStorage
+      // Si tu backend guarda información de usuario extra en localStorage (ej. 'user'), bórrala también
+      localStorage.removeItem('user');
+    }
     this.setLoggedIn(false); // Actualiza el estado de login a false
     this._userMenus.next([]); // Limpia los menús de la UI
   }
