@@ -1,86 +1,57 @@
-import { Component, inject, NgModule, signal } from '@angular/core';
-import { RegisteredUserListComponentComponent } from '../form.record.user.pages/registered.user.list.component/registered.user.list.component.component';
-import { FormsModule, NgModel, NgModelGroup } from '@angular/forms';
+// src/app/modules/auth/login/form.login.user.pages.component.ts
+
+import { Component, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { NgIf } from '@angular/common';
+
 import { Router } from '@angular/router';
-import { GetListUserService } from '../../services/get.list.user.service/get.list.user.service.service';
-import { NgClass, NgIf } from '@angular/common';
 import { LoginServiceService } from '../../services/login.service/login.service.service';
+import { AuthService } from '../../services/auth.service/auth.service';
 
 @Component({
   selector: 'app-form-login-user',
-  imports: [FormsModule, NgIf],
+  imports: [
+    FormsModule,
+    NgIf
+  ],
   templateUrl: './form.login.user.pages.component.html',
   styleUrl: './form.login.user.pages.component.scss',
   standalone: true
 })
-export class FormLoginUserPagesComponent{
-  public name =  ''
-  public password = ''
+export class FormLoginUserPagesComponent {
+  public name = '';
+  public password = '';
 
-  public router = inject(Router)
-  public getUser = inject(GetListUserService)
-  public loginService = inject(LoginServiceService)
-
-  public valueInputs = {
-    valueName : 'leo',
-    valuePassword : ''
-  }
-  
-  public users: any = {id: 123, nme: 'jose'}; // Tipado correcto
-  public usuarios : any // Tipado correcto
-
+  public router = inject(Router);
+  public loginService = inject(LoginServiceService);
+  public authService = inject(AuthService);
 
   public modalAlertLogin = false;
+  public modalMessage = '';
 
-  openModal() {
+  openModal(): void {
     this.modalAlertLogin = true;
   }
 
-  closeModal() {
+  closeModal(): void {
     this.modalAlertLogin = false;
   }
 
-  public modalMessage = "";
-  
-  
-    public httpHome(): void {
-      this.valueInputs.valueName = this.name
-      this.valueInputs.valuePassword = this.password
-
-      // Llamada al servicio de login
-      this.loginService.loginUser(this.valueInputs.valueName, this.valueInputs.valuePassword).subscribe({
-        next: (data: any) => {
-
-          if(data.token) {
-            localStorage.setItem('token', data.token);
-            this.router.navigate(['/home']);
-          }
-
-        },
-        error: (e) => {
-          this.modalMessage = e.error.message;
-          this.openModal();
+  public httpHome(): void {
+    // Se usan 'this.name' y 'this.password' directamente de los [(ngModel)]
+    this.loginService.loginUser(this.name, this.password).subscribe({
+      next: (data: any) => {
+        if (data.token) {
+          localStorage.setItem('token', data.token);
+          this.authService.setLoggedIn(true);
+          this.router.navigate(['/home']);
         }
-      });
-
-
-
-
-      // this.getUser.listUsers(this.users).subscribe({
-      //   next: (data: any) => {
-
-      //     if((this.valueInputs.valueName === data.value[0].user) && (this.valueInputs.valuePassword === data.value[0].password)){
-      //       this.router.navigate(['/home'])
-      //     }else{
-      //       this.router.navigate(['/'])
-      //       this.openModal = true
-      //       this.closeModal = false
-      //     }
-
-      //   },
-      //   error: (e) => {
-      //     console.error('Error al obtener usuarios:', e);
-      //   }
-      // })
+      },
+      error: (e) => {
+        // Asegúrate de que siempre haya un mensaje, incluso si la API no lo proporciona
+        this.modalMessage = e.error?.message || 'Ocurrió un error inesperado. Por favor, inténtelo de nuevo.';
+        this.openModal();
+      }
+    });
   }
 }

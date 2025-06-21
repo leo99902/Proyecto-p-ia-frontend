@@ -1,145 +1,97 @@
-<div class="signup-form" style="width: 100%; height: 80%; padding: 20px;"> 
-      <form [formGroup]="recorUserForm">
-		<h3 style="color: #000">Complete para registrar</h3>
-		<hr>
-        <div class="form-group">
+<div class="signup-form"> <form [formGroup]="recorUserForm">
+    <h3>Complete para registrar</h3> <hr>
+    <div class="form-group">
 
-<div class="input-group" style="display: flex; flex-direction: column; width: 100%;">
-  <label for="usuario">Usuario*</label>
-  <div class="input-container">
-    <input [(ngModel)]="user.user" formControlName="user"
-      id="usuario"
-      type="text"
-      class="input-field"
-      placeholder="Ingresa tu usuario"
-      name="usuario"
-    />
-  </div>
-</div>
-
-                
-<div class="input-group" style="display: flex; flex-direction: column; width: 100%;">
-  <label for="usuario">Cedula*</label>
-  <div class="input-container">
-    <input [(ngModel)]="user.cedula" formControlName="cedula"
-      id="usuario"
-      type="text"
-      class="input-field"
-      placeholder="Ingresa tu usuario"
-      name="usuario"
-    />
-  </div>
-</div>
-
-
-
-
-<div class="input-group" style="display: flex; flex-direction: column; width: 100%;">
-  <label for="usuario">Nombre*</label>
-  <div class="input-container">
-    <input [(ngModel)]="user.name" formControlName="name"
-      id="usuario"
-      type="text"
-      class="input-field"
-      placeholder="Ingresa tu usuario"
-      name="usuario"
-    />
-  </div>
-</div>
-
-
-
-<div class="input-group" style="display: flex; flex-direction: column; width: 100%;">
-  <label for="usuario">Email*</label>
-  <div class="input-container">
-    <input [(ngModel)]="user.email" formControlName="email"
-      id="usuario"
-      type="text"
-      class="input-field"
-      placeholder="Ingresa tu usuario"
-      name="usuario"
-    />
-  </div>
-</div>
-
-
-</div>
-
-         <div class="form-group">
-
-<label for=""></label>Seleciones su Rol
-<select [(ngModel)]="user.rol" name="opcionRol" formControlName="role" class="form-select" aria-label="Default select example">
-  <option name="opcionRol" value="Administrador">Administrador</option>
-  <option name="opcionRol" value="Secretario">Secretario</option>
-</select>
-
-
+      <div class="input-group"> <label for="usuario">Usuario*</label>
+        <div class="input-container">
+          <input [(ngModel)]="user.user" formControlName="user"
+            id="usuario"
+            type="text"
+            class="input-field"
+            placeholder="Ingresa tu usuario"
+            name="usuario"
+          />
         </div>
+      </div>
 
-
-<div class="input-group" style="display: flex; flex-direction: column; width: 100%;">
-  <label for="usuario">Contrasena*</label>
-  <div class="input-container">
-    <input [(ngModel)]="user.password" formControlName="password"
-      id="usuario"
-      type="text"
-      class="input-field"
-      placeholder="Ingresa tu usuario"
-      name="usuario"
-    />
-  </div>
-</div>
-
-
-
-
-		<div class="form-group" style="margin-bottom: 0;">
-            <button (click)="recordData()" type="submit" class="btn btn-primary btn-lg"> Registrar Usuario </button>
+      <div class="input-group"> <label for="cedula">Cédula*</label>
+        <div class="input-container">
+          <input [(ngModel)]="user.cedula" formControlName="cedula"
+            id="cedula"
+            type="text"
+            class="input-field"
+            placeholder="Ingresa la cédula"
+            name="cedula"
+          />
         </div>
-    </form>
+      </div>
 
-    <section
-  class="openModal"
-  [ngStyle]="{ display: modalOpen.emptyModalOpen ? 'flex' : 'none' }"
-  (click)="closeModal()"
-  style="
-    position: fixed;
-    top: 0; left: 0; width: 100vw; height: 100vh;
-    background: rgba(44, 62, 80, 0.55); /* Fondo oscuro y opaco */
-    align-items: center; justify-content: center; z-index: 9999;
-    transition: background 0.3s;
-  "
->
-  <div
-    [style.background]="modalOpen.message === '¡Usuario registrado exitosamente!' ? '#22c55e' : '#fff'"
-    style="
-      min-width: 320px; max-width: 90vw;
-      padding: 1.5rem 2rem;
-      border-radius: 16px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-      display: flex; align-items: center; gap: 1rem;
-      border: 1.5px solid #e5e7eb;
-      z-index: 10000;
-    "
-    (click)="$event.stopPropagation()"
-  >
-    <div style="display: flex; align-items: center; justify-content: center;">
-      <svg *ngIf="modalOpen.message !== '¡Usuario registrado exitosamente!'" xmlns="http://www.w3.org/2000/svg" width="38" height="38" fill="#ef4444" viewBox="0 0 16 16">
-        <circle cx="8" cy="8" r="8" fill="#fee2e2"/>
-        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" fill="#ef4444"/>
-        <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z" fill="#ef4444"/>
-      </svg>
-      <svg *ngIf="modalOpen.message === '¡Usuario registrado exitosamente!'" xmlns="http://www.w3.org/2000/svg" width="38" height="38" fill="#22c55e" viewBox="0 0 16 16">
-        <circle cx="8" cy="8" r="8" fill="#bbf7d0"/>
-        <path d="M13.485 4.929a1 1 0 0 0-1.414-1.414L7 8.586 4.929 6.515a1 1 0 1 0-1.414 1.414l2.828 2.829a1 1 0 0 0 1.414 0l5.728-5.829z" fill="#22c55e"/>
-      </svg>
-    </div>
-    <div style="flex: 1;">
-      <p style="margin: 0; font-size: 1.1rem; color: #34495e; font-weight: 500;">
-        {{modalOpen.message}}
-      </p>
-    </div>
-  </div>
-</section> 
+      <div class="input-group"> <label for="name">Nombre*</label>
+        <div class="input-container">
+          <input [(ngModel)]="user.name" formControlName="name"
+            id="name"
+            type="text"
+            class="input-field"
+            placeholder="Ingresa el nombre"
+            name="name"
+          />
+        </div>
+      </div>
 
+      <div class="input-group"> <label for="email">Email*</label>
+        <div class="input-container">
+          <input [(ngModel)]="user.email" formControlName="email"
+            id="email"
+            type="text"
+            class="input-field"
+            placeholder="Ingresa el correo electrónico"
+            name="email"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="opcionRol">Seleccione su Rol</label>
+      <select [(ngModel)]="user.rol" name="opcionRol" formControlName="role" class="form-select" aria-label="Default select example">
+        <option value="Administrador">Administrador</option>
+        <option value="Secretario">Secretario</option>
+      </select>
+    </div>
+
+    <div class="input-group"> <label for="password">Contraseña*</label>
+      <div class="input-container">
+        <input [(ngModel)]="user.password" formControlName="password"
+          id="password"
+          type="password"
+          class="input-field"
+          placeholder="Ingresa tu contraseña"
+          name="password"
+        />
+      </div>
+    </div>
+
+    <div class="form-group"> <button (click)="recordData()" type="submit" class="btn btn-primary btn-lg"> Registrar Usuario </button>
+    </div>
+  </form>
+
+  <section
+    class="openModal"
+    [ngStyle]="{ display: modalOpen.isOpen ? 'flex' : 'none' }"
+    (click)="modalOpen.canCloseOnClickOutside && closeModal()"
+  > <div
+      class="modal-content" [style.background]="modalOpen.isSuccess ? '#22c55e' : '#fff'"
+      (click)="$event.stopPropagation()"
+    > <div> <svg *ngIf="!modalOpen.isSuccess" xmlns="http://www.w3.org/2000/svg" width="38" height="38" fill="#ef4444" viewBox="0 0 16 16">
+          <circle cx="8" cy="8" r="8" fill="#fee2e2"/>
+          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" fill="#ef4444"/>
+          <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z" fill="#ef4444"/>
+        </svg>
+        <svg *ngIf="modalOpen.isSuccess" xmlns="http://www.w3.org/2000/svg" width="38" height="38" fill="#22c55e" viewBox="0 0 16 16">
+          <circle cx="8" cy="8" r="8" fill="#bbf7d0"/>
+          <path d="M13.485 4.929a1 1 0 0 0-1.414-1.414L7 8.586 4.929 6.515a1 1 0 1 0-1.414 1.414l2.828 2.829a1 1 0 0 0 1.414 0l5.728-5.829z" fill="#22c55e"/>
+        </svg>
+      </div>
+      <p class="message-modal">{{modalOpen.message}}</p> </div>
+  </section>
 </div>

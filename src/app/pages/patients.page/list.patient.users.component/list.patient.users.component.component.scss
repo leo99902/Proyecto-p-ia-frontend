@@ -1,204 +1,470 @@
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+/* Keep all the styles you already had for the table, buttons, etc. */
 
-        .container {
-            background-color: #ffffff; /* Fondo blanco para el contenedor principal */
-            border-radius: 12px; /* Esquinas más redondeadas */
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Sombra más pronunciada */
-            width: 100%;
-            max-width: 900px; /* Ancho máximo para el contenedor */
-            padding: 30px;
-        }
+main {
+    padding: 2.5rem 2rem;
+    background-color: #f8f9fa; /* Light gray background */
+    min-height: calc(100vh - 80px); /* Adjust according to your nav height */
+}
+@media (min-width: 768px) {
+    main {
+        padding: 3rem 4rem;
+    }
+}
 
-        .header {
-            border-bottom: 1px solid #e5e7eb; /* Borde inferior más suave */
-            padding-bottom: 24px;
-            margin-bottom: 24px;
-        }
+/* Dashboard title and add button */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap; /* Allows elements to wrap */
+    gap: 1rem; /* Space between title and button in responsive */
+}
 
-        .header h1 {
-            color: #1f2937; /* Color de texto más oscuro */
-            font-size: 2.25rem; /* Tamaño de fuente más grande */
-            font-weight: 700; /* Negrita */
-        }
+.dashboard-header h1 {
+    font-size: 2.5rem; /* text-4xl */
+    font-weight: 700; /* font-bold */
+    color: #34495e; /* Dark gray text */
+    flex-grow: 1; /* Allows the title to take up space */
+    text-align: center;
+}
+@media (min-width: 768px) {
+    .dashboard-header h1 {
+        text-align: left;
+    }
+}
 
-        .search-bar {
-            border: 1px solid #d1d5db; /* Borde más claro */
-            border-radius: 8px; /* Esquinas redondeadas */
-            overflow: hidden;
-        }
+.new-patient-button { /* Renamed from .new-menu-button */
+  background: #ea580c; /* Primary orange */
+  color: #fff;
+  font-weight: 600;
+  padding: 0.75rem 1.75rem;
+  border-radius: 0.625rem; /* rounded-lg */
+  box-shadow: 0 4px 12px rgba(234, 88, 12, 0.2);
+  transition: all 0.3s ease-in-out;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
 
-        .search-bar input {
-            padding: 10px 14px;
-            font-size: 1rem;
-            color: #374151; /* Color de texto para input */
-        }
+  &:hover {
+    background: #c2410c; /* Darker orange on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(234, 88, 12, 0.3);
+  }
 
-        .search-bar button {
-            background-color: #f9fafb; /* Fondo claro para el botón de búsqueda */
-            color: #6b7280; /* Color de icono más suave */
-            padding: 10px 14px;
-        }
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(234, 88, 12, 0.15);
+  }
 
-        .search-bar button:hover {
-            background-color: #e5e7eb; /* Fondo al pasar el ratón */
-        }
+  @media (max-width: 600px) {
+    width: 100%;
+    text-align: center;
+    padding: 0.7rem 1rem;
+  }
+}
 
-        .add-patient-button {
-            background-color: #3b82f6; /* Azul más vibrante */
-            color: #ffffff;
-            padding: 12px 20px;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600; /* Seminegrita */
-            transition: background-color 0.2s ease-in-out;
-        }
+.cards-grid {
+  display: grid;
+  /* Single column that takes 100% of the grid on all screens */
+  grid-template-columns: 1fr; 
+  gap: 1.5rem;
 
-        .add-patient-button:hover {
-            background-color: #2563eb; /* Azul más oscuro al pasar el ratón */
-        }
+  /* Previous media queries removed as 1fr is consistent */
+}
 
-        .status-bar {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Columnas responsivas */
-            gap: 20px;
-            padding: 20px 0;
-            border-bottom: 1px solid #e5e7eb;
-            margin-bottom: 24px;
-        }
+.card {
+  background: #ffffff;
+  padding: 1.8rem;
+  border-radius: 0.8rem;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  border-left: 5px solid transparent; /* Placeholder for border color */
+  transition: all 0.3s ease-in-out;
 
-        .status-item {
-            text-align: center;
-            padding: 12px;
-            background-color: #f9fafb; /* Fondo para cada ítem de estado */
-            border-radius: 8px;
-        }
+  &:hover {
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    transform: translateY(-3px);
+  }
+}
 
-        .status-item span {
-            color: #6b7280;
-            font-size: 0.9rem;
-            margin-bottom: 6px;
-            font-weight: 500;
-        }
+/* Specific color for the single patient card */
+.card.patient-card-full-width { /* Class applied directly to the patient card */
+  border-left-color: #007bff; /* Blue for Total Patients */
+}
 
-        .status-item p {
-            color: #1f2937;
-            font-size: 1.6rem; /* Tamaño de fuente más grande para los números */
-            font-weight: 700;
-        }
+/* Removed nth-child selectors for menu and report cards,
+   as these cards no longer exist in the HTML */
 
-        .filters {
-            display: flex;
-            flex-wrap: wrap; /* Permite que los filtros se envuelvan en pantallas pequeñas */
-            gap: 20px;
-            padding: 16px 0;
-            margin-bottom: 24px;
-            align-items: center;
-        }
 
-        .filter-group label {
-            color: #4b5563; /* Color de texto más suave */
-            font-size: 0.9rem;
-            font-weight: 500;
-            margin-right: 8px;
-        }
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
 
-        .filter-group select {
-            padding: 8px 12px;
-            border: 1px solid #d1d5db;
-            border-radius: 6px;
-            font-size: 0.95rem;
-            color: #374151;
-            background-color: #ffffff;
-            cursor: pointer;
-            appearance: none; /* Elimina la flecha predeterminada */
-            background-image: url('data:image/svg+xml;charset=UTF-8,<svg fill="%236b7280" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
-            background-repeat: no-repeat;
-            background-position: right 12px center;
-            background-size: 16px;
-        }
+.card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #6c757d; /* Medium gray */
+  margin: 0;
+}
 
-        .filter-group select:focus {
-            outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
-        }
+.card-icon {
+  width: 28px;
+  height: 28px;
+  color: #929a9f; /* Lighter gray for icons */
+}
 
-        .patient-list .patient-item {
-            padding: 16px 20px;
-            border-bottom: 1px solid #e5e7eb;
-            transition: background-color 0.2s ease-in-out;
-        }
+.card-value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #34495e; /* Dark gray for large numbers */
+  line-height: 1;
+  margin-bottom: 0.3rem; /* Minimum space */
+}
 
-        .patient-list .patient-item:last-child {
-            border-bottom: none;
-        }
+.card-description {
+  font-size: 0.9rem;
+  color: #888; /* Lighter gray for description */
+}
 
-        .patient-list .patient-item:hover {
-            background-color: #f9fafb; /* Fondo al pasar el ratón sobre el paciente */
-        }
+/* Monthly report section completely hidden */
+.monthly-report-section {
+  display: none; 
+}
 
-        .patient-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+.section-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #34495e;
+  margin-bottom: 1rem;
+  text-align: left; /* Left-aligned title */
 
-        .patient-info svg {
-            width: 24px;
-            height: 24px;
-            fill: #6b7280; /* Color de icono de usuario */
-        }
+  @media (max-width: 768px) {
+    font-size: 1.4rem;
+  }
+}
 
-        .patient-info span {
-            color: #1f2937;
-            font-size: 1.05rem;
-            font-weight: 500;
-        }
+.chart-placeholder {
+  background-color: #f0f2f5; /* Darker background for chart area */
+  border-radius: 0.5rem;
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #aeb5bd;
+  font-size: 1.1rem;
+  font-style: italic;
+  min-height: 150px; /* Ensures the placeholder is visible */
+  border: 1px dashed #d0d0d0;
+}
 
-        .status {
-            margin-left: auto;
-            padding: 6px 12px;
-            border-radius: 9999px; /* Totalmente redondeado */
-            font-size: 0.85rem;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
+/* -------------- NEW STYLES FOR PATIENT TABLE -------------- */
+.patient-list-section {
+    margin-top: 2.5rem;
+    background: #ffffff;
+    padding: 2.5rem;
+    border-radius: 0.8rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
 
-        .status.active {
-            background-color: #dcfce7; /* Verde claro */
-            color: #22c55e; /* Verde oscuro */
-        }
+    @media (max-width: 768px) {
+        padding: 1.5rem;
+    }
+}
 
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 20px;
-            }
-            .header__actions {
-                flex-direction: column;
-                width: 100%;
-                gap: 10px;
-            }
-            .search-bar {
-                width: 100%;
-            }
-            .add-patient-button {
-                width: 100%;
-            }
-            .status-bar {
-                grid-template-columns: 1fr 1fr; /* 2 columnas en móvil */
-            }
-            .filters {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 15px;
-            }
-            .filter-group {
-                width: 100%;
-            }
-            .filter-group select {
-                width: 100%;
-            }
-        }
+.table-container {
+    overflow-x: auto; /* Allows horizontal scrolling on small screens */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    border: 1px solid #e0e0e0;
+    border-radius: 0.5rem;
+}
+
+.patients-table {
+    width: 100%;
+    border-collapse: collapse; /* Removes double borders */
+    min-width: 600px; /* Ensures the table is not too small */
+}
+
+.patients-table th,
+.patients-table td {
+    text-align: left;
+    padding: 1rem;
+    border-bottom: 1px solid #e0e0e0;
+    color: #34495e;
+}
+
+.patients-table th {
+    background-color: #f2f4f6; /* Background for headers */
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    color: #6c757d;
+}
+
+.patients-table tr:last-child td {
+    border-bottom: none; /* Removes the bottom border of the last row */
+}
+
+.patients-table tbody tr:hover {
+    background-color: #f8f9fa; /* Hover effect on rows */
+}
+
+.action-buttons {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.edit-button {
+    background-color: #007bff; /* Blue for edit */
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.4rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: background-color 0.2s, transform 0.2s;
+
+    &:hover {
+        background-color: #0056b3;
+        transform: translateY(-1px);
+    }
+
+    svg {
+        width: 1rem;
+        height: 1rem;
+        fill: currentColor; /* Ensures SVG inherits text color */
+    }
+}
+
+/* NEW: Style for the "View" button */
+.view-button {
+    background-color: #6c757d; /* Gray for view */
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.4rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: background-color 0.2s, transform 0.2s;
+
+    &:hover {
+        background-color: #5a6268;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    svg {
+        width: 1rem;
+        height: 1rem;
+        fill: currentColor;
+    }
+}
+
+.error-message {
+    text-align: center;
+    padding: 20px;
+    color: #dc3545; /* Red for error messages */
+    font-weight: 500;
+}
+
+.no-data-message {
+    text-align: center;
+    padding: 20px;
+    color: #7f8c8d; /* Gray for no data messages */
+    font-style: italic;
+}
+
+
+/* -------------- STYLES FOR EDIT MODAL (Reused from existing modals) -------------- */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(31, 41, 55, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000; /* Ensures it is above other elements */
+  animation: fadeIn 0.2s;
+  backdrop-filter: blur(3px); /* Blur effect */
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.modal-content {
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 10px 32px -3px rgba(0,0,0,0.18), 0 4px 12px -2px rgba(0,0,0,0.10);
+  padding: 2.5rem 2rem;
+  width: 100%;
+  max-width: 700px; /* Increased max-width for two columns */
+  position: relative;
+  animation: modalPop 0.35s cubic-bezier(.68,-0.55,.27,1.55);
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+
+    @media (max-width: 768px) { /* Adjustment for tablets */
+        max-width: 90%;
+        padding: 1.5rem;
+    }
+    @media (max-width: 600px) { /* Adjustment for mobile */
+        padding: 1.5rem;
+        max-width: 95%;
+    }
+}
+
+@keyframes modalPop {
+  0%   { transform: scale(0.7) translateY(60px); opacity: 0; }
+  80%  { transform: scale(1.05) translateY(-8px); opacity: 1; }
+  100% { transform: scale(1) translateY(0); }
+}
+
+.modal-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #34495e; /* Similar color to dashboard title */
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* New style for the form grid inside the modal */
+.modal-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two equal-width columns */
+    gap: 1rem 1.5rem; /* Vertical and horizontal spacing between fields */
+
+    @media (max-width: 768px) { /* On smaller screens, fields stack */
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}
+
+
+.form-group {
+    /* Removed margin-bottom here so the grid gap handles it */
+    margin-bottom: 0; 
+}
+
+.modal-label {
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 0.4rem;
+  display: block;
+  font-size: 0.95rem;
+}
+
+.modal-input {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border: 1px solid #ced4da;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  background: #fcfcfc;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.modal-input:focus {
+  border-color: #007bff; /* Blue for modal focus */
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+  background: #fff;
+}
+
+.modal-input.readonly {
+    background-color: #e9ecef; /* Gray background for read-only fields */
+    cursor: not-allowed;
+}
+
+/* Style for the note below the password */
+.text-note {
+    display: block; 
+    margin-top: 5px; 
+    color: #7F8C8D; 
+    font-size: 0.85rem;
+}
+
+/* Adjustments for the disease checkbox to align better in the grid */
+.form-group-checkbox {
+    display: flex;
+    align-items: center; /* Vertically center the checkbox with its label */
+    gap: 0.5rem; /* Space between checkbox and label */
+    margin-bottom: 1rem; /* Bottom margin for this group */
+}
+
+/* Specific style for view modal checkbox label alignment */
+.form-group-checkbox-view {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+
+.modal-checkbox {
+    width: auto; /* Let the checkbox have its natural width */
+    height: auto; /* Let the checkbox have its natural height */
+    margin: 0; /* Remove margins just in case */
+    transform: scale(1.2); /* Make the checkbox a bit larger */
+}
+
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.8rem;
+  margin-top: 1.5rem;
+
+    @media (max-width: 400px) {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+.modal-btn-cancel,
+.modal-btn-save {
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+    @media (max-width: 400px) {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+.modal-btn-cancel {
+  background-color: #6c757d; /* Gray for cancel */
+  color: white;
+  &:hover {
+    background-color: #5a6268;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+}
+
+.modal-btn-save {
+  background-color: #28a745; /* Green for save */
+  color: white;
+  &:hover {
+    background-color: #218838;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+}

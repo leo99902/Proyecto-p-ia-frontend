@@ -1,84 +1,205 @@
-  <div class="container" style="width: 100%;">
+<main class="dashboard-container">
 
-        <section class="status-bar">
-            <div class="status-item">
-                <span>Totales</span>
-                <p>13</p>
+    <div class="cards-grid">
+        <!-- Single card for "Total Patients" -->
+        <div class="card patient-card-full-width">
+            <div class="card-header">
+                <h3 class="card-title">Total de Pacientes</h3> 
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="card-icon" viewBox="0 0 16 16">
+                  <path d="M1 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                  <path d="M7.784 14.392A2.238 2.238 0 0 1 7 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 7 9c-4 0-5 3-5 4s1 1 1 1z"/>
+                </svg>
             </div>
-            <div class="status-item">
-                <span>Activos</span>
-                <p>13</p>
-            </div>
-            <div class="status-item">
-                <span>Con cita</span>
-                <p>2</p>
-            </div>
-            <div class="status-item">
-                <span>Inactivos</span>
-                <p>0</p>
-            </div>
-        </section>
+            <p class="card-value">{{ dashboardData.totalPatients }}</p>
+            <p class="card-description">{{ dashboardData.patientsDescription }}</p>
+        </div>
+    </div>
 
-        <section class="filters" style="display: 100%; display: flex; justify-content: space-between;">
-            <div style="display: flex; gap: 20px; align-items: center;">
-            <div class="filter-group flex items-center">
-                <label for="estado">Estado:</label>
-                <select id="estado">
-                    <option>Todos</option>
-                    <option>Activos</option>
-                    <option>Inactivos</option>
-                </select>
-            </div>
-            <div class="filter-group flex items-center">
-                <label for="ordenar-por">Ordenar por:</label>
-                <select id="ordenar-por">
-                    <option>Nombre</option>
-                    <option>Fecha de alta</option>
-                </select>
-            </div>
-            </div>
-            <div class="search-bar flex w-full max-w-xs">
-                    <input type="text" placeholder="Buscar" class="flex-grow focus:outline-none">
-                    <button class="flex-shrink-0">
-                        <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
-                            <path d="M10 18a7.952 7.952 0 0 0 4.897-1.688l4.396 4.396 1.414-1.414-4.396-4.396A7.952 7.952 0 0 0 18 10c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8zm0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6-6-2.691-6-6 2.691-6 6-6z"/>
-                        </svg>
-                    </button>
-                </div>
-        </section>
+    <!-- The "Monthly Report Gain" section has been removed -->
 
-        <main class="patient-list">
+    <!-- SECTION: Patient Management (remains) -->
+    <div class="patient-list-section">
+        <h3 class="section-title">Listado de Pacientes</h3>
+        <div class="table-container">
+            <table class="patients-table">
+                <thead>
+                    <tr>
+                        <th>Nombre Completo</th>
+                        <th>CI</th>
+                        <th>Teléfono</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Loading indicator -->
+                    <tr *ngIf="isLoadingPatients">
+                        <td colspan="5" style="text-align: center; padding: 20px;">Cargando pacientes...</td>
+                    </tr>
+                    <!-- Error message -->
+                    <tr *ngIf="!isLoadingPatients && patientsErrorMessage">
+                        <td colspan="5" class="error-message">{{ patientsErrorMessage }}</td>
+                    </tr>
+                    <!-- List of patients -->
+                    <tr *ngFor="let patient of patients">
+                        <td>{{ patient.name }}</td>
+                        <td>{{ patient.cedula || patient.ci }}</td>
+                        <td>{{ patient.phone }}</td>
+                        <td>{{ patient.state }}</td>
+                        <td class="action-buttons">
+                            <!-- Button to open edit modal -->
+                            <button class="edit-button" (click)="openEditPatientModal(patient)">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                </svg>
+                                Editar
+                            </button>
+                            <!-- NEW Button to open view details modal -->
+                            <button class="view-button" (click)="openViewPatientModal(patient)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                                    <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                                </svg>
+                                Ver
+                            </button>
+                        </td>
+                    </tr>
+                    <!-- Message if no patients -->
+                    <tr *ngIf="!isLoadingPatients && !patientsErrorMessage && patients.length === 0">
+                        <td colspan="5" class="no-data-message">No hay pacientes registrados.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-
-            <div class="patient-item">
-                <div class="patient-info" style="display: flex; justify-content: space-between;">
+    <!-- Modal for editing patient (remains as is) -->
+    <div class="modal-backdrop" *ngIf="showEditPatientModal" (click)="closeEditPatientModal()">
+        <div class="modal-content" (click)="$event.stopPropagation()">
+            <h3 class="modal-title">Editar Paciente</h3>
+            <form (ngSubmit)="onEditPatientSubmit()">
+                <div class="modal-form-grid">
+                    <div class="form-group">
+                        <label for="editName">Nombre Completo</label>
+                        <input type="text" id="editName" name="name" [(ngModel)]="selectedPatientForEdit.name" required class="modal-input">
+                    </div>
+                    <div class="form-group">
+                        <label for="editEmail">Email</label>
+                        <input type="email" id="editEmail" name="email" [(ngModel)]="selectedPatientForEdit.email" required class="modal-input">
+                    </div>
+                    <div class="form-group">
+                        <label for="editCi">Cédula de Identidad (CI)</label>
+                        <input type="text" id="editCi" name="ci" [(ngModel)]="selectedPatientForEdit.ci" required class="modal-input" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="editAge">Edad</label>
+                        <input type="number" id="editAge" name="age" [(ngModel)]="selectedPatientForEdit.age" required class="modal-input">
+                    </div>
+                    <div class="form-group">
+                        <label for="editAddress">Dirección</label>
+                        <input type="text" id="editAddress" name="address" [(ngModel)]="selectedPatientForEdit.address" class="modal-input">
+                    </div>
+                    <div class="form-group">
+                        <label for="editOccupation">Ocupación</label>
+                        <input type="text" id="editOccupation" name="occupation" [(ngModel)]="selectedPatientForEdit.occupation" class="modal-input">
+                    </div>
+                    <div class="form-group">
+                        <label for="editPhone">Teléfono</label>
+                        <input type="text" id="editPhone" name="phone" [(ngModel)]="selectedPatientForEdit.phone" class="modal-input">
+                    </div>
                     
-                    <div style="display: flex; align-items: center; gap: 10px;">
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 4a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4m0 10c4.411 0 8 1.79 8 4v2H4v-2c0-2.21 3.589-4 8-4z"/>
-                    </svg>
-                    <span>Baltasar Ríos</span>
+                    <div class="form-group form-group-checkbox">
+                        <input type="checkbox" id="editDisease" name="disease" [(ngModel)]="selectedPatientForEdit.disease" class="modal-checkbox">
+                        <label for="editDisease">¿Tiene enfermedad?</label>
+                    </div>
+                    
+                    <div class="form-group" *ngIf="selectedPatientForEdit.disease">
+                        <label for="editInfoDisease">Información de la Enfermedad</label>
+                        <textarea id="editInfoDisease" name="infoDisease" [(ngModel)]="selectedPatientForEdit.infoDisease" rows="3" class="modal-input"></textarea>
                     </div>
 
-                    <div style="display: flex; align-items: center; gap: 10px;">
-                   
-                        <span class="status active" style="font-size: .9rem;">Activo</span>
-                        <button for="buttonEdit" type="button">
-                            <svg id="buttonEdit" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>  
-                            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-                            </svg>
-                        </button>    
-    
-                        <button style="margin-left: 5px;" type="button">
-                            <svg id="buttonDetails" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
-                            <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>  
-                            <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
-                            </svg>
-                        </button>          
-                   
-                    </div> 
+                    <div class="form-group">
+                        <label for="editState">Estado</label>
+                        <input type="text" id="editState" name="state" [(ngModel)]="selectedPatientForEdit.state" required class="modal-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editPassword">Nueva Contraseña (opcional)</label>
+                        <input type="password" id="editPassword" name="password" [(ngModel)]="selectedPatientForEdit.password" class="modal-input">
+                        <small class="text-note">Dejar en blanco para mantener la contraseña actual.</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editRole">Rol</label>
+                        <input type="text" id="editRole" name="role" [(ngModel)]="selectedPatientForEdit.role" readonly class="modal-input readonly">
+                    </div>
+                </div>
+                
+                <div class="modal-actions">
+                    <button type="button" class="modal-btn-cancel" (click)="closeEditPatientModal()">Cancelar</button>
+                    <button type="submit" class="modal-btn-save">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- NEW Modal for Viewing Patient Details -->
+    <div class="modal-backdrop" *ngIf="showViewPatientModal" (click)="closeViewPatientModal()">
+        <div class="modal-content" (click)="$event.stopPropagation()">
+            <h3 class="modal-title">Detalles del Paciente</h3>
+            <div class="modal-form-grid" *ngIf="viewedPatientDetails">
+                <div class="form-group">
+                    <label>ID</label>
+                    <input type="text" [value]="viewedPatientDetails.id" readonly class="modal-input readonly">
+                </div>
+                <div class="form-group">
+                    <label>Nombre Completo</label>
+                    <input type="text" [value]="viewedPatientDetails.name" readonly class="modal-input readonly">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" [value]="viewedPatientDetails.email" readonly class="modal-input readonly">
+                </div>
+                <div class="form-group">
+                    <label>Cédula de Identidad (CI)</label>
+                    <input type="text" [value]="viewedPatientDetails.cedula || viewedPatientDetails.ci" readonly class="modal-input readonly">
+                </div>
+                <div class="form-group">
+                    <label>Edad</label>
+                    <input type="number" [value]="viewedPatientDetails.age" readonly class="modal-input readonly">
+                </div>
+                <div class="form-group">
+                    <label>Dirección</label>
+                    <input type="text" [value]="viewedPatientDetails.address" readonly class="modal-input readonly">
+                </div>
+                <div class="form-group">
+                    <label>Ocupación</label>
+                    <input type="text" [value]="viewedPatientDetails.occupation" readonly class="modal-input readonly">
+                </div>
+                <div class="form-group">
+                    <label>Teléfono</label>
+                    <input type="text" [value]="viewedPatientDetails.phone" readonly class="modal-input readonly">
+                </div>
+                
+                <div class="form-group form-group-checkbox-view">
+                    <input type="checkbox" [checked]="viewedPatientDetails.disease" disabled class="modal-checkbox">
+                    <label>¿Tiene enfermedad?</label>
+                </div>
+                
+                <div class="form-group" *ngIf="viewedPatientDetails.disease">
+                    <label>Información de la Enfermedad</label>
+                    <textarea [value]="viewedPatientDetails.infoDisease || 'N/A'" rows="3" readonly class="modal-input readonly"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Estado</label>
+                    <input type="text" [value]="viewedPatientDetails.state" readonly class="modal-input readonly">
                 </div>
             </div>
-        </main>
+            
+            <div class="modal-actions">
+                <button type="button" class="modal-btn-cancel" (click)="closeViewPatientModal()">Cerrar</button>
+            </div>
+        </div>
     </div>
+</main>
