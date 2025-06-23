@@ -55,8 +55,8 @@ body {
 }
 
 .content-cabecera img {
-    width: 80px; /* Tamaño del logo ligeramente más grande */
-    height: 80px;
+    width: 60px; /* Tamaño del logo ligeramente más grande */
+    height: 60px;
     border-radius: 50%; /* Logo circular */
     background-color: #ffffff; /* Fondo blanco para el logo */
     padding: 5px; /* Pequeño padding alrededor del logo */
@@ -447,5 +447,153 @@ body {
     }
     .content-cabecera h2 {
         font-size: 1.6rem;
+    }
+}
+
+/* --- Estilos de la Modal de Confirmación --- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6); /* Fondo más oscuro y visible */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3000;
+  backdrop-filter: blur(5px); /* Desenfoque más fuerte */
+  /* NOTA: opacity: 0; se ha eliminado aquí para que el overlay sea visible con *ngIf */
+  /* Si deseas una animación de fade-in para el overlay, DEBES añadir [class.active]="showModal"
+     al div .modal-overlay en tu HTML, y la regla .modal-overlay.active { opacity: 1; }
+     en el CSS, así como opacity: 0; y transition en esta regla base. */
+}
+
+/* NOTA: Esta regla ya no tiene efecto sin [class.active]="showModal" en el HTML */
+/* Si se añade [class.active]="showModal" al HTML, esta regla hará que el overlay
+   faded in. Si no, solo se mantiene aquí para que el usuario sepa que puede activarla. */
+/* .modal-overlay.active {
+    opacity: 1;
+} */
+
+
+.modal-content {
+  background-color: #FFFFFF; /* Blanco puro */
+  border-radius: 16px; /* Más redondeado */
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada y difusa */
+  padding: 2.5rem 3rem; /* Más padding interno */
+  width: 90%;
+  max-width: 480px; /* Ancho máximo ligeramente mayor */
+  text-align: center;
+  transform: translateY(-50px) scale(0.95); /* Posición inicial para la animación */
+  opacity: 0; /* Oculto por defecto para la animación */
+  animation: modalEnter 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) forwards; /* Animación de entrada */
+  display: flex;
+  flex-direction: column;
+}
+
+@keyframes modalEnter {
+  from {
+    transform: translateY(-50px) scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.modal-header {
+  margin-bottom: 1.8rem; /* Más espacio debajo del header */
+}
+
+.modal-title {
+  font-size: 2rem; /* Título más grande */
+  font-weight: 700;
+  color: #2c3e50; /* Gris azulado oscuro */
+}
+
+.modal-body {
+  margin-bottom: 2.5rem; /* Más espacio debajo del body */
+  font-size: 1.15rem; /* Texto ligeramente más grande */
+  color: #5d6d7e; /* Gris medio, ligeramente más oscuro */
+  line-height: 1.6; /* Mejor interlineado */
+}
+
+.modal-body p {
+  margin-bottom: 1rem; /* Espacio entre párrafos */
+}
+
+.modal-body .timer {
+  font-weight: 600;
+  color: #007BFF; /* Azul principal */
+  font-size: 1.05rem; /* Tamaño de fuente ligeramente mayor */
+}
+
+.modal-body .timer-count {
+  font-weight: 800;
+  font-size: 1.3rem; /* Tamaño del contador más grande */
+  color: #D22B2B; /* Rojo de peligro */
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem; /* Más espacio entre botones */
+}
+
+.btn {
+  padding: 0.9rem 2rem; /* Padding generoso */
+  border: none;
+  border-radius: 10px; /* Más redondeado */
+  font-size: 1.1rem; /* Tamaño de fuente ligeramente mayor */
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out; /* Transiciones más suaves */
+}
+
+.btn-cancel {
+  background-color: #e9ecef; /* Gris más claro */
+  color: #495057; /* Gris oscuro */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05); /* Sombra sutil */
+}
+
+.btn-cancel:hover {
+  background-color: #dee2e6; /* Gris más oscuro al hover */
+  transform: translateY(-3px); /* Efecto de "levantar" */
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1); /* Sombra más grande */
+}
+
+.btn-confirm {
+  background-color: #dc3545; /* Rojo de peligro vibrante */
+  color: white;
+  box-shadow: 0 4px 10px rgba(220,53,69,0.2); /* Sombra con color del botón */
+}
+
+.btn-confirm:hover {
+  background-color: #c82333; /* Rojo más oscuro al hover */
+  transform: translateY(-3px); /* Efecto de "levantar" */
+  box-shadow: 0 6px 15px rgba(220,53,69,0.3); /* Sombra más grande */
+}
+
+/* Media Queries para la modal */
+@media (max-width: 550px) {
+    .modal-content {
+        padding: 1.5rem 1.8rem; /* Reducir padding en pantallas pequeñas */
+        max-width: 95vw;
+    }
+    .modal-title {
+        font-size: 1.6rem; /* Reducir tamaño del título */
+    }
+    .modal-body {
+        font-size: 1rem; /* Reducir tamaño del texto del cuerpo */
+    }
+    .modal-footer {
+        flex-direction: column; /* Apilar botones en pantallas muy pequeñas */
+        gap: 0.8rem;
+    }
+    .btn {
+        padding: 0.8rem 1.5rem; /* Reducir padding de botones */
+        font-size: 1rem;
     }
 }
