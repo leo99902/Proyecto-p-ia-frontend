@@ -28,6 +28,18 @@
           [(ngModel)]="newPatient.age"
         />
       </div>
+      <!-- Campo Dirección - Agregado -->
+      <div class="input-group">
+        <label for="address">Dirección</label>
+        <input
+          type="text"
+          id="address"
+          name="address"
+          placeholder="Dirección del paciente"
+          [(ngModel)]="newPatient.address"
+          required
+        />
+      </div>
     </section>
 
     <section class="form-section">
@@ -84,6 +96,19 @@
         />
       </div>
 
+      <!-- Campo Estado - Agregado -->
+      <div class="input-group">
+        <label for="state">Estado (Ubicación)</label>
+        <input
+          type="text"
+          id="state"
+          name="state"
+          placeholder="Ej: Miranda, Carabobo, etc."
+          [(ngModel)]="newPatient.state"
+          required
+        />
+      </div>
+
       <div class="input-group">
         <label for="disease">¿Sufre de alguna enfermedad?</label>
         <input
@@ -108,12 +133,12 @@
           placeholder="Especifique una descripción detallada de la enfermedad..."                                                         
           [(ngModel)]="newPatient.infoDisease"
         ></textarea>
-      </div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+      </div>
 
         <div class="input-group">
         <label for="password">Contraseña (Obligatorio)</label>
         <input
-          type="text"                                       
+          type="text"
           id="password"
           name="password"
           placeholder="Contraseña para el paciente"
@@ -121,10 +146,6 @@
           required
         />
       </div>
-
-
-
-
     </section>
 
     <button type="submit" class="submit-button">Guardar paciente</button>
