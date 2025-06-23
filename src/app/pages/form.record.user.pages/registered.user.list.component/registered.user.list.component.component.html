@@ -1,4 +1,4 @@
-<div class="container-lg">
+<!-- <div class="container-lg">
   <div class="table-responsive">
     <div class="table-wrapper">
       <div class="table-title">
@@ -107,16 +107,119 @@
           </button>
         </li>
       </ul>
-    </nav>
+    </nav> -->
 
 
+<!-- 
+
+</div> -->
 
 
+ <!-- Patient Summary Card -->
+        <div class="summary-card">
+            <div class="summary-icon">
+                <i class="fa-solid fa-user"></i> <!-- User icon -->
+            </div>
+            <div class="summary-details">
+                <p class="summary-title">Total de Usuarios</p>
+                <p class="summary-count">{{cantidaUser}}</p> <!-- Placeholder for total users -->
+                <p class="summary-subtitle">Usuarios activos</p>
+            </div>
+        </div>
 
+        <!-- Main Table Content -->
+        <div class="table-card">
 
+            <div style="display: flex; gap: 10px;">
+                <!-- Filter by Estado -->
+                <select name="filtroEstado" [(ngModel)]="filtro.filtroEstado" (change)="filterGetUserEstado()" class="form-select">
+                    <option value="" disabled selected hidden>Estado</option>
+                    <option value="" selected>Todos los Estados</option>
+                    <option value="activo">Usuario activo</option>
+                    <option value="inactivo">Usuario inactivo</option>
+                </select>
 
-</div>
+                <!-- Filter by Rol -->
+                <select name="filtroRol" [(ngModel)]="filtro.filtroRole" (change)="filterGetUserRole()" class="form-select">
+                    <option value="" disabled selected hidden>Rol</option>
+                    <option value="" selected>Todos los roles</option>
+                    <option value="Administrador">Administrador</option>
+                    <option value="Secretario">Secretario</option>
+                </select>
 
+                <!-- Search Input -->
+                <div style="width: 90%;" class="search-input-container">
+                    <input [(ngModel)]="filterSeekerValue" (input)="filterGetUserSeeker()" id="search" type="search" placeholder="Buscar Usuario..." autofocus required />
+                    <button type="button" class="search-button">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table-custom">
+                    <thead>
+                        <tr>
+                            <th>Usuario</th>
+                            <th>Cédula</th>
+                            <th>Rol</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (user of displayedUsers; track user._id) {
+                            <tr>
+                                <td>{{user.user}}</td>
+                                <td>{{user.cedula}}</td>
+                                <td>{{user.role}}</td>
+                                <td>{{user.state}}</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button type="button" (click)="openModalEdit()" (click)="getReturnIdEdit(user._id)" class="btn btn-edit">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                                            </svg>
+                                            Editar
+                                        </button>
+                                        <button (click)="openModal()" (click)="getReturnId(user._id)" type="button" class="btn btn-view">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
+                                                <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
+                                            </svg>
+                                            Ver
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination-section">
+                <nav class="pagination-nav" aria-label="Navegación de página">
+                    <ul class="pagination-list">
+                        <li (click)="setpagedecrease()" class="pagination-item">
+                            <button class="pagination-link pagination-link--arrow" aria-label="Página anterior">
+                                &laquo; Regresar
+                            </button>
+                        </li>
+                        <li class="pagination-info">
+                            <span>Página {{pageValue}} de {{cantidadPages}}</span>
+                            <span>Total registros: {{cantidaUser}}</span>
+                        </li>
+                        <li (click)="setpageincrease()" class="pagination-item">
+                            <button class="pagination-link pagination-link--arrow" aria-label="Página siguiente">
+                                Siguiente &raquo;
+                            </button>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
         
         
         

@@ -1,8 +1,7 @@
-
 body {
   font-family: 'Inter', sans-serif;
   margin: 0;
-  padding: 20px;
+  padding: 15px; /* Adjusted from 20px */
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -20,47 +19,50 @@ body {
 }
 
 .signup-form {
-  width: 100%; /* NEW: Allows it to occupy full available width on PC */
-  height: 80%; /* Keep this if you need explicit height, otherwise consider 'auto' */
-  padding: 20px;
-  border-radius: 6px;
+  width: 100%; /* Changed to full width as requested */
+  max-width: none; /* Removed max-width constraint */
+  height: auto; /* Changed from 80% to auto for better content fitting */
+  padding: 15px; /* Adjusted from 20px */
+  border-radius: 5px; /* Adjusted from 6px */
   margin: 0 auto; /* Keeps it centered */
   background: #fff;
-  box-shadow: 0px 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0px 1px 6px rgba(0,0,0,0.06); /* Adjusted shadow */
 }
 
 .signup-form h3 {
   color: #000;
-  text-align: left; /* REVERTED: Back to left-aligned for form title */
+  font-size: 1.5rem; /* Adjusted from 1.75rem in original, matching scale */
+  text-align: left;
+  margin-bottom: 1rem; /* Adjusted */
 }
 
 .signup-form form {
   color: #444;
-  border-radius: 6px;
-  margin-bottom: 15px;
+  border-radius: 5px; /* Adjusted from 6px */
+  margin-bottom: 10px; /* Adjusted from 15px */
   background: #fff;
-  padding: 30px 28px;
+  padding: 20px 20px; /* Adjusted from 30px 28px */
 }
 
 .signup-form hr {
-  margin: 0 -30px 20px;
+  margin: 0 -20px 15px; /* Adjusted from 0 -30px 20px */
 }
 
 .signup-form .form-group {
-  margin-bottom: 24px;
-  text-align: left; /* Ensures labels/inputs remain left-aligned */
+  margin-bottom: 18px; /* Adjusted from 24px */
+  text-align: left;
 }
 .signup-form .form-group:last-of-type {
   margin-bottom: 0;
 }
 
 .signup-form input[type="checkbox"] {
-  margin-top: 3px;
+  margin-top: 2px; /* Adjusted from 3px */
 }
 
 .signup-form .row {
   display: flex;
-  gap: 18px;
+  gap: 15px; /* Adjusted from 18px */
 }
 .signup-form .row div {
   flex: 1 1 0;
@@ -69,14 +71,14 @@ body {
 }
 
 .signup-form .btn {
-  font-size: 1rem;
+  font-size: 0.95rem; /* Adjusted from 1rem */
   font-weight: bold;
   background: #3598dc;
   border: none;
-  min-width: 140px;
-  margin-top: 10px;
-  padding: 0.7rem 1.2rem;
-  border-radius: 4px;
+  min-width: 120px; /* Adjusted from 140px */
+  margin-top: 8px; /* Adjusted from 10px */
+  padding: 0.6rem 1rem; /* Adjusted from 0.7rem 1.2rem */
+  border-radius: 3px; /* Adjusted from 4px */
   transition: background 0.2s;
 }
 .signup-form .btn:hover, .signup-form .btn:focus {
@@ -87,31 +89,32 @@ body {
 .signup-form a {
   color: #3598dc;
   text-decoration: underline;
+  font-size: 0.9rem; /* Adjusted */
 }
 .signup-form a:hover {
   text-decoration: none;
 }
 .signup-form .hint-text {
-  padding-bottom: 15px;
+  padding-bottom: 10px; /* Adjusted from 15px */
   text-align: center;
-  font-size: 1rem;
+  font-size: 0.9rem; /* Adjusted from 1rem */
   color: #888;
 }
 
-/* Estilos de Input Group (no changes) */
+/* Estilos de Input Group (adjusted) */
 .input-group {
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 16px; /* Adjusted from 20px */
   display: flex;
   flex-direction: column;
 }
 
 .input-group label {
   display: block;
-  font-size: 1rem;
+  font-size: 0.9rem; /* Adjusted from 1rem */
   font-weight: 500;
-  margin-bottom: 8px;
-  color: #4b5563; /* Replaced var(--label-color) */
+  margin-bottom: 6px; /* Adjusted from 8px */
+  color: #4b5563;
 }
 
 .input-container {
@@ -124,38 +127,38 @@ body {
 .input-field {
   flex-grow: 1;
   width: 100%;
-  padding: 12px 16px;
-  padding-right: 40px;
-  border: 1px solid #d1d5db; /* Replaced var(--input-border-color) */
-  border-radius: 8px;
-  background-color: #f9fafb; /* Replaced var(--input-background) */
-  color: #374151; /* Replaced var(--input-text-color) */
-  font-size: 1rem;
+  padding: 10px 14px; /* Adjusted from 12px 16px */
+  padding-right: 36px; /* Adjusted from 40px */
+  border: 1px solid #d1d5db;
+  border-radius: 6px; /* Adjusted from 8px */
+  background-color: #f9fafb;
+  color: #374151;
+  font-size: 0.95rem; /* Adjusted from 1rem */
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
   box-sizing: border-box;
 }
 
 .input-field::placeholder {
-  color: #9ca3af; /* Replaced var(--input-placeholder-color) */
+  color: #9ca3af;
   opacity: 0.8;
 }
 
 .input-field:focus {
   outline: none;
-  border-color: #3b82f6; /* Replaced var(--input-focus-border) */
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25); /* Replaced var(--input-focus-shadow) */
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2); /* Adjusted from 3px 0.25 */
 }
 
 .input-icon {
   position: absolute;
-  right: 12px;
-  color: #6b7280; /* Replaced var(--icon-color) */
-  width: 20px;
-  height: 20px;
+  right: 10px; /* Adjusted from 12px */
+  color: #6b7280;
+  width: 18px; /* Adjusted from 20px */
+  height: 18px; /* Adjusted from 20px */
   pointer-events: none;
 }
 
-/* Estilos del Modal (Base) */
+/* Estilos del Modal (Base) - Kept as is */
 .openModal {
   position: fixed;
   top: 0;
@@ -172,7 +175,7 @@ body {
 
 .modal-content {
   min-width: 320px;
-  max-width: 450px; /* NEW: Max width for modal on PC, making it smaller */
+  max-width: 450px;
   padding: 1.5rem 2rem;
   border-radius: 16px;
   box-shadow: 0 8px 32px rgba(0,0,0,0.18);
@@ -181,7 +184,7 @@ body {
   gap: 1rem;
   border: 1.5px solid #e5e7eb;
   z-index: 10000;
-  margin: 0 auto; /* Ensures the modal content is centered */
+  margin: 0 auto;
 }
 
 .modal-content > div:first-child {
@@ -195,14 +198,17 @@ body {
   font-size: 1.1rem;
   color: #34495e;
   font-weight: 500;
-  text-align: center; /* REVERTED: Default to left-aligned for modal text on PC */
+  text-align: center;
 }
 
-/* --- RESPONSIVE --- */
+/* --- RESPONSIVE (adjusted) --- */
 
-@media (max-width: 700px) {
+@media (max-width: 768px) { /* Changed from 700px to 768px for consistency */
+  body {
+    padding: 10px; /* Adjusted */
+  }
   .signup-form {
-    width: 90vw;
+    width: 95vw; /* Adjusted from 90vw */
     padding: 1rem;
     border-radius: 0;
     margin: 0 auto;
@@ -210,18 +216,18 @@ body {
     height: auto;
   }
   .signup-form form {
-    padding: 16px 8px;
-    margin-bottom: 10px;
+    padding: 12px 6px; /* Adjusted from 16px 8px */
+    margin-bottom: 8px; /* Adjusted from 10px */
     border-radius: 0;
     box-shadow: none;
-    text-align: left; /* REVERTED: Form content back to left-aligned on mobile */
+    text-align: left;
   }
   .signup-form h3 {
-    font-size: 1.15rem;
-    margin-bottom: 1rem;
+    font-size: 1.1rem; /* Adjusted from 1.15rem */
+    margin-bottom: 0.8rem; /* Adjusted from 1rem */
   }
   .signup-form .form-group {
-    margin-bottom: 18px;
+    margin-bottom: 15px; /* Adjusted from 18px */
     text-align: left;
   }
   .signup-form .row {
@@ -235,20 +241,20 @@ body {
   }
   .signup-form .btn {
     min-width: 100%;
-    margin-top: 10px;
-    font-size: 1.05rem;
+    margin-top: 8px; /* Adjusted from 10px */
+    font-size: 1rem; /* Adjusted from 1.05rem */
   }
   .signup-form .hint-text {
-    font-size: 0.95rem;
-    padding-bottom: 10px;
+    font-size: 0.9rem; /* Adjusted from 0.95rem */
+    padding-bottom: 8px; /* Adjusted from 10px */
   }
 
-  /* Ajustes para el contenido del modal en pantallas pequeñas */
+  /* Ajustes para el contenido del modal en pantallas pequeñas - Kept as is */
   .modal-content {
       padding: 1rem 1.2rem;
       min-width: unset;
       max-width: 95vw;
-      text-align: center; /* NEW: Only modal text centered on mobile */
+      text-align: center;
   }
   .modal-content p {
     font-size: 1rem;
@@ -257,37 +263,40 @@ body {
 
 @media (max-width: 600px) {
     .input-group {
-        max-width: 95%;
+        max-width: 100%; /* Changed from 95% */
     }
     .input-field {
-        padding: 10px 14px;
-        padding-right: 36px;
-        font-size: 0.95rem;
+        padding: 8px 12px; /* Adjusted from 10px 14px */
+        padding-right: 32px; /* Adjusted from 36px */
+        font-size: 0.9rem; /* Adjusted from 0.95rem */
     }
     .input-icon {
-        width: 18px;
-        height: 18px;
-        right: 10px;
+        width: 16px; /* Adjusted from 18px */
+        height: 16px; /* Adjusted from 18px */
+        right: 8px; /* Adjusted from 10px */
     }
     .input-group label {
-        font-size: 0.9rem;
+        font-size: 0.85rem; /* Adjusted from 0.9rem */
     }
 }
 
 @media (max-width: 480px) {
+  body {
+    padding: 8px;
+  }
   .signup-form {
     width: 100vw;
-    padding: 1rem;
+    padding: 0.8rem; /* Adjusted from 1rem */
   }
   .signup-form form {
-    padding: 8px 2px;
+    padding: 6px 0px; /* Adjusted from 8px 2px */
   }
   .signup-form h3 {
-    font-size: 1rem;
+    font-size: 0.95rem; /* Adjusted from 1rem */
   }
   .form-control, .btn {
-    font-size: 0.95rem;
-    padding: 0.4rem 0.5rem;
-    margin-bottom: 8px;
+    font-size: 0.9rem; /* Adjusted from 0.95rem */
+    padding: 0.3rem 0.4rem; /* Adjusted from 0.4rem 0.5rem */
+    margin-bottom: 6px; /* Adjusted from 8px */
   }
 }
