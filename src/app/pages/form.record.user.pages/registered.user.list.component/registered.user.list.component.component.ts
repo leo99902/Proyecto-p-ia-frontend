@@ -79,11 +79,14 @@ export class RegisteredUserListComponentComponent implements OnInit {
       this.editUser.editUser({_id: this.userEdit.id, user: this.userEdit}).subscribe({
         next: (data: any) => {
           if(this.userEdit.name){
-            location.reload()
+            // Mejorar esto: en lugar de location.reload(), recargar los usuarios
+            this.loadUsers(); // Recarga los usuarios para reflejar los cambios
+            this.closeModalEdit(); // Cierra el modal de edición
           }
         },
           error: (e:any) => {
-            
+            console.error('Error al guardar usuario:', e);
+            // Aquí podrías mostrar un mensaje de error al usuario
         }  
       })
   }
@@ -91,7 +94,6 @@ export class RegisteredUserListComponentComponent implements OnInit {
   public getReturnIdEdit(userId:any){
       this.getUser.getUser({_id: userId}).subscribe({
       next: (data: any) => {
-
         this.userEdit.id = userId
         this.userEdit.name = data.name
         this.userEdit.cedula = data.cedula
@@ -101,13 +103,13 @@ export class RegisteredUserListComponentComponent implements OnInit {
         this.userEdit.state = data.state
         this.userEdit.password = data.password
 
+        // IMPORTANTE: NO LLAMAR saveUser AQUÍ. Se llama cuando el usuario presiona "Guardar" en el modal.
+        // this.saveUser(userId)
       },
       error: (e) => {
-        console.error('Error al obtener usuarios:', e);
+        console.error('Error al obtener usuario para editar:', e);
       }
     })
-
-    this.saveUser(userId)
   }
 
   public buttonValue: any = ''
@@ -123,8 +125,6 @@ export class RegisteredUserListComponentComponent implements OnInit {
         this.user.role = data.role
         this.user.state = data.state
         this.user.password = data.password
-
-
       },
       error: (e) => {
         console.error('Error al obtener usuarios:', e);
@@ -155,15 +155,27 @@ export class RegisteredUserListComponentComponent implements OnInit {
     this.loadUsers(); // Cargar usuarios después del cambio de página
   }
 
-  // Nueva función para cargar usuarios y aplicar filtros iniciales
   private loadUsers(): void {
-    this.listUser.listUsers({page: this.pageValue}).subscribe({
+    // Cuando los filtros de rol/estado cambian, reiniciamos la página a 1 para asegurar coherencia
+    // Esto es importante si el filtrado del lado del cliente podría resultar en menos páginas.
+    // Aunque applyFilters() es lado del cliente, si se usa con una búsqueda, podría cambiar el total de páginas.
+    // Para filtros de rol/estado puros (sin búsqueda), la paginación no se ajustará si ya cargó N páginas.
+    // Si queremos que los filtros de rol/estado también puedan reducir el número de páginas,
+    // tendríamos que llamar a la API con esos filtros, no solo filtrar this.usuarios.value.
+    // Por ahora, asumiremos que applyFilters() opera sobre la página actual y si cambia la paginación,
+    // es por una nueva búsqueda.
+
+    this.listUser.listUsers({page: this.pageValue, user: this.filterSeekerValue}).subscribe({ // Incluir filterSeekerValue aquí para cargar la página correcta después de una búsqueda
       next: (data: any) => {
         this.usuarios = data;
         this.cantidad = data.value.length;
         this.cantidadUsuarios = Array.from({ length: this.cantidad }, (_, index) => index + 1);
         this.cantidadPages = data.total_paginas;
         this.cantidaUser = data.total_registros;
+
+        // Para depurar: Imprime el valor de cantidadPages
+        console.log('Cantidad de páginas recibidas del backend:', this.cantidadPages);
+        
         this.applyFilters(); // Aplicar filtros después de cargar los usuarios
       },
       error: (e) => {
@@ -181,7 +193,6 @@ export class RegisteredUserListComponentComponent implements OnInit {
     filtroEstado: ''
   }
 
-  // Función auxiliar para aplicar todos los filtros de la página actual
   private applyFilters(): void {
     let filtered = [...this.usuarios.value]; // Crear una copia para no modificar el original
 
@@ -192,53 +203,33 @@ export class RegisteredUserListComponentComponent implements OnInit {
 
     // Aplicar filtro por rol
     if (this.filtro.filtroRole && this.filtro.filtroRole !== 'Todos los roles') {
-      // CAMBIO CLAVE AQUÍ: Convertir ambos a minúsculas para la comparación insensible a mayúsculas/minúsculas
       filtered = filtered.filter((user: any) => user.role.toLowerCase() === this.filtro.filtroRole.toLowerCase());
     }
     
-    // Aplicar filtro de búsqueda
-    if (this.filterSeekerValue) {
-        const searchValue = this.filterSeekerValue.toLowerCase();
-        filtered = filtered.filter((user: any) =>
-            user.user.toLowerCase().includes(searchValue) ||
-            user.name.toLowerCase().includes(searchValue) ||
-            user.cedula.toLowerCase().includes(searchValue) ||
-            user.email.toLowerCase().includes(searchValue)
-        );
-    }
-
+    // NOTA: El filtro de búsqueda se aplicará cuando se llame a loadUsers con filterSeekerValue
+    // o al llamar a filterGetUserSeeker(). Aquí, solo aplica los filtros de rol y estado
+    // sobre los datos que ya se cargaron para la página actual.
 
     this.displayedUsers = filtered; // Asignar los usuarios filtrados a la nueva propiedad
   }
 
 
   public filterGetUserRole(){
-    this.applyFilters(); // Re-aplicar filtros a los usuarios actuales
+    this.pageValue = 1; // Reiniciar a la primera página cuando se cambia el filtro
+    this.loadUsers(); // Recargar usuarios con los filtros aplicados
   }
 
   public filterGetUserEstado(){
-    this.applyFilters(); // Re-aplicar filtros a los usuarios actuales
+    this.pageValue = 1; // Reiniciar a la primera página cuando se cambia el filtro
+    this.loadUsers(); // Recargar usuarios con los filtros aplicados
   }
 
   public filterSeekerValue: string = ''
 
-  public filterGetUserSeeker(){
-    // El filtro de búsqueda seguirá haciendo una llamada al backend, como lo tenías.
-    // Si quisieras que también filtre solo en la página actual, necesitarías cambiar esta lógica.
-    // Por ahora, asumiré que quieres que este siga buscando en todo el backend.
-      this.listUser.listUsers({user: this.filterSeekerValue}).subscribe({
-      next: (data: any) => {
-        this.usuarios = data
-        this.cantidad = data.value.length
-        this.cantidadUsuarios = Array.from({ length: this.cantidad }, (_, index) => index + 1);
-        this.cantidadPages = data.total_paginas; // Actualizar paginación si la búsqueda cambia el total
-        this.cantidaUser = data.total_registros; // Actualizar total
-        this.applyFilters(); // Aplicar los filtros de rol/estado sobre el resultado de la búsqueda
-      },
-      error: (e) => {
-        console.error('Error al obtener usuarios:', e);
-      }
-    })
+  // Este método ahora se llama SOLO cuando se presiona el botón de búsqueda
+  public filterGetUserSeekerByButton(){
+      this.pageValue = 1; // Reiniciar a la primera página cuando se realiza una nueva búsqueda
+      this.loadUsers(); // Cargar usuarios aplicando el filtro de búsqueda
   }
 
 }

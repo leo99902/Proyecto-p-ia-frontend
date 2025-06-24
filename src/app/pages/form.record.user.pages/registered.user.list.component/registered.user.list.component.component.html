@@ -1,227 +1,103 @@
-<!-- <div class="container-lg">
-  <div class="table-responsive">
-    <div class="table-wrapper">
-      <div class="table-title">
-        <div class="row">
-        </div>  
-      </div>    
-
-
-      <div style="padding: 5px; display: flex; justify-content: space-between;">
-        <div style="width: 100%; height: 100%; display: flex; gap: 3px; margin-right: 1rem;">
-
-
-<select name="filtroEstado" [(ngModel)]="filtro.filtroEstado" (change)="filterGetUserEstado()" class="form-select" aria-label="Default select example">
-  <option value="" disabled selected hidden>Estado</option>
-  <option name="filtroEstado" value="" selected>Todos los Estados</option>
-  <option name="filtroEstado" value="activo">Usuario activo</option>
-  <option name="filtroEstado" value="inactivo">Usuario inactivo</option>
-</select>
-
-
-
-
-<select name="filtroRol" [(ngModel)]="filtro.filtroRole" (change)="filterGetUserRole()"  class="form-select" aria-label="Default select example">
-    <option value="" disabled selected hidden>Rol</option>
-  <option name="filtroRol" value="" selected>Todos los roles</option>
-  <option name="filtroRol" value="Administrador">Administrador</option>
-  <option name="filtroRol" value="Secretario">Secretario</option> </select>
-
-
-        </div>
-
-          <div class="content-input-search">
-            <input [(ngModel)]="filterSeekerValue" (input)="filterGetUserSeeker()" id="search" type="search" placeholder="Buscar Usuario..." autofocus required />
-<button type="button">
-  </button>
-
+<!-- Patient Summary Card -->
+<div class="summary-card">
+    <div class="summary-icon">
+        <i class="fa-solid fa-user"></i> </div>
+    <div class="summary-details">
+        <p class="summary-title">Total de Usuarios</p>
+        <p class="summary-count">{{cantidaUser}}</p> </div>
 </div>
 
+<!-- Main Table Content -->
+<div class="table-card">
+    <p>Filtros de busqueda</p>
+    <div style="display: flex; gap: 10px;">
+        <select name="filtroEstado" [(ngModel)]="filtro.filtroEstado" (change)="filterGetUserEstado()" class="form-select">
+            <option value="" disabled selected hidden>Estado</option>
+            <option value="" selected>Todos los Estados</option>
+            <option value="activo">Usuario activo</option>
+            <option value="inactivo">Usuario inactivo</option>
+        </select>
+
+        <select name="filtroRol" [(ngModel)]="filtro.filtroRole" (change)="filterGetUserRole()" class="form-select">
+            <option value="" disabled selected hidden>Rol</option>
+            <option value="" selected>Todos los roles</option>
+            <option value="Administrador">Administrador</option>
+            <option value="Secretario">Secretario</option>
+        </select>
+
+        <div style="width: 90%;" class="search-input-container">
+            <input [(ngModel)]="filterSeekerValue" id="search" type="search" placeholder="Buscar Usuario..." autofocus required />
+            <button type="button" class="search-button" (click)="filterGetUserSeekerByButton()">
+                Buscar...   
+            </button>
         </div>
+    </div>
 
-
-            <table class="table table-bordered">
-                <thead>
+    <div class="table-responsive">
+        <table class="table-custom">
+            <thead>
+                <tr>
+                    <th>Usuario</th>
+                    <th>Cédula</th>
+                    <th>Rol</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (user of displayedUsers; track user._id) {
                     <tr>
-                        <th>Usuario</th>
-                        <th>Cedula</th>
-                        <th>Rol</th>
-                        <th>Estado</th>
-                        <th>Acciones</th>
-                    </tr>    
-                </thead>    
-                <tbody>
-                    @for (user of displayedUsers; track user._id) { 
-                        <tr>
-                            <td>{{user.user}}</td>
-                            <td>{{user.cedula}}</td>
-                            <td>{{user.role}}</td>
-                            <td>{{user.state}}</td>
-                            <td>
-    
-                                <form>
-                                <button for="buttonEdit" type="button" (click)="openModalEdit()" (click)="getReturnIdEdit(user._id)" >
-                                    <svg id="buttonEdit" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>  
-                                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                        <td>{{user.user}}</td>
+                        <td>{{user.cedula}}</td>
+                        <td>{{user.role}}</td>
+                        <td>{{user.state}}</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button type="button" (click)="openModalEdit(); getReturnIdEdit(user._id)" class="btn btn-edit">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
                                     </svg>
-                                </button>    
-    
-                                <button style="margin-left: 5px;" (click)="openModal()" (click)="getReturnId(user._id)" type="button">
-                                    <svg id="buttonDetails" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
-                                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>  
-                                    <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
+                                    Editar
+                                </button>
+                                <button (click)="openModal(); getReturnId(user._id)" type="button" class="btn btn-view">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                        <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
+                                        <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
                                     </svg>
-                                </button>           
-                                </form>  
-    
-                            </td>    
-                        </tr>    
-                }    
-                </tbody>
-            </table>       
+                                    Ver
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 
-          </div>    
-        </div>
-        
-<div style="width: 100%;">
-
-    <nav class="pagination-nav" aria-label="Navegación de página" style="margin-top: 1.5rem;">
-      <ul class="pagination-list" style="display: flex; align-items: center; justify-content: center; gap: 18px; flex-wrap: wrap;">
-        <li (click)="setpagedecrease()" class="pagination-item">
-          <button class="pagination-link pagination-link--arrow" aria-label="Página anterior">
-            &laquo; Regresar
-          </button>
-        </li>
-        <li class="pagination-info" style="display: flex; flex-direction: column; align-items: center; min-width: 180px;">
-          <span style="font-size: 1rem; color: #2563eb; font-weight: 600;">
-            Página {{pageValue}} de {{cantidadPages}}
-          </span>
-          <span style="font-size: 0.95rem; color: #34495E;">
-            Total registros: {{cantidaUser}}
-          </span>
-        </li>
-        <li (click)="setpageincrease()" class="pagination-item">
-          <button class="pagination-link pagination-link--arrow" aria-label="Página siguiente">
-            Siguiente &raquo;
-          </button>
-        </li>
-      </ul>
-    </nav> -->
-
-
-<!-- 
-
-</div> -->
-
-
- <!-- Patient Summary Card -->
-        <div class="summary-card">
-            <div class="summary-icon">
-                <i class="fa-solid fa-user"></i> <!-- User icon -->
-            </div>
-            <div class="summary-details">
-                <p class="summary-title">Total de Usuarios</p>
-                <p class="summary-count">{{cantidaUser}}</p> <!-- Placeholder for total users -->
-                <p class="summary-subtitle">Usuarios activos</p>
-            </div>
-        </div>
-
-        <!-- Main Table Content -->
-        <div class="table-card">
-
-            <div style="display: flex; gap: 10px;">
-                <!-- Filter by Estado -->
-                <select name="filtroEstado" [(ngModel)]="filtro.filtroEstado" (change)="filterGetUserEstado()" class="form-select">
-                    <option value="" disabled selected hidden>Estado</option>
-                    <option value="" selected>Todos los Estados</option>
-                    <option value="activo">Usuario activo</option>
-                    <option value="inactivo">Usuario inactivo</option>
-                </select>
-
-                <!-- Filter by Rol -->
-                <select name="filtroRol" [(ngModel)]="filtro.filtroRole" (change)="filterGetUserRole()" class="form-select">
-                    <option value="" disabled selected hidden>Rol</option>
-                    <option value="" selected>Todos los roles</option>
-                    <option value="Administrador">Administrador</option>
-                    <option value="Secretario">Secretario</option>
-                </select>
-
-                <!-- Search Input -->
-                <div style="width: 90%;" class="search-input-container">
-                    <input [(ngModel)]="filterSeekerValue" (input)="filterGetUserSeeker()" id="search" type="search" placeholder="Buscar Usuario..." autofocus required />
-                    <button type="button" class="search-button">
-                        <i class="fa-solid fa-magnifying-glass"></i>
+    <div class="pagination-section" *ngIf="cantidadPages > 1">
+        <nav class="pagination-nav" aria-label="Navegación de página">
+            <ul class="pagination-list">
+                <li (click)="setpagedecrease()" class="pagination-item" [class.disabled]="pageValue === 1">
+                    <button class="pagination-link pagination-link--arrow" aria-label="Página anterior" [disabled]="pageValue === 1">
+                        &laquo; Regresar
                     </button>
-                </div>
-            </div>
-
-            <div class="table-responsive">
-                <table class="table-custom">
-                    <thead>
-                        <tr>
-                            <th>Usuario</th>
-                            <th>Cédula</th>
-                            <th>Rol</th>
-                            <th>Estado</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for (user of displayedUsers; track user._id) {
-                            <tr>
-                                <td>{{user.user}}</td>
-                                <td>{{user.cedula}}</td>
-                                <td>{{user.role}}</td>
-                                <td>{{user.state}}</td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button type="button" (click)="openModalEdit()" (click)="getReturnIdEdit(user._id)" class="btn btn-edit">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                                                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-                                            </svg>
-                                            Editar
-                                        </button>
-                                        <button (click)="openModal()" (click)="getReturnId(user._id)" type="button" class="btn btn-view">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
-                                                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
-                                                <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
-                                            </svg>
-                                            Ver
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Pagination -->
-            <div class="pagination-section">
-                <nav class="pagination-nav" aria-label="Navegación de página">
-                    <ul class="pagination-list">
-                        <li (click)="setpagedecrease()" class="pagination-item">
-                            <button class="pagination-link pagination-link--arrow" aria-label="Página anterior">
-                                &laquo; Regresar
-                            </button>
-                        </li>
-                        <li class="pagination-info">
-                            <span>Página {{pageValue}} de {{cantidadPages}}</span>
-                            <span>Total registros: {{cantidaUser}}</span>
-                        </li>
-                        <li (click)="setpageincrease()" class="pagination-item">
-                            <button class="pagination-link pagination-link--arrow" aria-label="Página siguiente">
-                                Siguiente &raquo;
-                            </button>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
+                </li>
+                <li class="pagination-info">
+                    <span>Página {{pageValue}} de {{cantidadPages}}</span>
+                    <span>Total registros: {{cantidaUser}}</span>
+                </li>
+                <li (click)="setpageincrease()" class="pagination-item" [class.disabled]="pageValue === cantidadPages">
+                    <button class="pagination-link pagination-link--arrow" aria-label="Página siguiente" [disabled]="pageValue === cantidadPages">
+                        Siguiente &raquo;
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
         
-        
+---
         
 <div
   class="custom-modal-overlay"
@@ -237,42 +113,51 @@
         <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
         </svg>
     </div>
-    <div class="modal-icon-container">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
-        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
-        </svg>
-    </div>
+    <!-- ICONO DE PERSONA ELIMINADO AQUI -->
     <div class="custom-modal-title">
       <h6>Detalles del usuario</h6>
     </div>
     <div class="custom-modal-body">
-      <p><b>Nombre:</b> {{user.name}}</p>
-      <p><b>Cédula:</b> {{user.cedula}}</p>
-      <p><b>Usuario:</b> {{user.user}}</p>
-      <p><b>Email:</b> {{user.email}}</p>
-      <p><b>Rol:</b> {{user.role}}</p>
-      <p><b>Estado:</b> {{user.state}}</p>
+      <div class="content-input">
+        <p><b>Nombre:</b></p>
+        <span class="input-display">{{user.name}}</span>
+      </div>
+      <div class="content-input">
+        <p><b>Cédula:</b></p>
+        <span class="input-display">{{user.cedula}}</span>
+      </div>
+      <div class="content-input">
+        <p><b>Usuario:</b></p>
+        <span class="input-display">{{user.user}}</span>
+      </div>
+      <div class="content-input">
+        <p><b>Email:</b></p>
+        <span class="input-display">{{user.email}}</span>
+      </div>
+      <div class="content-input">
+        <p><b>Rol:</b></p>
+        <span class="input-display">{{user.role}}</span>
+      </div>
+      <div class="content-input">
+        <p><b>Estado:</b></p>
+        <span class="input-display">{{user.state}}</span>
+      </div>
+      <div style="display: flex; width: 100%; justify-content: center; margin-top: 20px;">
+        <button (click)="closeModal()" style="width: 50%;" type="button" class="btn btn-primary">Cerrar</button>
+      </div>
     </div>
   </div>
 </div>
 
+---
 
-
-
-
-
-
-
-
-
-<div 
-  class="custom-modal-overlay" 
-  *ngIf="modalEdit" 
+<div
+  class="custom-modal-overlay"
+  *ngIf="modalEdit"
   (click)="closeModalEdit()"
 >
   <div  style="padding: 1rem;"
-    class="custom-modal-content animate-drop" 
+    class="custom-modal-content animate-drop"
     (click)="$event.stopPropagation()"
   >
     <div class="custom-modal-close" (click)="closeModalEdit()">
@@ -286,22 +171,22 @@
       <h6>Modificar usuario</h6>
     </div>
     <div class="custom-modal-body" style="margin-top: 20px;">
-      <form action="" [formControl]="userValueEdit">
+      <form action="">
         <div class="content-input">
         <p>Nombre: </p>
-          <input [(ngModel)]="userEdit.name" [ngModelOptions]="{standalone: true}" class="input-edit" type="text" [value]="user.name">
+          <input [(ngModel)]="userEdit.name" [ngModelOptions]="{standalone: true}" class="input-edit" type="text">
         </div>
         <div class="content-input">
         <p>Cedula: </p>
-          <input [(ngModel)]="userEdit.cedula" [ngModelOptions]="{standalone: true}" class="input-edit" type="text" [value]="user.cedula">
+          <input [(ngModel)]="userEdit.cedula" [ngModelOptions]="{standalone: true}" class="input-edit" type="text">
         </div>
         <div class="content-input">
         <p>Usuario: </p>
-          <input [(ngModel)]="userEdit.user" [ngModelOptions]="{standalone: true}" class="input-edit" type="text" [value]="user.user">
+          <input [(ngModel)]="userEdit.user" [ngModelOptions]="{standalone: true}" class="input-edit" type="text">
         </div>
         <div class="content-input">
         <p>Correo: </p>
-          <input [(ngModel)]="userEdit.email" [ngModelOptions]="{standalone: true}" class="input-edit" type="text" [value]="user.email">
+          <input [(ngModel)]="userEdit.email" [ngModelOptions]="{standalone: true}" class="input-edit" type="text">
         </div>
         <div class="content-input">
         <p>Role:</p>
@@ -322,7 +207,7 @@
     </select>
 </div>
                 </div>
-      
+
         <div style="display: flex; width: 100%; gap: 5px;" class="mt-4">
         <button (click)="closeModalEdit()" style="width: 50%;" type="button" class="btn btn-primary">Cancelar</button>
         <button (click)="saveUser('')" style="width: 50%;" type="button" class="btn btn-primary">Guardar</button>
@@ -332,13 +217,3 @@
   </div>
 
 </div>
-
-
-
-
-
-
-
-
-
-

@@ -11,11 +11,11 @@ import { authGuard } from './auth/auth.guard/auth.guard';
 import { GamesPatientsPageComponent } from './pages/games.patients.page/games.patients.page.component';
 
 export const routes: Routes = [
-    { path: '', component: FormLoginUserPagesComponent },
-    { path: 'home', component: HomeUserPagesComponent, canActivate: [authGuard] },
-    { path: 'usuarios', component: FormRecordUserPagesComponent, canActivate: [authGuard] },
-    { path: 'pacientes', component: PatientsPageComponent, canActivate: [authGuard] },
-    { path: 'citas', component: QuotesPagesComponent, canActivate: [authGuard] },
-    { path: 'juegos', component: GamesPatientsPageComponent, canActivate: [authGuard] },
-    { path: '**', component: User404PagesComponent, title: '404' }
+    { path: '', component: FormLoginUserPagesComponent, title: 'ATI' },
+    { path: 'home', component: HomeUserPagesComponent, title: 'ATI', canActivate: [authGuard] },
+    { path: 'usuarios', component: FormRecordUserPagesComponent, title: 'ATI', canActivate: [authGuard] },
+    { path: 'pacientes', component: PatientsPageComponent, title: 'ATI', canActivate: [authGuard] },
+    { path: 'citas', component: QuotesPagesComponent, title: 'ATI', canActivate: [authGuard] },
+    { path: 'juegos', component: GamesPatientsPageComponent, title: 'ATI', canActivate: [authGuard] },
+    { path: '**', component: User404PagesComponent, title: 'ATI' }
 ];
