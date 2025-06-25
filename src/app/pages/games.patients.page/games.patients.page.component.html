@@ -1,0 +1,92 @@
+<!-- Sección principal de la lista de juegos -->
+<div id="games-section" class="content-games bg-white rounded-2xl shadow-2xl p-6 w-full h-[95vh] flex flex-col border border-gray-200">
+  <h2 class="text-2xl font-bold text-gray-800 mb-6 pb-2 border-b border-gray-200 text-center">
+    Elige un <span class="text-green-600">Juego</span>
+  </h2>
+
+  <!-- Contenedor de las tarjetas de juego -->
+  <div class="flex-grow overflow-y-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
+    <!-- Game Card 1: Puzzle -->
+    <div class="bg-gray-50 rounded-xl shadow-lg border border-gray-200 p-4 flex flex-col items-center text-center transition-all duration-200 hover:shadow-xl hover:scale-105">
+      <img src="https://placehold.co/120x120/a8dadc/1d3557?text=Puzzle" alt="Icono de Puzzle" class="mb-4 rounded-full border-4 border-blue-300">
+      <h3 class="text-lg font-semibold text-gray-800 mb-2">Juego de Puzzle</h3>
+      <p class="text-sm text-gray-600 mb-4">Un clásico juego de rompecabezas para ejercitar tu mente.</p>
+      <button (click)="openGameModal('puzzle-game', 'Juego de Puzzle')" class="play-game-button bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded-full shadow-lg transition-all duration-200 transform hover:scale-110 active:scale-95" data-game-id="puzzle-game">
+        Jugar
+      </button>
+    </div>
+
+    <!-- Game Card 2: Memoria -->
+    <div class="bg-gray-50 rounded-xl shadow-lg border border-gray-200 p-4 flex flex-col items-center text-center transition-all duration-200 hover:shadow-xl hover:scale-105">
+      <img src="https://placehold.co/120x120/f7cac9/c0392b?text=Memoria" alt="Icono de Memoria" class="mb-4 rounded-full border-4 border-red-300">
+      <h3 class="text-lg font-semibold text-gray-800 mb-2">Juego de Memoria</h3>
+      <p class="text-sm text-gray-600 mb-4">Encuentra los pares y mejora tu memoria visual.</p>
+      <button (click)="openGameModal('memory-game', 'Juego de Memoria')" class="play-game-button bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded-full shadow-lg transition-all duration-200 transform hover:scale-110 active:scale-95" data-game-id="memory-game">
+        Jugar
+      </button>
+    </div>
+
+    <!-- Game Card 3: Trivia -->
+    <div class="bg-gray-50 rounded-xl shadow-lg border border-gray-200 p-4 flex flex-col items-center text-center transition-all duration-200 hover:shadow-xl hover:scale-105">
+      <img src="https://placehold.co/120x120/d0b8ee/5e3b8f?text=Trivia" alt="Icono de Trivia" class="mb-4 rounded-full border-4 border-purple-300">
+      <h3 class="text-lg font-semibold text-gray-800 mb-2">Juego de Trivia</h3>
+      <p class="text-sm text-gray-600 mb-4">Demuestra tus conocimientos en diferentes categorías.</p>
+      <button (click)="openGameModal('trivia-game', 'Juego de Trivia')" class="play-game-button bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-6 rounded-full shadow-lg transition-all duration-200 transform hover:scale-110 active:scale-95" data-game-id="trivia-game">
+        Jugar
+      </button>
+    </div>
+
+    <!-- Game Card 4: Adivina la Palabra -->
+    <div class="bg-gray-50 rounded-xl shadow-lg border border-gray-200 p-4 flex flex-col items-center text-center transition-all duration-200 hover:shadow-xl hover:scale-105">
+      <img src="https://placehold.co/120x120/a9e8e8/2c7a7b?text=Adivina" alt="Icono de Adivinanza" class="mb-4 rounded-full border-4 border-teal-300">
+      <h3 class="text-lg font-semibold text-gray-800 mb-2">Adivina la Palabra</h3>
+      <p class="text-sm text-gray-600 mb-4">Intenta adivinar la palabra oculta antes de que se acaben los intentos.</p>
+      <button (click)="openGameModal('guess-word', 'Adivina la Palabra')" class="play-game-button bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-6 rounded-full shadow-lg transition-all duration-200 transform hover:scale-110 active:scale-95" data-game-id="guess-word">
+        Jugar
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Game Modal: La ventana modal que aparece al hacer clic en 'Jugar' -->
+<div #gameModal id="game-modal" class="game-modal">
+    <div class="game-modal-content">
+        <!-- Botón para cerrar el modal -->
+        <button (click)="closeGameModal()" class="game-modal-close" id="close-game-modal">&times;</button>
+        <!-- Título del juego actual en el modal -->
+        <h2 id="modal-game-title" class="text-3xl font-extrabold text-gray-800 mb-6 text-center">{{ modalGameTitle }}</h2>
+        
+        <!-- Área donde se cargará el contenido dinámico del juego. -->
+        <div id="game-content-area" class="flex-grow bg-gray-100 rounded-lg p-4 flex items-center justify-center text-gray-500 text-lg">
+            <!-- Renderiza el componente del juego de memoria si activeGameId es 'memory-game' -->
+            <app-find-emoji *ngIf="activeGameId === 'memory-game'"></app-find-emoji>
+
+            <!-- Puedes añadir más *ngIf para otros juegos aquí -->
+            <div *ngIf="activeGameId === 'puzzle-game'" class="p-6 text-center text-gray-700">
+                <h3 class="text-xl font-semibold mb-3">¡Bienvenido al Juego de Puzzle!</h3>
+                <p class="text-base">Arrastra y suelta las piezas para completar la imagen. ¡Diviértete!</p>
+                <img src="https://placehold.co/200x150/a8dadc/1d3557?text=Puzzle+Game" alt="Ejemplo de Puzzle" class="mx-auto my-4 rounded-lg shadow-md">
+                <p class="text-sm text-gray-500">Este es un placeholder para el juego real de puzzle.</p>
+            </div>
+
+            <div *ngIf="activeGameId === 'trivia-game'" class="p-6 text-center text-gray-700">
+                <h3 class="text-xl font-semibold mb-3">¿Cuánto sabes? ¡A jugar Trivia!</h3>
+                <p class="text-base">Responde preguntas de diferentes categorías y demuestra que eres un experto.</p>
+                <img src="https://placehold.co/200x150/d0b8ee/5e3b8f?text=Trivia+Game" alt="Ejemplo de Trivia" class="mx-auto my-4 rounded-lg shadow-md">
+                <p class="text-sm text-gray-500">Este es un placeholder para el juego real de trivia.</p>
+            </div>
+
+            <div *ngIf="activeGameId === 'guess-word'" class="p-6 text-center text-gray-700">
+                <h3 class="text-xl font-semibold mb-3">¡Adivina la Palabra Secreta!</h3>
+                <p class="text-base">Tienes que adivinar la palabra letra por letra. ¡No te quedes sin intentos!</p>
+                <img src="https://placehold.co/200x150/a9e8e8/2c7a7b?text=Guess+Word" alt="Ejemplo de Adivina la Palabra" class="mx-auto my-4 rounded-lg shadow-md">
+                <p class="text-sm text-gray-500">Este es un placeholder para el juego real de adivinar la palabra.</p>
+            </div>
+
+            <!-- Si no hay ningún juego activo, se muestra el placeholder general -->
+            <div *ngIf="!activeGameId" class="text-gray-500 text-lg">
+                ¡Tu juego se cargará aquí! Este es un placeholder general.
+            </div>
+        </div>
+    </div>
+</div>

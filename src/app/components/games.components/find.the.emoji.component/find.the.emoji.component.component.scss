@@ -1,0 +1,259 @@
+/* Estilos para el contenedor principal del juego */
+.game-container {
+    background-color: #ffffff;
+    padding: 20px; /* Ajustar padding para más espacio */
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    text-align: center;
+    width: 100%; /* Ocupa el 100% del ancho disponible de su padre */
+    height: 100%; /* Ocupa el 100% de la altura disponible de su padre */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra los ítems horizontalmente */
+    justify-content: center; /* Centra el contenido verticalmente si hay espacio, o space-between si se prefiere */
+    gap: 15px; /* Espacio entre elementos hijos */
+    overflow-y: auto; /* Permitir scroll si el contenido es muy grande para la modal */
+    box-sizing: border-box; /* Incluye padding y borde en el ancho/alto total */
+}
+
+h1 {
+    color: #FF6F00;
+    font-size: 2.8rem;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+p.instructions {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.game-info {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 600px; /* Aumenta el max-width para información del juego */
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    color: #333;
+    font-weight: 600;
+}
+
+.board-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px; /* Ligeramente reducido para más espacio para las tarjetas */
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #FFCC80;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Asegura que la cuadrícula ocupe el ancho disponible del contenedor del juego */
+    height: 100%; /* Asegura que la cuadrícula ocupe la altura disponible dentro del contenedor flex */
+    max-width: 900px; /* Aumenta el límite de ancho para la cuadrícula en pantallas grandes */
+    max-height: 100%; /* Permite que la altura se ajuste al espacio */
+    margin: 0 auto; /* Centrar la cuadrícula dentro del contenedor del juego */
+    flex-grow: 1; /* Permite que la cuadrícula ocupe el espacio vertical disponible */
+    align-content: center; /* Centra el contenido de la cuadrícula verticalmente si hay espacio */
+    place-items: center; /* Centra el contenido (tarjetas) dentro de cada celda */
+}
+
+.card {
+    width: 100%; /* Ocupa el ancho completo de su columna en la cuadrícula */
+    padding-bottom: 100%; /* Esto hace que la altura sea igual al ancho, creando una tarjeta cuadrada */
+    position: relative; /* Para que card-inner pueda ser absoluto */
+    perspective: 1000px;
+    cursor: pointer;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.6s;
+}
+
+.card-inner {
+    position: absolute; /* Posiciona el inner sobre la tarjeta */
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    border-radius: 10px;
+}
+
+.card.flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    font-weight: 700;
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.card-back {
+    background-color: #4CAF50;
+    color: white;
+    font-size: 2.5rem;
+    border: 3px solid #388E3C;
+}
+
+.card-front {
+    background-color: #FFF9C4;
+    color: #333;
+    transform: rotateY(180deg);
+    border: 3px solid #FFEB3B;
+    word-wrap: break-word;
+    font-size: 3rem;
+    line-height: 1.3;
+}
+
+.card.matched .card-inner {
+    opacity: 0.7;
+    pointer-events: none;
+    transform: rotateY(180deg) scale(0.95);
+}
+
+.control-buttons {
+    display: flex;
+    gap: 20px;
+    margin-top: 25px;
+}
+
+.control-button {
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.control-button:hover {
+    background-color: #1976D2;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.control-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.hidden {
+    display: none;
+}
+
+.message-box {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 30px;
+    z-index: 1001;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    flex-direction: column;
+    gap: 20px;
+    border-radius: 0;
+}
+
+.message-box p {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 15px 25px;
+    border-radius: 10px;
+}
+
+.message-box button {
+    background-color: #FF5722;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+.message-box button:hover {
+    background-color: #E64A19;
+}
+
+/* Responsive adjustments for board grid and cards */
+@media (max-width: 768px) {
+    .game-container {
+        padding: 15px; /* Reducir padding en tablets */
+    }
+    h1 {
+        font-size: 2.2rem;
+    }
+    p.instructions {
+        font-size: 1rem;
+    }
+    .game-info {
+        font-size: 1rem;
+    }
+    .board-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        max-width: 90%; /* Ajuste para tablets */
+    }
+    .card-front {
+        font-size: 2rem;
+    }
+    .card-back {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .game-container {
+        padding: 10px; /* Reducir padding en móviles */
+    }
+    h1 {
+        font-size: 1.8rem;
+    }
+    p.instructions {
+        font-size: 0.9rem;
+    }
+    .game-info {
+        font-size: 0.9rem;
+    }
+    .board-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+        max-width: 95%; /* Ajuste para móviles, casi todo el ancho */
+    }
+    .card-front {
+        font-size: 2rem; /* Ajuste para que quepan bien los emojis */
+    }
+    .card-back {
+        font-size: 2rem; /* Ajuste para que quepan bien los emojis */
+    }
+    .control-button {
+        padding: 8px 18px;
+        font-size: 0.9rem;
+    }
+    .message-box {
+        font-size: 1.2rem;
+        padding: 15px;
+    }
+}
