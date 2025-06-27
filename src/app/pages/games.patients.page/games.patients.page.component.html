@@ -61,30 +61,22 @@
             <!-- Renderiza el componente del juego de memoria si activeGameId es 'memory-game' -->
             <app-find-emoji *ngIf="activeGameId === 'memory-game'"></app-find-emoji>
 
-            <!-- Puedes añadir más *ngIf para otros juegos aquí -->
+            <!-- Renderiza el juego "Adivina la Palabra" (AppComponent) si activeGameId es 'guess-word' -->
+            <app-guess-the-word *ngIf="activeGameId === 'guess-word'"></app-guess-the-word>
+
+            <!-- Renderiza el juego "Trivia" (TriviaGameComponent) si activeGameId es 'trivia-game' -->
+            <app-trivia-game *ngIf="activeGameId === 'trivia-game'"></app-trivia-game>
+
+            <!-- Puedes añadir más *ngIf para otros juegos aquí, si no tienes componentes específicos -->
             <div *ngIf="activeGameId === 'puzzle-game'" class="p-6 text-center text-gray-700">
                 <h3 class="text-xl font-semibold mb-3">¡Bienvenido al Juego de Puzzle!</h3>
                 <p class="text-base">Arrastra y suelta las piezas para completar la imagen. ¡Diviértete!</p>
-                <img src="https://placehold.co/200x150/a8dadc/1d3557?text=Puzzle+Game" alt="Ejemplo de Puzzle" class="mx-auto my-4 rounded-lg shadow-md">
+                
                 <p class="text-sm text-gray-500">Este es un placeholder para el juego real de puzzle.</p>
             </div>
 
-            <div *ngIf="activeGameId === 'trivia-game'" class="p-6 text-center text-gray-700">
-                <h3 class="text-xl font-semibold mb-3">¿Cuánto sabes? ¡A jugar Trivia!</h3>
-                <p class="text-base">Responde preguntas de diferentes categorías y demuestra que eres un experto.</p>
-                <img src="https://placehold.co/200x150/d0b8ee/5e3b8f?text=Trivia+Game" alt="Ejemplo de Trivia" class="mx-auto my-4 rounded-lg shadow-md">
-                <p class="text-sm text-gray-500">Este es un placeholder para el juego real de trivia.</p>
-            </div>
-
-            <div *ngIf="activeGameId === 'guess-word'" class="p-6 text-center text-gray-700">
-                <h3 class="text-xl font-semibold mb-3">¡Adivina la Palabra Secreta!</h3>
-                <p class="text-base">Tienes que adivinar la palabra letra por letra. ¡No te quedes sin intentos!</p>
-                <img src="https://placehold.co/200x150/a9e8e8/2c7a7b?text=Guess+Word" alt="Ejemplo de Adivina la Palabra" class="mx-auto my-4 rounded-lg shadow-md">
-                <p class="text-sm text-gray-500">Este es un placeholder para el juego real de adivinar la palabra.</p>
-            </div>
-
-            <!-- Si no hay ningún juego activo, se muestra el placeholder general -->
-            <div *ngIf="!activeGameId" class="text-gray-500 text-lg">
+            <!-- Si no hay ningún juego activo y no es uno de los componentes dedicados, se muestra el placeholder general -->
+            <div *ngIf="!activeGameId && activeGameId !== 'guess-word' && activeGameId !== 'memory-game' && activeGameId !== 'puzzle-game' && activeGameId !== 'trivia-game'" class="text-gray-500 text-lg">
                 ¡Tu juego se cargará aquí! Este es un placeholder general.
             </div>
         </div>

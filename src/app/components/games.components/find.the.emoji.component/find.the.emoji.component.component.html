@@ -1,9 +1,10 @@
-<div class="game-container">
-
-    <div class="game-info">
-        <div>Intentos: <span>{{ attempts }}</span></div>
+    <div class="control-buttons">
+                                    <button (click)="initializeGame()" class="control-button">Reiniciar Juego</button>
+                <div>Intentos: <span>{{ attempts }}</span></div>
         <div>Parejas Encontradas: <span>{{ matchedPairs }}</span></div>
     </div>
+
+<div class="game-container">
 
     <div id="gameBoard" class="board-grid">
         <!-- Las tarjetas se generarán dinámicamente aquí usando *ngFor -->
@@ -21,9 +22,6 @@
         </div>
     </div>
 
-    <div class="control-buttons">
-        <button (click)="initializeGame()" class="control-button">Reiniciar Juego</button>
-    </div>
 </div>
 
 <!-- Mensaje de fin de juego (modal simplificado) -->

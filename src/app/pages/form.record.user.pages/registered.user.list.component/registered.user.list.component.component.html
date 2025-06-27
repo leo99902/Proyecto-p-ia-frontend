@@ -1,16 +1,10 @@
-<!-- Patient Summary Card -->
-<div class="summary-card">
-    <div class="summary-icon">
-        <i class="fa-solid fa-user"></i> </div>
-    <div class="summary-details">
-        <p class="summary-title">Total de Usuarios</p>
-        <p class="summary-count">{{cantidaUser}}</p> </div>
-</div>
 
 <!-- Main Table Content -->
 <div class="table-card">
     <p>Filtros de busqueda</p>
-    <div style="display: flex; gap: 10px;">
+    <div style="display: flex; justify-content: space-between;">
+      
+      <div style="display: flex; gap: 10px;">
         <select name="filtroEstado" [(ngModel)]="filtro.filtroEstado" (change)="filterGetUserEstado()" class="form-select">
             <option value="" disabled selected hidden>Estado</option>
             <option value="" selected>Todos los Estados</option>
@@ -25,10 +19,12 @@
             <option value="Secretario">Secretario</option>
         </select>
 
+        </div>
+
         <div style="width: 90%;" class="search-input-container">
             <input [(ngModel)]="filterSeekerValue" id="search" type="search" placeholder="Buscar Usuario..." autofocus required />
             <button type="button" class="search-button" (click)="filterGetUserSeekerByButton()">
-                Buscar...   
+                Buscar  
             </button>
         </div>
     </div>
@@ -97,7 +93,6 @@
     </div>
 </div>
         
----
         
 <div
   class="custom-modal-overlay"
@@ -148,8 +143,6 @@
     </div>
   </div>
 </div>
-
----
 
 <div
   class="custom-modal-overlay"

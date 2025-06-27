@@ -155,7 +155,7 @@ body {
     background-repeat: no-repeat;
     background-position: right 8px center; /* Adjusted from 10px */
     background-size: 16px; /* Adjusted from 18px */
-    min-width: 130px; /* Adjusted from 150px */
+    width: 200px;
 }
 
 .form-select:focus {
@@ -188,13 +188,15 @@ body {
 }
 
 .search-button {
-    background-color: #f7f7f7;
+    background-color: #4a90e2;
     border: none;
     padding: 8px 12px; /* Adjusted from 10px 15px */
     cursor: pointer;
-    color: #666;
+    color: #fff;
     font-size: 0.9rem; /* Adjusted from 1rem */
     transition: background-color 0.2s ease;
+    width: 100%;
+    margin-right: 3rem;
 }
 
 .search-button:hover {
@@ -205,6 +207,7 @@ body {
 .table-responsive {
     overflow-x: auto; /* Ensures table is scrollable on small screens */
     margin-bottom: 20px; /* Adjusted from 25px */
+    margin-top: 10px;
 }
 
 .table-custom {
@@ -216,7 +219,7 @@ body {
 
 .table-custom th,
 .table-custom td {
-    padding: 10px 15px; /* Adjusted from 12px 18px */
+    padding: 6px 8px; /* Adjusted from 12px 18px */
     border-bottom: 1px solid #f0f0f0; /* Light border for rows */
     text-align: left;
     vertical-align: middle;

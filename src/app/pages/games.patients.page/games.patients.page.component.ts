@@ -1,11 +1,18 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FindTheEmojiComponentComponent } from '../../components/games.components/find.the.emoji.component/find.the.emoji.component.component';
+import { GuessTheWordComponent } from '../../components/games.components/guess.the.word/guess.the.word.component';
+import { TriviaQuestionsAndAnswersComponent } from '../../components/games.components/trivia.questions.and.answers/trivia.questions.and.answers/trivia.questions.and.answers.component';
 
 @Component({
   selector: 'app-games',
   standalone: true,
-  imports: [CommonModule, FindTheEmojiComponentComponent], // Asegúrate de que FindTheEmojiComponentComponent esté aquí
+  imports: [
+    CommonModule,
+    FindTheEmojiComponentComponent,
+    GuessTheWordComponent,
+    TriviaQuestionsAndAnswersComponent
+  ],
   templateUrl: './games.patients.page.component.html',
   styleUrl: './games.patients.page.component.scss'
 })

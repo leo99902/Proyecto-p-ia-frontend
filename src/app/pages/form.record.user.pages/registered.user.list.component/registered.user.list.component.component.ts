@@ -16,8 +16,8 @@ import { UserEditServiceService } from '../../../services/user.edit.service/user
 })
 export class RegisteredUserListComponentComponent implements OnInit {
   public users: any = {id: 123, name: 'jose'};
-  public usuarios: any; // Aquí se guardarán los usuarios de la página actual, tal como vienen del backend.
-  public displayedUsers: any[] = []; // Nueva propiedad para almacenar los usuarios filtrados y mostrados.
+  public usuarios: any; // Ko'ápe oñongatúta umi puruhára pe páginagui, mba'éichapa ou backend-gui.
+  public displayedUsers: any[] = []; // Propiedad pyahu oñongatu hag̃ua umi puruhára oñefiltráva ha ojehechaukáva.
 
   public modalDetails = false;
   public alertEdit = false;
@@ -80,13 +80,13 @@ export class RegisteredUserListComponentComponent implements OnInit {
         next: (data: any) => {
           if(this.userEdit.name){
             // Mejorar esto: en lugar de location.reload(), recargar los usuarios
-            this.loadUsers(); // Recarga los usuarios para reflejar los cambios
-            this.closeModalEdit(); // Cierra el modal de edición
+            this.loadUsers(); // Oñembopyahu umi puruhára ohechauka hag̃ua umi kamby
+            this.closeModalEdit(); // Oñembotyi pe edición modal
           }
         },
           error: (e:any) => {
-            console.error('Error al guardar usuario:', e);
-            // Aquí podrías mostrar un mensaje de error al usuario
+            console.error('Puruhára ñongatu javy:', e);
+            // Ko'ápe ikatu remañanduka peteĩ javy pe puruhárape
         }  
       })
   }
@@ -103,11 +103,11 @@ export class RegisteredUserListComponentComponent implements OnInit {
         this.userEdit.state = data.state
         this.userEdit.password = data.password
 
-        // IMPORTANTE: NO LLAMAR saveUser AQUÍ. Se llama cuando el usuario presiona "Guardar" en el modal.
+        // IÑEPYTYMBO: ANI REMBOU saveUser KO'ÁPE. Oñehenói jave pe puruhára oñembojy "Guardar" pe modal-pe.
         // this.saveUser(userId)
       },
       error: (e) => {
-        console.error('Error al obtener usuario para editar:', e);
+        console.error('Puruhára ohupyty javy oñemyatyrõ hag̃ua:', e);
       }
     })
   }
@@ -127,7 +127,7 @@ export class RegisteredUserListComponentComponent implements OnInit {
         this.user.password = data.password
       },
       error: (e) => {
-        console.error('Error al obtener usuarios:', e);
+        console.error('Puruhára ohupyty javy:', e);
       }
     })
   }
@@ -144,7 +144,7 @@ export class RegisteredUserListComponentComponent implements OnInit {
     if(this.pageValue > this.cantidadPages){
       this.pageValue = this.cantidadPages
     }
-    this.loadUsers(); // Cargar usuarios después del cambio de página
+    this.loadUsers(); // Oñembohoja umi puruhára oñembohasa rire pe páhina
   }
 
   public setpagedecrease():void{
@@ -152,20 +152,27 @@ export class RegisteredUserListComponentComponent implements OnInit {
     if(this.pageValue < 1){
       this.pageValue = 1
     }
-    this.loadUsers(); // Cargar usuarios después del cambio de página
+    this.loadUsers(); // Oñembohoja umi puruhára oñembohasa rire pe páhina
   }
 
   private loadUsers(): void {
-    // Cuando los filtros de rol/estado cambian, reiniciamos la página a 1 para asegurar coherencia
-    // Esto es importante si el filtrado del lado del cliente podría resultar en menos páginas.
-    // Aunque applyFilters() es lado del cliente, si se usa con una búsqueda, podría cambiar el total de páginas.
-    // Para filtros de rol/estado puros (sin búsqueda), la paginación no se ajustará si ya cargó N páginas.
-    // Si queremos que los filtros de rol/estado también puedan reducir el número de páginas,
-    // tendríamos que llamar a la API con esos filtros, no solo filtrar this.usuarios.value.
-    // Por ahora, asumiremos que applyFilters() opera sobre la página actual y si cambia la paginación,
-    // es por una nueva búsqueda.
+    // Oñembosako'i umi parámetro ojapóvo pe backend-pe
+    const params: any = {
+        page: this.pageValue,
+        user: this.filterSeekerValue // Búsqueda techa rupive
+    };
 
-    this.listUser.listUsers({page: this.pageValue, user: this.filterSeekerValue}).subscribe({ // Incluir filterSeekerValue aquí para cargar la página correcta después de una búsqueda
+    // Oñembojoapy pe filtro estado-gui oñembohovái jave (ha ndaha'éi 'Maymáva Estado'-gui)
+    if (this.filtro.filtroEstado && this.filtro.filtroEstado !== 'Todos los Estados') {
+        params.state = this.filtro.filtroEstado;
+    }
+
+    // Oñembojoapy pe filtro rol-gui oñembohovái jave (ha ndaha'éi 'Maymáva rol'-gui)
+    if (this.filtro.filtroRole && this.filtro.filtroRole !== 'Todos los roles') {
+        params.role = this.filtro.filtroRole; // Eñeha'ãmba'e oñemohenda porã pe parámetro réra pe backend oha'arõva ndive
+    }
+
+    this.listUser.listUsers(params).subscribe({
       next: (data: any) => {
         this.usuarios = data;
         this.cantidad = data.value.length;
@@ -173,19 +180,21 @@ export class RegisteredUserListComponentComponent implements OnInit {
         this.cantidadPages = data.total_paginas;
         this.cantidaUser = data.total_registros;
 
-        // Para depurar: Imprime el valor de cantidadPages
-        console.log('Cantidad de páginas recibidas del backend:', this.cantidadPages);
+        // Ojehechauka hag̃ua: Omyesakã pe cantidadPages-gui
+        console.log('Páhina hetakue oúva backend-gui:', this.cantidadPages);
         
-        this.applyFilters(); // Aplicar filtros después de cargar los usuarios
+        // Ko'ápe oñembojehe'a umi puruhára oñefiltráva ha ojehechaukáva
+        this.displayedUsers = this.usuarios.value; 
+
       },
       error: (e) => {
-        console.error('Error al obtener usuarios:', e);
+        console.error('Puruhára ohupyty javy:', e);
       }
     });
   }
 
   ngOnInit(): void {
-    this.loadUsers(); // Llama a loadUsers en lugar de listUsers directamente
+    this.loadUsers(); // Oñehenói loadUsers reñepyrũvo puruhára lista
   }
 
   public filtro = {
@@ -193,43 +202,35 @@ export class RegisteredUserListComponentComponent implements OnInit {
     filtroEstado: ''
   }
 
-  private applyFilters(): void {
-    let filtered = [...this.usuarios.value]; // Crear una copia para no modificar el original
-
-    // Aplicar filtro por estado
-    if (this.filtro.filtroEstado && this.filtro.filtroEstado !== 'Todos los Estados') {
-      filtered = filtered.filter((user: any) => user.state === this.filtro.filtroEstado);
-    }
-
-    // Aplicar filtro por rol
-    if (this.filtro.filtroRole && this.filtro.filtroRole !== 'Todos los roles') {
-      filtered = filtered.filter((user: any) => user.role.toLowerCase() === this.filtro.filtroRole.toLowerCase());
-    }
-    
-    // NOTA: El filtro de búsqueda se aplicará cuando se llame a loadUsers con filterSeekerValue
-    // o al llamar a filterGetUserSeeker(). Aquí, solo aplica los filtros de rol y estado
-    // sobre los datos que ya se cargaron para la página actual.
-
-    this.displayedUsers = filtered; // Asignar los usuarios filtrados a la nueva propiedad
-  }
+  // Se eliminó applyFilters() ya que el filtrado se hará en el backend
+  // private applyFilters(): void {
+  //   let filtered = [...this.usuarios.value];
+  //   if (this.filtro.filtroEstado && this.filtro.filtroEstado !== 'Todos los Estados') {
+  //     filtered = filtered.filter((user: any) => user.state === this.filtro.filtroEstado);
+  //   }
+  //   if (this.filtro.filtroRole && this.filtro.filtroRole !== 'Todos los roles') {
+  //     filtered = filtered.filter((user: any) => user.role.toLowerCase() === this.filtro.filtroRole.toLowerCase());
+  //   }
+  //   this.displayedUsers = filtered;
+  // }
 
 
   public filterGetUserRole(){
-    this.pageValue = 1; // Reiniciar a la primera página cuando se cambia el filtro
-    this.loadUsers(); // Recargar usuarios con los filtros aplicados
+    this.pageValue = 1; // Oñepyrũ jey peteĩ páhina pyahu pe filtro oñembohasávo
+    this.loadUsers(); // Oñembopyahu umi puruhára umi filtro oñembohasáva ndive
   }
 
   public filterGetUserEstado(){
-    this.pageValue = 1; // Reiniciar a la primera página cuando se cambia el filtro
-    this.loadUsers(); // Recargar usuarios con los filtros aplicados
+    this.pageValue = 1; // Oñepyrũ jey peteĩ páhina pyahu pe filtro oñembohasávo
+    this.loadUsers(); // Oñembopyahu umi puruhára umi filtro oñembohasáva ndive
   }
 
   public filterSeekerValue: string = ''
 
-  // Este método ahora se llama SOLO cuando se presiona el botón de búsqueda
+  // Ko método oñehenói GUARANI añónte oñembojy jave pe botón de búsqueda
   public filterGetUserSeekerByButton(){
-      this.pageValue = 1; // Reiniciar a la primera página cuando se realiza una nueva búsqueda
-      this.loadUsers(); // Cargar usuarios aplicando el filtro de búsqueda
+      this.pageValue = 1; // Oñepyrũ jey peteĩ páhina pyahu ojejapo jave peteĩ búsqueda pyahu
+      this.loadUsers(); // Oñembohoja umi puruhára oñembohasávo pe filtro de búsqueda
   }
 
 }

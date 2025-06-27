@@ -140,6 +140,10 @@ main.dashboard-container { /* Renamed from .main-container in old HTML */
     }
 }
 
+.content-select{
+   display: flex; gap: .5rem; 
+}
+
 .table-main-title { /* Formerly .section-title */
     font-size: 1.6rem; /* Slightly smaller font size */
     font-weight: 700;
@@ -164,10 +168,10 @@ main.dashboard-container { /* Renamed from .main-container in old HTML */
 }
 
 .form-select {
-    padding: 8px 12px; /* Slightly reduced padding */
-    border: 1px solid #ddd; /* Slightly lighter border */
-    border-radius: 6px; /* Slightly smaller border-radius */
-    font-size: 0.9rem; /* Slightly smaller font size */
+    padding: 8px 12px; /* Adjusted from 10px 15px */
+    border: 1px solid #ddd; /* Adjusted from #ccc */
+    border-radius: 6px; /* Adjusted from 8px */
+    font-size: 0.9rem; /* Adjusted from 0.95rem */
     color: #555;
     background-color: #fff;
     cursor: pointer;
@@ -177,9 +181,9 @@ main.dashboard-container { /* Renamed from .main-container in old HTML */
     appearance: none;
     background-image: url('data:image/svg+xml;utf8,<svg fill="#6b7280" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
     background-repeat: no-repeat;
-    background-position: right 8px center; /* Slightly adjusted position */
-    background-size: 16px; /* Slightly smaller size */
-    min-width: 130px; /* Slightly smaller min-width */
+    background-position: right 8px center; /* Adjusted from 10px */
+    background-size: 16px; /* Adjusted from 18px */
+    width: 250px;
 }
 
 .form-select:focus {
@@ -212,13 +216,14 @@ main.dashboard-container { /* Renamed from .main-container in old HTML */
 }
 
 .search-button {
-    background-color: #f7f7f7;
+    background-color: #007bff;
     border: none;
     padding: 8px 12px; /* Slightly reduced padding */
     cursor: pointer;
-    color: #666;
+    color: #fff;
     font-size: 0.9rem; /* Slightly smaller font size */
     transition: background-color 0.2s ease;
+    margin-right: 3rem;
 }
 
 .search-button:hover {
@@ -244,7 +249,7 @@ main.dashboard-container { /* Renamed from .main-container in old HTML */
 
 .table-custom th,
 .table-custom td {
-    padding: 0.8rem; /* Slightly reduced padding */
+    padding: 6px 8px; /* Adjusted from 12px 18px */
     border-bottom: 1px solid #e5e5e5; /* Slightly lighter border */
     color: #34495e;
     font-size: 0.9rem; /* Slightly smaller font size */

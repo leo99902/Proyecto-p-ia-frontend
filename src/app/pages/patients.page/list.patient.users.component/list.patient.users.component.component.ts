@@ -133,6 +133,7 @@ export class ListPatientUsersComponentComponent implements OnInit {
 
   /**
    * Filter handler: Triggers patient loading when role filter changes.
+   * Resets page to 1 for a new filtered search.
    */
   filterGetUserRole(): void {
     this.pageValue = 1; // Reset to first page on filter change
@@ -141,6 +142,7 @@ export class ListPatientUsersComponentComponent implements OnInit {
 
   /**
    * Filter handler: Triggers patient loading when state filter changes.
+   * Resets page to 1 for a new filtered search.
    */
   filterGetUserEstado(): void {
     this.pageValue = 1; // Reset to first page on filter change
@@ -149,6 +151,7 @@ export class ListPatientUsersComponentComponent implements OnInit {
 
   /**
    * Search handler: Triggers patient loading when search input changes.
+   * Resets page to 1 for a new search.
    */
   filterGetUserSeeker(): void {
     this.pageValue = 1; // Reset to first page on search
