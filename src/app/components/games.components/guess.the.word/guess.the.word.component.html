@@ -1,0 +1,58 @@
+<div class="body">
+    <div class="container" [class.game-over]="isGameOver">
+        <!-- Container to display the hidden word -->
+        <div id="word-display" class="word-display mb-8">
+            <!-- Use *ngFor to display each character of the guessedWord array -->
+            <span *ngFor="let char of guessedWord">{{char}}&nbsp;</span>
+        </div>
+        <!-- Shows remaining attempts -->
+        <div class="guesses-left mb-6">
+            Intentos restantes: <span>{{attempts}}</span>
+        </div>
+        <!-- Area for the hangman drawing -->
+        <div class="hangman-drawing" id="hangman-drawing"
+            [ngClass]="{
+                'show-head': getHangmanPartClass(0),
+                'show-body': getHangmanPartClass(1),
+                'show-arm-left': getHangmanPartClass(2),
+                'show-arm-right': getHangmanPartClass(3),
+                'show-leg-left': getHangmanPartClass(4),
+                'show-leg-right': getHangmanPartClass(5)
+            }">
+            <!-- Hangman structure (always visible) -->
+            <div class="gallows-base"></div>
+            <div class="gallows-post"></div>
+            <div class="gallows-beam"></div>
+            <div class="gallows-rope"></div>
+            <!-- Hangman parts (initially hidden, revealed by CSS classes based on attempts) -->
+            <div class="head"></div>
+            <div class="body"></div>
+            <div class="arm-left"></div>
+            <div class="arm-right"></div>
+            <div class="leg-left"></div>
+            <div class="leg-right"></div>
+        </div>
+        <!-- User input section and button -->
+        <div class="input-section flex justify-center gap-4 mb-5">
+            <input type="text" id="letter-input" maxlength="1" placeholder="Letra"
+                   class="p-3 border-2 border-gray-300 rounded-md text-center text-xl uppercase w-28 focus:outline-none focus:border-blue-500"
+                   [(ngModel)]="guessedLetterInput" (keydown.enter)="checkGuess()"
+                   [disabled]="isGameOver">
+            <button id="guess-button"
+                    class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105"
+                    (click)="checkGuess()" [disabled]="isGameOver">
+                Adivinar
+            </button>
+        </div>
+        <!-- Area for user messages (success, error, etc.) -->
+        <div id="message" class="message mb-6" [class.success]="messageType === 'success'" [class.error]="messageType === 'error'">
+            {{message}}
+        </div>
+        <!-- Button to reset the game, initially hidden -->
+        <button id="reset-button"
+                class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-md shadow-md transition duration-300 ease-in-out transform hover:scale-105"
+                (click)="initializeGame()" *ngIf="isGameOver">
+            Jugar de Nuevo
+        </button>
+    </div>
+</div>

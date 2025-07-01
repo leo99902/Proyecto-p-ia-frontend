@@ -49,10 +49,6 @@ export class AuthService {
   private _userMenus = new BehaviorSubject<MenuItem[]>([]);
   readonly userMenus$ = this._userMenus.asObservable(); // Observable público para suscribirse
 
-  // **IMPORTANTE:** Define aquí TODOS los menús posibles de tu aplicación.
-  // La propiedad 'id' de cada MenuItem DEBE coincidir con los strings que vienen en el array 'menu' de tu token.
-  // La propiedad 'icon' DEBE contener SÓLO la parte variable de la clase de Boxicon (ej. 'bx-home-alt' sin el 'bx').
-  // Las rutas 'path' DEBEN coincidir con tus rutas definidas en 'app.routes.ts'.
   private allAppMenus: MenuItem[] = [
     // Ejemplo: Si tu token tiene "home", el id aquí es "home". El icono es la clase de Boxicon.
     { id: 'home', name: 'Inicio', icon: 'bx-home-alt', path: '/home' }, // <-- VERIFICA ID, ICONO Y RUTA
@@ -60,13 +56,12 @@ export class AuthService {
     { id: 'chats', name: 'ChatBot', icon: 'bx-chat', path: '/chatbot' },     // <-- VERIFICA ID, ICONO Y RUTA
     { id: 'users', name: 'Usuarios', icon: 'bx-user', path: '/usuarios' },   // <-- VERIFICA ID, ICONO Y RUTA
     // Ejemplo: Si tu token devuelve "juegos" para los juegos, el id debe ser "juegos".
-    { id: 'juegos', name: 'Juegos', icon: 'bx-joystick', path: '/juegos' },   // <-- VERIFICA ID, ICONO Y RUTA (ej. bx-joystick o bx-game)
+    { id: 'games', name: 'Juegos', icon: 'bx-joystick', path: '/juegos' },   // <-- VERIFICA ID, ICONO Y RUTA (ej. bx-joystick o bx-game)
     // Agrega aquí más ítems de menú según las necesidades de tu aplicación
   ];
 
   constructor() {
-    // Al iniciar la aplicación (o al recargar la página),
-    // intenta cargar los menús si ya hay un token en localStorage.
+    
     this.loadMenusFromToken();
 
     // Suscribirse al estado de login: cuando cambia (ej. login/logout),

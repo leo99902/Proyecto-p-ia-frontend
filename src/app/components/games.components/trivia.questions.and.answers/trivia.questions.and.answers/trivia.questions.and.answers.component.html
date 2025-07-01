@@ -1,0 +1,30 @@
+<div class="trivia-container">
+    <!-- Sección de Pregunta/Opciones -->
+    <div *ngIf="!showResult">
+        <p class="text-xl font-semibold mb-4 text-gray-800">
+            Pregunta {{ currentQuestionIndex + 1 }} de {{ questions.length }}:
+        </p>
+        <h3 id="question-text" class="question-text">{{ questions[currentQuestionIndex].question }}</h3>
+
+        <div id="options-container" class="grid grid-cols-1 gap-4 mb-6">
+            <button *ngFor="let option of questions[currentQuestionIndex].options"
+                    (click)="selectedOption === null && checkAnswer(option)"
+                    [disabled]="selectedOption !== null"
+                    [class]="getOptionClass(option)">
+                {{ option }}
+            </button>
+        </div>
+
+        <p id="feedback-message" class="feedback-message"
+           [ngClass]="{'correct': feedbackMessage === '¡Correcto!', 'incorrect': feedbackMessage !== '¡Correcto!' && feedbackMessage !== ''}">
+            {{ feedbackMessage }}
+        </p>
+    </div>
+
+    <!-- Sección de Resultado Final (mostrada cuando showResult es true) -->
+    <div *ngIf="showResult">
+        <h3 class="text-3xl font-bold mb-4 text-purple-700">¡Juego Terminado!</h3>
+        <p class="text-xl text-gray-700 mb-6">Tu puntuación final es: <span class="font-extrabold text-green-600">{{ score }} / {{ questions.length }}</span></p>
+        <button (click)="resetGame()" class="reset-button">Jugar de Nuevo</button>
+    </div>
+</div>

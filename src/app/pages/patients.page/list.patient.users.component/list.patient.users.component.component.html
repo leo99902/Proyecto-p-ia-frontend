@@ -1,77 +1,112 @@
-<main class="dashboard-container">
 
-    <div class="cards-grid">
-        <!-- Single card for "Total Patients" -->
-        <div class="card patient-card-full-width">
-            <div class="card-header">
-                <h3 class="card-title">Total de Pacientes</h3> 
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="card-icon" viewBox="0 0 16 16">
-                  <path d="M1 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-                  <path d="M7.784 14.392A2.238 2.238 0 0 1 7 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 7 9c-4 0-5 3-5 4s1 1 1 1z"/>
-                </svg>
+            <!-- Main Table Content (patient-list-section adapted to table-card) -->
+            <div class="table-card">
+                <p>Filtros de busqueda</p>
+                <!-- Filter Section (from previous HTML, integrated) -->
+                <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                    <!-- Filter by Estado -->
+                    <div class="content-select">
+                    <select  name="filtroEstado" [(ngModel)]="filtro.filtroEstado" (change)="filterGetUserEstado()" class="form-select">
+                        <option value="" disabled selected hidden>Estado</option>
+                        <option value="" selected>Todos los Estados</option>
+                        <option value="activo">Usuario activo</option>
+                        <option value="inactivo">Usuario inactivo</option>
+                    </select>
+
+                    </div>
+
+                    <!-- Search Input -->
+                    <div class="search-input-container">
+                        <input [(ngModel)]="filterSeekerValue" (input)="filterGetUserSeeker()" id="search" type="search" placeholder="Buscar Usuario..." autofocus required />
+                        <button type="button" class="search-button">
+                            Buscar
+                        </button>
+                    </div>
+                </div>
+
+
+                <div class="table-responsive"> <!-- Formerly .table-container -->
+                    <table class="table-custom"> <!-- Formerly .patients-table -->
+                        <thead>
+                            <tr>
+                                <th>Nombre Completo</th>
+                                <th>Cedula</th>
+                                <th>Teléfono</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Loading indicator -->
+                            <tr *ngIf="isLoadingPatients">
+                                <td colspan="5" style="text-align: center; padding: 20px;">Cargando pacientes...</td>
+                            </tr>
+                            <!-- Error message -->
+                            <tr *ngIf="!isLoadingPatients && patientsErrorMessage">
+                                <td colspan="5" class="error-message">Error: {{ patientsErrorMessage }}</td>
+                            </tr>
+                            <!-- List of patients -->
+                            <tr *ngFor="let patient of patients">
+                                <td>{{ patient.name }}</td>
+                                <td>{{ patient.cedula || patient.ci }}</td>
+                                <td>{{ patient.phone }}</td>
+                                <td>{{ patient.state }}</td>
+                                <td class="action-buttons">
+                                    <!-- Button to open edit modal (with btn-edit styling) -->
+                                    <button class="btn btn-edit" (click)="openEditPatientModal(patient)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                                        </svg>
+                                        Editar
+                                    </button>
+                                    <!-- Button to open view details modal (with btn-view styling) -->
+                                    <button class="btn btn-view" (click)="openViewPatientModal(patient)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                            <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                                            <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                                        </svg>
+                                        Ver
+                                    </button>
+                                </td>
+                            </tr>
+                            <!-- Message if no patients -->
+                            <tr *ngIf="!isLoadingPatients && !patientsErrorMessage && patients.length === 0">
+                                <td colspan="5" class="no-data-message">No hay pacientes registrados.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination (from previous HTML, integrated) -->
+                <div class="pagination-section">
+                    <nav class="pagination-nav" aria-label="Navegación de página">
+                        <ul class="pagination-list">
+                            <li (click)="setpagedecrease()" class="pagination-item">
+                                <button class="pagination-link pagination-link--arrow" aria-label="Página anterior">
+                                    &laquo; Regresar
+                                </button>
+                            </li>
+                            <li class="pagination-info">
+                                <span>Página {{pageValue}} de {{cantidadPages}}</span>
+                                <span>Total registros: {{dashboardData.totalPatients}}</span> <!-- Using totalPatients for total records -->
+                            </li>
+                            <li (click)="setpageincrease()" class="pagination-item">
+                                <button class="pagination-link pagination-link--arrow" aria-label="Página siguiente">
+                                    Siguiente &raquo;
+                                </button>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
-            <p class="card-value">{{ dashboardData.totalPatients }}</p>
-            <p class="card-description">{{ dashboardData.patientsDescription }}</p>
-        </div>
-    </div>
 
-    <!-- The "Monthly Report Gain" section has been removed -->
 
-    <!-- SECTION: Patient Management (remains) -->
-    <div class="patient-list-section">
-        <h3 class="section-title">Listado de Pacientes</h3>
-        <div class="table-container">
-            <table class="patients-table">
-                <thead>
-                    <tr>
-                        <th>Nombre Completo</th>
-                        <th>CI</th>
-                        <th>Teléfono</th>
-                        <th>Estado</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Loading indicator -->
-                    <tr *ngIf="isLoadingPatients">
-                        <td colspan="5" style="text-align: center; padding: 20px;">Cargando pacientes...</td>
-                    </tr>
-                    <!-- Error message -->
-                    <tr *ngIf="!isLoadingPatients && patientsErrorMessage">
-                        <td colspan="5" class="error-message">{{ patientsErrorMessage }}</td>
-                    </tr>
-                    <!-- List of patients -->
-                    <tr *ngFor="let patient of patients">
-                        <td>{{ patient.name }}</td>
-                        <td>{{ patient.cedula || patient.ci }}</td>
-                        <td>{{ patient.phone }}</td>
-                        <td>{{ patient.state }}</td>
-                        <td class="action-buttons">
-                            <!-- Button to open edit modal -->
-                            <button class="edit-button" (click)="openEditPatientModal(patient)">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                                </svg>
-                                Editar
-                            </button>
-                            <!-- NEW Button to open view details modal -->
-                            <button class="view-button" (click)="openViewPatientModal(patient)">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
-                                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
-                                    <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
-                                </svg>
-                                Ver
-                            </button>
-                        </td>
-                    </tr>
-                    <!-- Message if no patients -->
-                    <tr *ngIf="!isLoadingPatients && !patientsErrorMessage && patients.length === 0">
-                        <td colspan="5" class="no-data-message">No hay pacientes registrados.</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+
+
+
+
+
 
     <!-- Modal for editing patient (remains as is) -->
     <div class="modal-backdrop" *ngIf="showEditPatientModal" (click)="closeEditPatientModal()">
@@ -108,30 +143,12 @@
                         <input type="text" id="editPhone" name="phone" [(ngModel)]="selectedPatientForEdit.phone" class="modal-input">
                     </div>
                     
-                    <div class="form-group form-group-checkbox">
-                        <input type="checkbox" id="editDisease" name="disease" [(ngModel)]="selectedPatientForEdit.disease" class="modal-checkbox">
-                        <label for="editDisease">¿Tiene enfermedad?</label>
-                    </div>
-                    
-                    <div class="form-group" *ngIf="selectedPatientForEdit.disease">
+                    <div style="width: 100%;">
                         <label for="editInfoDisease">Información de la Enfermedad</label>
                         <textarea id="editInfoDisease" name="infoDisease" [(ngModel)]="selectedPatientForEdit.infoDisease" rows="3" class="modal-input"></textarea>
                     </div>
 
                     <div class="form-group">
-                        <label for="editState">Estado</label>
-                        <input type="text" id="editState" name="state" [(ngModel)]="selectedPatientForEdit.state" required class="modal-input">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="editPassword">Nueva Contraseña (opcional)</label>
-                        <input type="password" id="editPassword" name="password" [(ngModel)]="selectedPatientForEdit.password" class="modal-input">
-                        <small class="text-note">Dejar en blanco para mantener la contraseña actual.</small>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="editRole">Rol</label>
-                        <input type="text" id="editRole" name="role" [(ngModel)]="selectedPatientForEdit.role" readonly class="modal-input readonly">
                     </div>
                 </div>
                 
@@ -181,19 +198,9 @@
                     <input type="text" [value]="viewedPatientDetails.phone" readonly class="modal-input readonly">
                 </div>
                 
-                <div class="form-group form-group-checkbox-view">
-                    <input type="checkbox" [checked]="viewedPatientDetails.disease" disabled class="modal-checkbox">
-                    <label>¿Tiene enfermedad?</label>
-                </div>
-                
                 <div class="form-group" *ngIf="viewedPatientDetails.disease">
                     <label>Información de la Enfermedad</label>
                     <textarea [value]="viewedPatientDetails.infoDisease || 'N/A'" rows="3" readonly class="modal-input readonly"></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label>Estado</label>
-                    <input type="text" [value]="viewedPatientDetails.state" readonly class="modal-input readonly">
                 </div>
             </div>
             
@@ -202,4 +209,3 @@
             </div>
         </div>
     </div>
-</main>
