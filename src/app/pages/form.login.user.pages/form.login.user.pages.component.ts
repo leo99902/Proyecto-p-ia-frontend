@@ -7,6 +7,8 @@ import { NgIf } from '@angular/common';
 import { Router } from '@angular/router';
 import { LoginServiceService } from '../../services/login.service/login.service.service';
 import { AuthService } from '../../services/auth.service/auth.service';
+import { RecoverPasswordService } from '../../services/recover.password.service/recover.password.service';
+
 
 @Component({
   selector: 'app-form-login-user',
@@ -21,13 +23,16 @@ import { AuthService } from '../../services/auth.service/auth.service';
 export class FormLoginUserPagesComponent {
   public name = '';
   public password = '';
+  public recoverEmail = '';
 
   public router = inject(Router);
   public loginService = inject(LoginServiceService);
   public authService = inject(AuthService);
+  public recoverPasswordService = inject(RecoverPasswordService);
 
   public modalAlertLogin = false;
   public modalMessage = '';
+
 
   openModal(): void {
     this.modalAlertLogin = true;
@@ -53,5 +58,35 @@ export class FormLoginUserPagesComponent {
         this.openModal();
       }
     });
+  }
+
+  public forgotPasswordMode = false;
+
+  toggleForgotPassword() {
+    this.forgotPasswordMode = !this.forgotPasswordMode;
+    this.password = '';
+    this.name = '';
+    this.recoverEmail = '';
+  }
+
+
+
+
+  // Recuperar contraseña
+
+  recoverPassword() {
+
+    this.recoverPasswordService.recoverPassword({user: this.recoverEmail}).subscribe({
+      next: (data: any) => {
+        this.modalMessage = data?.message || 'Solicitud enviada. Revisa tu correo.';
+        this.openModal();
+      },
+      error: (e) => {
+        this.modalMessage = e.error?.message || 'Ocurrió un error inesperado. Por favor, inténtelo de nuevo.';
+        this.openModal();
+      }
+    });
+
+
   }
 }

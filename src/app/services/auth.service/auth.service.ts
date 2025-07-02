@@ -165,4 +165,12 @@ export class AuthService {
     this.setLoggedIn(false); // Actualiza el estado de login a false
     this._userMenus.next([]); // Limpia los menús de la UI
   }
+
+
+  getUser() {
+  // Devuelve el usuario autenticado, por ejemplo desde localStorage o un BehaviorSubject
+  return JSON.parse(localStorage.getItem('user') || '{}');
+}
+
+
 }

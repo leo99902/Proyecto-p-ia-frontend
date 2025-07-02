@@ -1,0 +1,245 @@
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; // Esto separa los extremos
+    height: 6rem;
+    width: 80vw;
+    background-color: #f8f9fa;
+    padding: 0 2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    font-family: 'Inter', sans-serif;
+}
+
+
+.nav-role-actions {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.nav .nav-role {
+    font-size: 1.1rem;
+    color: #34495e;
+    background: #e8edfa;
+    padding: 0.5rem 1.2rem;
+    border-radius: 1.2rem;
+    font-weight: 500;
+    box-shadow: 0 2px 8px rgba(37,99,235,0.05);
+    margin-right: 0.5rem;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.nav-menu-btn {
+    background: #fff;
+    border: none;
+    border-radius: 50%;
+    padding: 0.3rem 0.4rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    box-shadow: 0 1px 4px rgba(37,99,235,0.07);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-menu-btn:hover {
+    background: #e8edfa;
+}
+
+.nav-dropdown {
+    position: absolute;
+    top: 110%;
+    right: 0;
+    min-width: 250px;
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 8px 32px rgba(37,99,235,0.13);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-10px) scale(0.98);
+    transition: opacity 0.25s cubic-bezier(.4,0,.2,1), transform 0.25s cubic-bezier(.4,0,.2,1);
+    z-index: 100;
+}
+
+.nav-dropdown.open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+}
+
+.nav-dropdown ul {
+    list-style: none;
+    margin: 0;
+    padding: 0.5rem 0;
+}
+
+.nav-dropdown li {
+    padding: 0.8rem 1.5rem;
+    color: #34495e;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.18s, color 0.18s;
+    border-radius: 0.7rem;
+}
+
+.nav-dropdown li:hover {
+    background: #e8edfa;
+    color: #2563eb;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3000;
+  backdrop-filter: blur(5px);
+}
+
+.modal-content {
+  background-color: #FFFFFF;
+  border-radius: 16px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+  padding: 2.5rem 3rem;
+  width: 90%;
+  max-width: 480px;
+  text-align: center;
+  animation: modalEnter 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+  display: flex;
+  flex-direction: column;
+}
+
+@keyframes modalEnter {
+  from {
+    transform: translateY(-50px) scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.modal-header {
+  margin-bottom: 1.8rem;
+}
+
+.modal-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+.modal-body {
+  margin-bottom: 2.5rem;
+  font-size: 1.15rem;
+  color: #5d6d7e;
+  line-height: 1.6;
+}
+
+.modal-body .timer {
+  font-weight: 600;
+  color: #007BFF;
+  font-size: 1.05rem;
+}
+
+.modal-body .timer-count {
+  font-weight: 800;
+  font-size: 1.3rem;
+  color: #D22B2B;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.btn {
+  padding: 0.9rem 2rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-cancel {
+  background-color: #e9ecef;
+  color: #495057;
+}
+
+.btn-cancel:hover {
+  background-color: #dee2e6;
+  transform: translateY(-3px);
+}
+
+.btn-confirm {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn-confirm:hover {
+  background-color: #c82333;
+  transform: translateY(-3px);
+}
+
+/* Animación para la modal */
+.animate-modal {
+  animation: modalFadeIn 0.4s cubic-bezier(.4,0,.2,1);
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-40px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Inputs y mensajes en la modal */
+.input-modal {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  margin-bottom: 1.1rem;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.2s;
+  background: #f8fafc;
+}
+
+.input-modal:focus {
+  border-color: #2563eb;
+  background: #fff;
+}
+
+.modal-error {
+  color: #dc3545;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.modal-success {
+  color: #22c55e;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.form-group {
+  margin-bottom: 0.5rem;
+}

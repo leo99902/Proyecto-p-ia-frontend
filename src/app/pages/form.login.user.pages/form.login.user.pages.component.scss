@@ -369,3 +369,44 @@ body {
         padding: 0;
     }
 }
+
+/* --- Nuevas reglas para la animación de los inputs --- */
+
+/* Estilos base para los elementos que van a transicionar */
+.fade-css {
+    /* Estado visible por defecto */
+    opacity: 1; /* Completamente visible */
+    max-height: 150px; /* Suficiente altura para el input y su etiqueta */
+    margin-bottom: 1.5rem; /* Margen por defecto, para que colapse con la altura */
+    overflow: hidden; /* Oculta el contenido si se desborda durante la animación */
+    transform: translateY(0); /* Posición inicial para la animación de deslizamiento */
+
+    /* Define las transiciones para suavizar los cambios */
+    transition:
+        opacity 0.3s ease-out,        /* Transición de opacidad más rápida */
+        max-height 0.3s ease-out,     /* Transición de altura máxima más rápida */
+        margin-bottom 0.3s ease-out,  /* Transición del margen inferior más rápida */
+        transform 0.3s ease-out;      /* Transición de transformación */
+
+    /* Asegura que los elementos sean interactuables cuando están visibles */
+    pointer-events: auto;
+    visibility: visible;
+}
+
+/* Estilos para el estado oculto */
+.fade-css.hide {
+    opacity: 0; /* Completamente transparente (desvanecer) */
+    max-height: 0; /* Colapsa la altura a cero */
+    margin-bottom: 0; /* Elimina el margen para que no ocupe espacio */
+    transform: translateY(-20px); /* Desliza hacia arriba al ocultarse */
+
+    /* Evita que se pueda interactuar con el elemento cuando está oculto */
+    pointer-events: none;
+    /* Oculta el elemento de los lectores de pantalla también */
+    visibility: hidden;
+}
+
+/* Botones: Asegurar que también tengan una transición de opacidad al aparecer */
+.text-center.pt-1.mb-3.flex-column button {
+    transition: opacity 0.3s ease-out; /* Hace que el botón aparezca con un fade más rápido */
+}
