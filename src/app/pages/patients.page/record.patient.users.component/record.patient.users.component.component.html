@@ -13,7 +13,7 @@
           type="text"
           id="name"
           name="name"
-          placeholder="Manolito Ferragamo"
+          placeholder="Ingrese el nombre completo de paciente"
           [(ngModel)]="newPatient.name"
           required
         />
@@ -97,18 +97,6 @@
       </div>
 
       <!-- Campo Estado - Agregado -->
-      <div class="input-group">
-        <label for="state">Estado (Ubicación)</label>
-        <input
-          type="text"
-          id="state"
-          name="state"
-          placeholder="Ej: Miranda, Carabobo, etc."
-          [(ngModel)]="newPatient.state"
-          required
-        />
-      </div>
-
       <div class="input-group">
         <label for="disease">¿Sufre de alguna enfermedad?</label>
         <input

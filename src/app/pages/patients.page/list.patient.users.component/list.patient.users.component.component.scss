@@ -1,40 +1,32 @@
-/* Embed Font Awesome for icons */
+/* Inserta Font Awesome para iconos */
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
-/* Import Inter font */
+/* Importa la fuente Inter */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-body {
-    font-family: 'Inter', sans-serif;
-    margin: 0;
-    background-color: #f0f2f5; /* Light grey background for the whole page */
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
 
 .main-container {
-    max-width: 1100px; /* Slightly reduced max width */
-    margin: 15px auto; /* Slightly reduced margin */
-    padding: 0 10px; /* Slightly reduced padding */
+    max-width: 1100px; /* Ancho máximo ligeramente reducido */
+    margin: 15px auto; /* Margen ligeramente reducido */
+    padding: 0 10px; /* Relleno ligeramente reducido */
 }
 
-/* --- Tab Navigation (Re-applied from previous iteration) --- */
+/* --- Navegación de Pestañas (Reaplicado de iteración anterior) --- */
 .tabs-container {
     display: flex;
-    margin-bottom: 20px; /* Slightly reduced margin */
+    margin-bottom: 20px; /* Margen ligeramente reducido */
     background-color: #fff;
-    border-radius: 6px; /* Slightly smaller border-radius */
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.04); /* Slightly smaller shadow */
-    overflow: hidden;
+    border-radius: 6px; /* Radio de borde ligeramente más pequeño */
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.04); /* Sombra ligeramente más pequeña */
 }
 
 .tab {
-    padding: 12px 25px; /* Slightly reduced padding */
+    padding: 12px 25px; /* Relleno ligeramente reducido */
     cursor: pointer;
     font-weight: 600;
-    color: #666; /* Slightly lighter text color */
+    color: #666; /* Color de texto ligeramente más claro */
     transition: all 0.3s ease;
-    border-right: 1px solid #eee; /* Separator between tabs */
-    font-size: 0.9rem; /* Slightly smaller font size */
+    border-right: 1px solid #eee; /* Separador entre pestañas */
+    font-size: 0.9rem; /* Tamaño de fuente ligeramente más pequeño */
 }
 
 .tab:last-child {
@@ -42,17 +34,17 @@ body {
 }
 
 .tab:hover {
-    background-color: #f5f5f5; /* Slightly lighter hover background */
+    background-color: #f5f5f5; /* Fondo de hover ligeramente más claro */
 }
 
 .active-tab {
-    background-color: #4a90e2; /* Active tab blue background */
-    color: #fff; /* Active tab white text */
-    border-radius: 6px 0 0 6px; /* Slightly smaller border-radius */
-    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.08); /* Slightly smaller inner shadow */
+    background-color: #4a90e2; /* Fondo azul de pestaña activa */
+    color: #fff; /* Texto blanco de pestaña activa */
+    border-radius: 6px 0 0 6px; /* Radio de borde ligeramente más pequeño */
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.08); /* Sombra interior ligeramente más pequeña */
 }
 
-/* If you have multiple tabs, you might need to adjust border-radius for active tab dynamically */
+/* Si tienes varias pestañas, es posible que necesites ajustar el radio de borde para la pestaña activa dinámicamente */
 .active-tab:first-child {
     border-radius: 6px 0 0 6px;
 }
@@ -60,28 +52,28 @@ body {
     border-radius: 0 6px 6px 0;
 }
 
-/* --- Patient Summary Card (from user's latest CSS) --- */
+/* --- Tarjeta de Resumen del Paciente (del último CSS del usuario) --- */
 .summary-card {
     background-color: #ffffff;
-    border-radius: 10px; /* Slightly smaller border-radius */
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06); /* Slightly smaller shadow */
-    padding: 20px 25px; /* Slightly reduced padding */
+    border-radius: 10px; /* Radio de borde ligeramente más pequeño */
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06); /* Sombra ligeramente más pequeña */
+    padding: 20px 25px; /* Relleno ligeramente reducido */
     display: flex;
     align-items: center;
-    gap: 10px; /* Slightly reduced gap */
-    border: 1px solid #e5e5e5; /* Slightly lighter border */
+    gap: 10px; /* Espacio ligeramente reducido */
+    border: 1px solid #e5e5e5; /* Borde ligeramente más claro */
 }
 
 .summary-icon {
-    background-color: #e0f2fe; /* Light blue background for icon */
-    color: #2196f3; /* Blue icon color */
-    width: 50px; /* Slightly smaller icon */
-    height: 50px; /* Slightly smaller icon */
+    background-color: #e0f2fe; /* Fondo azul claro para el icono */
+    color: #2196f3; /* Color azul del icono */
+    width: 50px; /* Icono ligeramente más pequeño */
+    height: 50px; /* Icono ligeramente más pequeño */
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px; /* Slightly smaller font size */
+    font-size: 24px; /* Tamaño de fuente ligeramente más pequeño */
 }
 
 .summary-details {
@@ -90,123 +82,132 @@ body {
 }
 
 .summary-title {
-    font-size: 1rem; /* Slightly smaller font size */
+    font-size: 1rem; /* Tamaño de fuente ligeramente más pequeño */
     color: #666;
-    margin-bottom: 4px; /* Slightly reduced margin */
+    margin-bottom: 4px; /* Margen ligeramente reducido */
     font-weight: 500;
 }
 
 .summary-count {
-    font-size: 2.2rem; /* Slightly smaller font size */
+    font-size: 2.2rem; /* Tamaño de fuente ligeramente más pequeño */
     font-weight: 700;
     color: #333;
-    line-height: 1; /* Adjust line height to prevent extra space */
-    margin-bottom: 4px; /* Slightly reduced margin */
+    line-height: 1; /* Ajustar altura de línea para evitar espacio extra */
+    margin-bottom: 4px; /* Margen ligeramente reducido */
 }
 
 .summary-subtitle {
-    font-size: 0.85rem; /* Slightly smaller font size */
+    font-size: 0.85rem; /* Tamaño de fuente ligeramente más pequeño */
     color: #888;
     margin: 0;
 }
 
-/* --- Main Content Area Styling (from user's latest CSS) --- */
-main.dashboard-container { /* Renamed from .main-container in old HTML */
-    padding: 2rem 1.5rem; /* Slightly reduced padding */
-    background-color: #f8f9fa; /* Light gray background */
-    min-height: calc(100vh - 70px); /* Adjusted according to potentially smaller nav height */
-    max-width: 1100px; /* Consistent with main-container */
-    margin: 15px auto; /* Consistent with main-container */
+/* --- Estilo del Área de Contenido Principal (del último CSS del usuario) --- */
+main.dashboard-container { /* Renombrado de .main-container en el HTML antiguo */
+    padding: 2rem 1.5rem; /* Relleno ligeramente reducido */
+    background-color: #f8f9fa; /* Fondo gris claro */
+    min-height: calc(100vh - 70px); /* Ajustado según la altura de navegación potencialmente menor */
+    max-width: 1100px; /* Consistente con main-container */
+    margin: 15px auto; /* Consistente con main-container */
 }
 @media (min-width: 768px) {
     main.dashboard-container {
-        padding: 2.5rem 3.5rem; /* Slightly reduced padding */
+        padding: 2.5rem 3.5rem; /* Relleno ligeramente reducido */
     }
 }
 
-/* Dashboard header (skipped as no corresponding HTML in provided structure) */
+/* Encabezado del panel (omitido ya que no hay HTML correspondiente en la estructura proporcionada) */
 
-/* Patient list section (from user's latest CSS, applied to .table-card) */
-.table-card { /* Formerly .patient-list-section */
+/* Sección de lista de pacientes (del último CSS del usuario, aplicado a .table-card) */
+.table-card { /* Anteriormente .patient-list-section */
     background: #ffffff;
     padding: 20px;
-    border-radius: 0.7rem; /* Slightly smaller border-radius */
-    box-shadow: 0 4px 12px rgba(0,0,0,0.07); /* Slightly smaller shadow */
+    border-radius: 0.7rem; /* Radio de borde ligeramente más pequeño */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.07); /* Sombra ligeramente más pequeña */
     border: 1px solid #e5e5e5;
 }
+
+.table-card p { /* Estilo para el párrafo "Filtros de búsqueda" */
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #34495e;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
 @media (max-width: 768px) {
     .table-card {
-        padding: 1.2rem; /* Slightly reduced padding */
+        padding: 1.2rem; /* Relleno ligeramente reducido */
     }
 }
 
 .content-select{
-   display: flex; gap: .5rem; 
+   display: flex; gap: .5rem;
 }
 
-.table-main-title { /* Formerly .section-title */
-    font-size: 1.6rem; /* Slightly smaller font size */
+.table-main-title { /* Anteriormente .section-title */
+    font-size: 1.6rem; /* Tamaño de fuente ligeramente más pequeño */
     font-weight: 700;
     color: #34495e;
-    margin-bottom: 0.8rem; /* Slightly reduced margin */
-    text-align: left; /* Left-aligned title */
+    margin-bottom: 0.8rem; /* Margen ligeramente reducido */
+    text-align: left; /* Título alineado a la izquierda */
 }
 @media (max-width: 768px) {
     .table-main-title {
-        font-size: 1.3rem; /* Slightly smaller font size */
+        font-size: 1.3rem; /* Tamaño de fuente ligeramente más pequeño */
     }
 }
 
 
-/* --- Filter Section (from previous HTML, integrated and styled) --- */
+/* --- Sección de Filtros (del HTML anterior, integrado y estilizado) --- */
 .filter-section {
     display: flex;
-    flex-wrap: wrap; /* Allow items to wrap on smaller screens */
-    gap: 12px; /* Slightly reduced gap */
-    margin-bottom: 20px; /* Slightly reduced margin */
+    flex-wrap: wrap; /* Permitir que los elementos se envuelvan en pantallas más pequeñas */
+    gap: 12px; /* Espacio ligeramente reducido */
+    margin-bottom: 20px; /* Margen ligeramente reducido */
     align-items: center;
 }
 
 .form-select {
-    padding: 8px 12px; /* Adjusted from 10px 15px */
-    border: 1px solid #ddd; /* Adjusted from #ccc */
-    border-radius: 6px; /* Adjusted from 8px */
-    font-size: 0.9rem; /* Adjusted from 0.95rem */
+    padding: 8px 12px; /* Ajustado de 10px 15px */
+    border: 1px solid #ddd; /* Ajustado de #ccc */
+    border-radius: 6px; /* Ajustado de 8px */
+    font-size: 0.9rem; /* Ajustado de 0.95rem */
     color: #555;
     background-color: #fff;
     cursor: pointer;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
-    -webkit-appearance: none; /* Remove default arrow */
+    -webkit-appearance: none; /* Eliminar flecha predeterminada */
     -moz-appearance: none;
     appearance: none;
     background-image: url('data:image/svg+xml;utf8,<svg fill="#6b7280" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
     background-repeat: no-repeat;
-    background-position: right 8px center; /* Adjusted from 10px */
-    background-size: 16px; /* Adjusted from 18px */
+    background-position: right 8px center; /* Ajustado de 10px */
+    background-size: 16px; /* Ajustado de 18px */
     width: 250px;
 }
 
 .form-select:focus {
     outline: none;
     border-color: #4a90e2;
-    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.15); /* Slightly smaller shadow */
+    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.15); /* Sombra ligeramente más pequeña */
 }
 
 .search-input-container {
     display: flex;
-    flex-grow: 1; /* Allows search bar to take available space */
-    max-width: 280px; /* Slightly reduced max width */
-    border: 1px solid #ddd; /* Slightly lighter border */
-    border-radius: 6px; /* Slightly smaller border-radius */
-    overflow: hidden;
+    flex-grow: 1; /* Permite que la barra de búsqueda ocupe el espacio disponible */
+    max-width: 280px; /* Ancho máximo ligeramente reducido */
+    border: 1px solid #ddd; /* Borde ligeramente más claro */
+    border-radius: 6px; /* Radio de borde ligeramente más pequeño */
     background-color: #fff;
 }
 
 .search-input-container input {
     flex-grow: 1;
-    padding: 8px 12px; /* Slightly reduced padding */
+    padding: 8px 12px; /* Relleno ligeramente reducido */
     border: none;
-    font-size: 0.9rem; /* Slightly smaller font size */
+    font-size: 0.9rem; /* Tamaño de fuente ligeramente más pequeño */
     color: #333;
     outline: none;
 }
@@ -218,10 +219,10 @@ main.dashboard-container { /* Renamed from .main-container in old HTML */
 .search-button {
     background-color: #007bff;
     border: none;
-    padding: 8px 12px; /* Slightly reduced padding */
+    padding: 8px 12px; /* Relleno ligeramente reducido */
     cursor: pointer;
     color: #fff;
-    font-size: 0.9rem; /* Slightly smaller font size */
+    font-size: 0.9rem; /* Tamaño de fuente ligeramente más pequeño */
     transition: background-color 0.2s ease;
     margin-right: 3rem;
 }
@@ -231,41 +232,39 @@ main.dashboard-container { /* Renamed from .main-container in old HTML */
 }
 
 
-/* --- Custom Table Styles (from user's latest CSS, adapted to .table-custom) --- */
-.table-responsive { /* Applied to .table-container in new HTML */
-    overflow-x: auto; /* Allows horizontal scrolling on small screens */
-    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-    border: 1px solid #e5e5e5; /* Slightly lighter border */
-    border-radius: 0.4rem; /* Slightly smaller border-radius */
-    margin-bottom: 20px; /* Slightly reduced margin */
+/* --- Estilos de Tabla Personalizados (del último CSS del usuario, adaptado a .table-custom) --- */
+.table-responsive { /* Aplicado a .table-container en el nuevo HTML */
+    border: 1px solid #e5e5e5; /* Borde ligeramente más claro */
+    border-radius: 0.4rem; /* Radio de borde ligeramente más pequeño */
+    margin-bottom: 20px; /* Margen ligeramente reducido */
 }
 
-.table-custom { /* Formerly .patients-table */
+.table-custom { /* Anteriormente .patients-table */
     width: 100%;
-    border-collapse: collapse; /* Removes double borders */
-    min-width: 550px; /* Slightly reduced min-width */
-    border-spacing: 0; /* Kept from previous iteration */
+    border-collapse: collapse; /* Elimina bordes dobles */
+    min-width: 550px; /* Ancho mínimo ligeramente reducido */
+    border-spacing: 0; /* Mantenido de la iteración anterior */
 }
 
 .table-custom th,
 .table-custom td {
-    padding: 6px 8px; /* Adjusted from 12px 18px */
-    border-bottom: 1px solid #e5e5e5; /* Slightly lighter border */
+    padding: 6px 8px; /* Ajustado de 12px 18px */
+    border-bottom: 1px solid #e5e5e5; /* Borde ligeramente más claro */
     color: #34495e;
-    font-size: 0.9rem; /* Slightly smaller font size */
+    font-size: 0.9rem; /* Tamaño de fuente ligeramente más pequeño */
 }
 
 .table-custom thead th {
-    background-color: #f5f7f9; /* Slightly lighter background */
+    background-color: #f5f7f9; /* Fondo ligeramente más claro */
     font-weight: 600;
-    font-size: 0.85rem; /* Slightly smaller font size */
+    font-size: 0.85rem; /* Tamaño de fuente ligeramente más pequeño */
     text-transform: uppercase;
     color: #6c757d;
-    letter-spacing: 0.4px; /* Slightly reduced letter-spacing */
-    border-bottom: 2px solid #e5e5e5; /* Slightly lighter border */
+    letter-spacing: 0.4px; /* Espaciado entre letras ligeramente reducido */
+    border-bottom: 2px solid #e5e5e5; /* Borde ligeramente más claro */
 }
 
-/* Rounded corners for table headers (kept from previous iteration) */
+/* Esquinas redondeadas para los encabezados de tabla (mantenido de la iteración anterior) */
 .table-custom thead th:first-child {
     border-top-left-radius: 6px;
 }
@@ -274,54 +273,54 @@ main.dashboard-container { /* Renamed from .main-container in old HTML */
 }
 
 .table-custom tbody tr:last-child td {
-    border-bottom: none; /* Removes the bottom border of the last row */
+    border-bottom: none; /* Elimina el borde inferior de la última fila */
 }
 
 .table-custom tbody tr:hover {
-    background-color: #f9fafa; /* Slightly lighter hover effect */
+    background-color: #f9fafa; /* Efecto hover ligeramente más claro */
 }
 
 .action-buttons {
     display: flex;
-    gap: 0.4rem; /* Slightly reduced gap */
+    gap: 0.4rem; /* Espacio ligeramente reducido */
     justify-content: flex-start;
     align-items: center;
 }
 
-.btn { /* Base style from previous iteration, adapted for edit/view buttons */
-    display: inline-flex; /* Align icon and text */
+.btn { /* Estilo base de la iteración anterior, adaptado para botones de editar/ver */
+    display: inline-flex; /* Alinear icono y texto */
     align-items: center;
-    gap: 5px; /* Slightly reduced gap */
-    padding: 0.4rem 0.8rem; /* Slightly reduced padding */
+    gap: 5px; /* Espacio ligeramente reducido */
+    padding: 0.4rem 0.8rem; /* Relleno ligeramente reducido */
     border: none;
-    border-radius: 0.3rem; /* Slightly smaller border-radius */
-    font-size: 0.8rem; /* Slightly smaller font size */
+    border-radius: 0.3rem; /* Radio de borde ligeramente más pequeño */
+    font-size: 0.8rem; /* Tamaño de fuente ligeramente más pequeño */
     font-weight: 500;
     cursor: pointer;
     transition: all 0.2s ease;
 }
 
-.btn-edit { /* Formerly .edit-button */
-    background-color: #007bff; /* Blue for edit */
+.btn-edit { /* Anteriormente .edit-button */
+    background-color: #007bff; /* Azul para editar */
     color: white;
-    box-shadow: 0 1px 4px rgba(0, 123, 255, 0.15); /* Slightly smaller shadow */
+    box-shadow: 0 1px 4px rgba(0, 123, 255, 0.15); /* Sombra ligeramente más pequeña */
 }
 .btn-edit:hover {
     background-color: #0056b3;
     transform: translateY(-1px);
-    box-shadow: 0 2px 6px rgba(0, 123, 255, 0.25); /* Slightly smaller shadow */
+    box-shadow: 0 2px 6px rgba(0, 123, 255, 0.25); /* Sombra ligeramente más pequeña */
 }
 .btn-edit svg {
-    width: 0.9rem; /* Slightly smaller icon */
-    height: 0.9rem; /* Slightly smaller icon */
-    fill: currentColor; /* Ensures SVG inherits text color */
-    color: #fff; /* Explicitly set for SVG fill */
+    width: 0.9rem; /* Icono ligeramente más pequeño */
+    height: 0.9rem; /* Icono ligeramente más pequeño */
+    fill: currentColor; /* Asegura que el SVG herede el color del texto */
+    color: #fff; /* Establecido explícitamente para el relleno del SVG */
 }
 
-.btn-view { /* Formerly .view-button */
-    background-color: #6c757d; /* Gray for view */
+.btn-view { /* Anteriormente .view-button */
+    background-color: #6c757d; /* Gris para ver */
     color: white;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.04); /* Slightly smaller shadow */
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04); /* Sombra ligeramente más pequeña */
 }
 .btn-view:hover {
     background-color: #5a6268;
@@ -329,35 +328,35 @@ main.dashboard-container { /* Renamed from .main-container in old HTML */
     box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
 .btn-view svg {
-    width: 0.9rem; /* Slightly smaller icon */
-    height: 0.9rem; /* Slightly smaller icon */
+    width: 0.9rem; /* Icono ligeramente más pequeño */
+    height: 0.9rem; /* Icono ligeramente más pequeño */
     fill: currentColor;
-    color: #fff; /* Explicitly set for SVG fill */
+    color: #fff; /* Establecido explícitamente para el relleno del SVG */
 }
 
 .error-message {
     text-align: center;
-    padding: 15px; /* Slightly reduced padding */
-    color: #dc3545; /* Red for error messages */
+    padding: 15px; /* Relleno ligeramente reducido */
+    color: #dc3545; /* Rojo para mensajes de error */
     font-weight: 500;
-    font-size: 0.9rem; /* Slightly smaller font size */
+    font-size: 0.9rem; /* Tamaño de fuente ligeramente más pequeño */
 }
 
 .no-data-message {
     text-align: center;
-    padding: 15px; /* Slightly reduced padding */
-    color: #7f8c8d; /* Gray for no data messages */
+    padding: 15px; /* Relleno ligeramente reducido */
+    color: #7f8c8d; /* Gris para mensajes sin datos */
     font-style: italic;
-    font-size: 0.9rem; /* Slightly smaller font size */
+    font-size: 0.9rem; /* Tamaño de fuente ligeramente más pequeño */
 }
 
-/* --- Pagination Styles (from previous iteration, re-applied) --- */
+/* --- Estilos de Paginación (de la iteración anterior, reaplicado) --- */
 .pagination-section {
     display: flex;
     justify-content: center;
-    margin-top: 20px; /* Slightly reduced margin */
-    padding-top: 15px; /* Slightly reduced padding */
-    border-top: 1px solid #f0f0f0; /* Separator for pagination */
+    margin-top: 20px; /* Margen ligeramente reducido */
+    padding-top: 15px; /* Relleno ligeramente reducido */
+    border-top: 1px solid #f0f0f0; /* Separador para paginación */
 }
 
 .pagination-nav {
@@ -365,7 +364,7 @@ main.dashboard-container { /* Renamed from .main-container in old HTML */
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 15px; /* Slightly reduced gap */
+    gap: 15px; /* Espacio ligeramente reducido */
 }
 
 .pagination-list {
@@ -374,7 +373,7 @@ main.dashboard-container { /* Renamed from .main-container in old HTML */
     list-style: none;
     padding: 0;
     margin: 0;
-    gap: 8px; /* Slightly reduced gap */
+    gap: 8px; /* Espacio ligeramente reducido */
 }
 
 .pagination-item {
@@ -382,19 +381,19 @@ main.dashboard-container { /* Renamed from .main-container in old HTML */
 }
 
 .pagination-link {
-    padding: 8px 15px; /* Slightly reduced padding */
-    border: 1px solid #e0e0e0; /* Slightly lighter border */
-    border-radius: 6px; /* Slightly smaller border-radius */
+    padding: 8px 15px; /* Relleno ligeramente reducido */
+    border: 1px solid #e0e0e0; /* Borde ligeramente más claro */
+    border-radius: 6px; /* Radio de borde ligeramente más pequeño */
     color: #4a90e2;
     background-color: #fff;
     text-decoration: none;
-    font-size: 0.85rem; /* Slightly smaller font size */
+    font-size: 0.85rem; /* Tamaño de fuente ligeramente más pequeño */
     font-weight: 500;
     transition: all 0.2s ease;
 }
 
 .pagination-link:hover:not(.pagination-link--arrow) {
-    background-color: #eef8ff; /* Slightly lighter hover background */
+    background-color: #eef8ff; /* Fondo de hover ligeramente más claro */
     border-color: #4a90e2;
 }
 
@@ -402,7 +401,7 @@ main.dashboard-container { /* Renamed from .main-container in old HTML */
     background-color: #4a90e2;
     color: #fff;
     border-color: #4a90e2;
-    padding: 8px 18px; /* Slightly reduced padding */
+    padding: 8px 18px; /* Relleno ligeramente reducido */
     font-weight: 600;
 }
 
@@ -415,19 +414,19 @@ main.dashboard-container { /* Renamed from .main-container in old HTML */
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-size: 0.9rem; /* Slightly smaller font size */
+    font-size: 0.9rem; /* Tamaño de fuente ligeramente más pequeño */
     color: #666;
-    line-height: 1.3; /* Slightly reduced line height */
+    line-height: 1.3; /* Altura de línea ligeramente reducida */
 }
 
 .pagination-info span:first-child {
     font-weight: 600;
     color: #333;
-    font-size: 0.95rem; /* Slightly smaller font size */
+    font-size: 0.95rem; /* Tamaño de fuente ligeramente más pequeño */
 }
 
 
-/* --- Modal Global Styles (MODALS REMAIN THE SAME SIZE) --- */
+/* --- Estilos Globales de Modal (LOS MODALES MANTIENEN EL MISMO TAMAÑO) --- */
 .modal-backdrop {
     position: fixed;
     inset: 0;
@@ -453,12 +452,13 @@ main.dashboard-container { /* Renamed from .main-container in old HTML */
     width: 90%;
     max-width: 600px;
     max-height: 95vh;
-    overflow-y: hidden;
     position: relative;
     animation: modalPop 0.35s cubic-bezier(.68,-0.55,.27,1.55);
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
+    /* Cambio clave para el scroll */
+    overflow-y: auto;
 }
 
 @keyframes modalPop {
@@ -491,7 +491,7 @@ main.dashboard-container { /* Renamed from .main-container in old HTML */
     text-align: center;
 }
 
-/* New style for the form grid inside the modal */
+/* Nuevo estilo para la cuadrícula del formulario dentro del modal */
 .modal-form-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -536,7 +536,7 @@ main.dashboard-container { /* Renamed from .main-container in old HTML */
     cursor: not-allowed;
 }
 
-/* Ensure textarea takes full width */
+/* Asegura que el área de texto ocupe todo el ancho */
 textarea.modal-input {
     width: 100%;
     min-height: 80px;
@@ -619,36 +619,36 @@ textarea.modal-input {
 }
 
 
-/* --- Responsive Adjustments for Main Layout (kept as is, but adjusted values) --- */
+/* --- Ajustes Responsivos para el Diseño Principal (mantenidos tal cual, pero con valores ajustados) --- */
 @media (max-width: 900px) {
     main.dashboard-container {
-        padding: 0 8px; /* Slightly smaller padding */
+        padding: 0 8px; /* Relleno ligeramente más pequeño */
     }
     .table-card {
-        padding: 15px; /* Slightly smaller padding */
+        padding: 15px; /* Relleno ligeramente más pequeño */
     }
     .table-main-title {
-        font-size: 1.5rem; /* Slightly smaller font size */
+        font-size: 1.5rem; /* Tamaño de fuente ligeramente más pequeño */
     }
     .summary-card {
         flex-direction: column;
         text-align: center;
-        gap: 12px; /* Slightly smaller gap */
-        padding: 15px; /* Slightly smaller padding */
+        gap: 12px; /* Espacio ligeramente más pequeño */
+        padding: 15px; /* Relleno ligeramente más pequeño */
     }
     .summary-icon {
-        width: 45px; /* Slightly smaller icon */
-        height: 45px; /* Slightly smaller icon */
-        font-size: 20px; /* Slightly smaller font size */
+        width: 45px; /* Icono ligeramente más pequeño */
+        height: 45px; /* Icono ligeramente más pequeño */
+        font-size: 20px; /* Tamaño de fuente ligeramente más pequeño */
     }
     .summary-details {
         align-items: center;
     }
     .summary-count {
-        font-size: 1.8rem; /* Slightly smaller font size */
+        font-size: 1.8rem; /* Tamaño de fuente ligeramente más pequeño */
     }
     .summary-subtitle {
-        font-size: 0.8rem; /* Slightly smaller font size */
+        font-size: 0.8rem; /* Tamaño de fuente ligeramente más pequeño */
     }
 }
 
@@ -667,7 +667,7 @@ textarea.modal-input {
     .table-custom {
         min-width: 100%;
     }
-    /* Modal responsive adjustments for 768px and below - unchanged */
+    /* Ajustes responsivos del modal para 768px e inferiores - sin cambios */
     .modal-content {
         max-width: 90vw;
         padding: 1.2rem 1.5rem;
@@ -689,7 +689,7 @@ textarea.modal-input {
         font-size: 0.9rem;
     }
     .modal-form-grid {
-         grid-template-columns: 1fr; /* Revert to single column on smaller screens */
+         grid-template-columns: 1fr; /* Volver a una sola columna en pantallas más pequeñas */
     }
 }
 
@@ -698,56 +698,56 @@ textarea.modal-input {
         padding: 0 5px;
     }
     .table-card {
-        padding: 12px; /* Slightly smaller padding */
+        padding: 12px; /* Relleno ligeramente más pequeño */
     }
     .table-main-title {
-        font-size: 1.2rem; /* Slightly smaller font size */
-        margin-bottom: 15px; /* Slightly smaller margin */
+        font-size: 1.2rem; /* Tamaño de fuente ligeramente más pequeño */
+        margin-bottom: 15px; /* Margen ligeramente más pequeño */
     }
     .tabs-container {
-        margin-bottom: 15px; /* Slightly smaller margin */
+        margin-bottom: 15px; /* Margen ligeramente más pequeño */
     }
     .tab {
-        padding: 10px 18px; /* Slightly smaller padding */
-        font-size: 0.85rem; /* Slightly smaller font size */
+        padding: 10px 18px; /* Relleno ligeramente más pequeño */
+        font-size: 0.85rem; /* Tamaño de fuente ligeramente más pequeño */
     }
     .summary-card {
-        padding: 12px; /* Slightly smaller padding */
-        margin-bottom: 15px; /* Slightly smaller margin */
+        padding: 12px; /* Relleno ligeramente más pequeño */
+        margin-bottom: 15px; /* Margen ligeramente más pequeño */
     }
     .summary-title {
-        font-size: 0.9rem; /* Slightly smaller font size */
+        font-size: 0.9rem; /* Tamaño de fuente ligeramente más pequeño */
     }
     .summary-count {
-        font-size: 1.6rem; /* Slightly smaller font size */
+        font-size: 1.6rem; /* Tamaño de fuente ligeramente más pequeño */
     }
     .summary-subtitle {
-        font-size: 0.75rem; /* Slightly smaller font size */
+        font-size: 0.75rem; /* Tamaño de fuente ligeramente más pequeño */
     }
     .table-custom th, .table-custom td {
-        padding: 8px 10px; /* Slightly smaller padding */
-        font-size: 0.8rem; /* Slightly smaller font size */
+        padding: 8px 10px; /* Relleno ligeramente más pequeño */
+        font-size: 0.8rem; /* Tamaño de fuente ligeramente más pequeño */
     }
     .action-buttons {
         flex-direction: column;
-        gap: 4px; /* Slightly smaller gap */
+        gap: 4px; /* Espacio ligeramente más pequeño */
     }
     .btn {
-        padding: 5px 8px; /* Slightly smaller padding */
-        font-size: 0.75rem; /* Slightly smaller font size */
+        padding: 5px 8px; /* Relleno ligeramente más pequeño */
+        font-size: 0.75rem; /* Tamaño de fuente ligeramente más pequeño */
         width: 100%;
     }
     .pagination-link {
-        padding: 6px 12px; /* Slightly smaller padding */
-        font-size: 0.8rem; /* Slightly smaller font size */
+        padding: 6px 12px; /* Relleno ligeramente más pequeño */
+        font-size: 0.8rem; /* Tamaño de fuente ligeramente más pequeño */
     }
     .pagination-info {
-        font-size: 0.75rem; /* Slightly smaller font size */
+        font-size: 0.75rem; /* Tamaño de fuente ligeramente más pequeño */
     }
     .pagination-info span:first-child {
-        font-size: 0.85rem; /* Slightly smaller font size */
+        font-size: 0.85rem; /* Tamaño de fuente ligeramente más pequeño */
     }
-    /* Modal responsive adjustments for 500px and below - unchanged */
+    /* Ajustes responsivos del modal para 500px e inferiores - sin cambios */
     .modal-content {
         padding: 0.8rem 1rem;
         max-width: 95vw;

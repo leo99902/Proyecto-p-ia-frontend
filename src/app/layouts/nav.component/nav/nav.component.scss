@@ -272,4 +272,28 @@
   }
 }
 
-/* El resto de estilos (modal, inputs, etc.) se mantienen igual */
+/* El resto de estilos (modal, `s, etc.) se mantienen igual */
+
+.input-modal{
+    width: 100%;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.4rem;
+    font-size: 0.95rem;
+    background: #fcfcfc;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-sizing: border-box;
+    margin-bottom: .5rem;
+}
+
+.modal-input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+    background: #fff;
+}
+
+.form-group{
+  display: flex;
+  flex-direction: column;
+}

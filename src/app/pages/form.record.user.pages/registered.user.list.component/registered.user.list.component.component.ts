@@ -10,17 +10,20 @@ import { UserEditServiceService } from '../../../services/user.edit.service/user
 @Component({
   selector: 'app-user-list',
   imports: [
-    CommonModule,FormsModule,ReactiveFormsModule],
+    CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './registered.user.list.component.component.html',
   styleUrls: ['./registered.user.list.component.component.scss']
 })
 export class RegisteredUserListComponentComponent implements OnInit {
   public users: any = {id: 123, name: 'jose'};
-  public usuarios: any; // Ko'ápe oñongatúta umi puruhára pe páginagui, mba'éichapa ou backend-gui.
-  public displayedUsers: any[] = []; // Propiedad pyahu oñongatu hag̃ua umi puruhára oñefiltráva ha ojehechaukáva.
+  public usuarios: any;
+  public displayedUsers: any[] = [];
 
   public modalDetails = false;
   public alertEdit = false;
+  public showMessage: boolean = false;
+  public messageType: 'success' | 'error' = 'error';
+  public messageTimeout: any;
 
   openModal() {
     this.modalDetails = true;
@@ -30,23 +33,27 @@ export class RegisteredUserListComponentComponent implements OnInit {
     this.modalDetails = false;
   }
 
-  // ----------
-    public modalEdit = false;
+  public modalEdit = false;
 
   openModalEdit() {
     this.modalEdit = true;
+    this.resetMessage(); // Resetear mensaje al abrir el modal
   }
 
   closeModalEdit() {
     this.modalEdit = false;
+    this.resetMessage(); // Resetear mensaje al cerrar el modal
   }
 
-  openModalAlert(){
+  openModalAlert() {
     this.alertEdit = true;
   }
-  
-  
-  constructor(private listUser: GetListUserService,private getUser: GetUserService, private editUser: UserEditServiceService) {}
+
+  constructor(
+    private listUser: GetListUserService,
+    private getUser: GetUserService, 
+    private editUser: UserEditServiceService
+  ) {}
   
   public userEdit = {
     id: '',
@@ -60,7 +67,6 @@ export class RegisteredUserListComponentComponent implements OnInit {
   }
 
   public userValueEdit: any
-
   
   public user = {
     user: '',
@@ -72,104 +78,122 @@ export class RegisteredUserListComponentComponent implements OnInit {
     password: ''
   }
   
+  public menssageEdit: string = '';
   
-  
-  public saveUser(userId:any){
+  public saveUser(userId: any) {
+    this.resetMessage(); // Limpiar mensajes previos
     
-      this.editUser.editUser({_id: this.userEdit.id, user: this.userEdit}).subscribe({
-        next: (data: any) => {
-          if(this.userEdit.name){
-            // Mejorar esto: en lugar de location.reload(), recargar los usuarios
-            this.loadUsers(); // Oñembopyahu umi puruhára ohechauka hag̃ua umi kamby
-            this.closeModalEdit(); // Oñembotyi pe edición modal
-          }
-        },
-          error: (e:any) => {
-            console.error('Puruhára ñongatu javy:', e);
-            // Ko'ápe ikatu remañanduka peteĩ javy pe puruhárape
-        }  
-      })
-  }
-  
-  public getReturnIdEdit(userId:any){
-      this.getUser.getUser({_id: userId}).subscribe({
+    this.editUser.editUser({_id: this.userEdit.id, user: this.userEdit}).subscribe({
       next: (data: any) => {
-        this.userEdit.id = userId
-        this.userEdit.name = data.name
-        this.userEdit.cedula = data.cedula
-        this.userEdit.user = data.user
-        this.userEdit.email = data.email
-        this.userEdit.role = data.role
-        this.userEdit.state = data.state
-        this.userEdit.password = data.password
-
-        // IÑEPYTYMBO: ANI REMBOU saveUser KO'ÁPE. Oñehenói jave pe puruhára oñembojy "Guardar" pe modal-pe.
-        // this.saveUser(userId)
+        if(this.userEdit.name) {
+          this.menssageEdit = data.message || 'Usuario actualizado correctamente';
+          this.messageType = 'success';
+          this.showMessage = true;
+          
+          // Configurar temporizador para ocultar mensaje y recargar
+          this.messageTimeout = setTimeout(() => {
+            this.closeModalEdit();
+            this.loadUsers();
+            this.resetMessage();
+          }, 5000);
+        }
       },
-      error: (e) => {
-        console.error('Puruhára ohupyty javy oñemyatyrõ hag̃ua:', e);
-      }
+      error: (e: any) => {
+        this.menssageEdit = e.error?.message || 'Error al actualizar el usuario';
+        this.messageType = 'error';
+        this.showMessage = true;
+        
+        // Configurar temporizador para ocultar mensaje
+        this.messageTimeout = setTimeout(() => {
+          this.resetMessage();
+        }, 5000);
+      }  
     })
   }
 
-  public buttonValue: any = ''
-
+  private resetMessage(): void {
+    this.showMessage = false;
+    this.menssageEdit = '';
+    if (this.messageTimeout) {
+      clearTimeout(this.messageTimeout);
+    }
+  }
   
-  getReturnId(userId:any):void{
+  public getReturnIdEdit(userId: any) {
     this.getUser.getUser({_id: userId}).subscribe({
       next: (data: any) => {
-        this.user.name = data.name
-        this.user.user = data.user
-        this.user.cedula = data.cedula
-        this.user.email = data.email
-        this.user.role = data.role
-        this.user.state = data.state
-        this.user.password = data.password
+        this.userEdit.id = userId;
+        this.userEdit.name = data.name;
+        this.userEdit.cedula = data.cedula;
+        this.userEdit.user = data.user;
+        this.userEdit.email = data.email;
+        this.userEdit.role = data.role;
+        this.userEdit.state = data.state;
+        this.userEdit.password = data.password;
       },
       error: (e) => {
-        console.error('Puruhára ohupyty javy:', e);
+        console.error('Error al obtener usuario:', e);
+        this.menssageEdit = 'Error al cargar datos del usuario';
+        this.messageType = 'error';
+        this.showMessage = true;
+        setTimeout(() => this.resetMessage(), 5000);
       }
     })
   }
 
+  public buttonValue: any = '';
 
-  public cantidad: any
-  public cantidadUsuarios: any
-  public pageValue:any = 1
-  public cantidadPages = 0;
-  public cantidaUser: any
-
-  public setpageincrease(): void{
-    this.pageValue++
-    if(this.pageValue > this.cantidadPages){
-      this.pageValue = this.cantidadPages
-    }
-    this.loadUsers(); // Oñembohoja umi puruhára oñembohasa rire pe páhina
+  getReturnId(userId: any): void {
+    this.getUser.getUser({_id: userId}).subscribe({
+      next: (data: any) => {
+        this.user.name = data.name;
+        this.user.user = data.user;
+        this.user.cedula = data.cedula;
+        this.user.email = data.email;
+        this.user.role = data.role;
+        this.user.state = data.state;
+        this.user.password = data.password;
+      },
+      error: (e) => {
+        console.error('Error al obtener usuario:', e);
+      }
+    })
   }
 
-  public setpagedecrease():void{
-    this.pageValue--
-    if(this.pageValue < 1){
-      this.pageValue = 1
+  public cantidad: any;
+  public cantidadUsuarios: any;
+  public pageValue: any = 1;
+  public cantidadPages = 0;
+  public cantidaUser: any;
+
+  public setpageincrease(): void {
+    this.pageValue++;
+    if(this.pageValue > this.cantidadPages) {
+      this.pageValue = this.cantidadPages;
     }
-    this.loadUsers(); // Oñembohoja umi puruhára oñembohasa rire pe páhina
+    this.loadUsers();
+  }
+
+  public setpagedecrease(): void {
+    this.pageValue--;
+    if(this.pageValue < 1) {
+      this.pageValue = 1;
+    }
+    this.loadUsers();
   }
 
   private loadUsers(): void {
-    // Oñembosako'i umi parámetro ojapóvo pe backend-pe
     const params: any = {
-        page: this.pageValue,
-        user: this.filterSeekerValue // Búsqueda techa rupive
+      page: this.pageValue,
+      user: this.filterSeekerValue
     };
 
-    // Oñembojoapy pe filtro estado-gui oñembohovái jave (ha ndaha'éi 'Maymáva Estado'-gui)
     if (this.filtro.filtroEstado && this.filtro.filtroEstado !== 'Todos los Estados') {
-        params.state = this.filtro.filtroEstado;
+      params.state = this.filtro.filtroEstado;
     }
 
-    // Oñembojoapy pe filtro rol-gui oñembohovái jave (ha ndaha'éi 'Maymáva rol'-gui)
     if (this.filtro.filtroRole && this.filtro.filtroRole !== 'Todos los roles') {
-        params.role = this.filtro.filtroRole; // Eñeha'ãmba'e oñemohenda porã pe parámetro réra pe backend oha'arõva ndive
+      params.role = this.filtro.filtroRole;
     }
 
     this.listUser.listUsers(params).subscribe({
@@ -179,58 +203,37 @@ export class RegisteredUserListComponentComponent implements OnInit {
         this.cantidadUsuarios = Array.from({ length: this.cantidad }, (_, index) => index + 1);
         this.cantidadPages = data.total_paginas;
         this.cantidaUser = data.total_registros;
-
-        // Ojehechauka hag̃ua: Omyesakã pe cantidadPages-gui
-        console.log('Páhina hetakue oúva backend-gui:', this.cantidadPages);
-        
-        // Ko'ápe oñembojehe'a umi puruhára oñefiltráva ha ojehechaukáva
-        this.displayedUsers = this.usuarios.value; 
-
+        this.displayedUsers = this.usuarios.value;
       },
       error: (e) => {
-        console.error('Puruhára ohupyty javy:', e);
+        console.error('Error al cargar usuarios:', e);
       }
     });
   }
 
   ngOnInit(): void {
-    this.loadUsers(); // Oñehenói loadUsers reñepyrũvo puruhára lista
+    this.loadUsers();
   }
 
   public filtro = {
-    filtroRole: '' ,
+    filtroRole: '',
     filtroEstado: ''
   }
 
-  // Se eliminó applyFilters() ya que el filtrado se hará en el backend
-  // private applyFilters(): void {
-  //   let filtered = [...this.usuarios.value];
-  //   if (this.filtro.filtroEstado && this.filtro.filtroEstado !== 'Todos los Estados') {
-  //     filtered = filtered.filter((user: any) => user.state === this.filtro.filtroEstado);
-  //   }
-  //   if (this.filtro.filtroRole && this.filtro.filtroRole !== 'Todos los roles') {
-  //     filtered = filtered.filter((user: any) => user.role.toLowerCase() === this.filtro.filtroRole.toLowerCase());
-  //   }
-  //   this.displayedUsers = filtered;
-  // }
-
-
-  public filterGetUserRole(){
-    this.pageValue = 1; // Oñepyrũ jey peteĩ páhina pyahu pe filtro oñembohasávo
-    this.loadUsers(); // Oñembopyahu umi puruhára umi filtro oñembohasáva ndive
+  public filterGetUserRole() {
+    this.pageValue = 1;
+    this.loadUsers();
   }
 
-  public filterGetUserEstado(){
-    this.pageValue = 1; // Oñepyrũ jey peteĩ páhina pyahu pe filtro oñembohasávo
-    this.loadUsers(); // Oñembopyahu umi puruhára umi filtro oñembohasáva ndive
+  public filterGetUserEstado() {
+    this.pageValue = 1;
+    this.loadUsers();
   }
 
-  public filterSeekerValue: string = ''
+  public filterSeekerValue: string = '';
 
-  // Ko método oñehenói GUARANI añónte oñembojy jave pe botón de búsqueda
-  public filterGetUserSeekerByButton(){
-      this.pageValue = 1; // Oñepyrũ jey peteĩ páhina pyahu ojejapo jave peteĩ búsqueda pyahu
-      this.loadUsers(); // Oñembohoja umi puruhára oñembohasávo pe filtro de búsqueda
+  public filterGetUserSeekerByButton() {
+    this.pageValue = 1;
+    this.loadUsers();
   }
-
 }
