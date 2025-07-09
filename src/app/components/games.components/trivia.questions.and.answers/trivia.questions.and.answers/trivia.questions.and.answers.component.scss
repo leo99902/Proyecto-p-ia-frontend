@@ -1,69 +1,72 @@
-/* Estilos generales del contenedor del juego */
 .trivia-container {
-    padding: 2.5rem; /* Relleno */
-    background-color: #ffffff; /* Contenedor blanco */
-    border-radius: 1rem; /* Esquinas redondeadas */
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Sombra sutil */
-    max-width: 90%; /* Ancho máximo en pantallas pequeñas */
-    width: 550px; /* Ancho fijo para el juego */
+    padding: 2.5rem;
+    background-color: #ffffff;
+    border-radius: 1rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(0, 0, 0, 0.15);
+    max-width: 90%;
+    width: 550px;
     text-align: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Sombra más pronunciada */
-    border: 1px solid #e0e0e0; /* Borde sutil */
+    border: 1px solid #e0e0e0;
+    margin: 2rem auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
 }
 
-/* Estilos para los títulos y texto */
 .question-text {
-    font-size: 2rem; /* Tamaño de la pregunta */
+    font-size: 2rem;
     font-weight: bold;
     margin-bottom: 1.5rem;
-    color: #3b82f6; /* Azul para la pregunta */
+    color: #3b82f6;
 }
 
 .feedback-message {
     font-size: 1.25rem;
     font-weight: bold;
     margin-top: 1rem;
-    min-height: 1.5em; /* Asegura el espacio para el mensaje */
+    min-height: 1.5em;
 }
 .feedback-message.correct {
-    color: #22c55e; /* Verde para correcto */
+    color: #22c55e;
 }
 .feedback-message.incorrect {
-    color: #ef4444; /* Rojo para incorrecto */
+    color: #ef4444;
 }
 
-/* Estilos para los botones de opción */
 .option-button {
-    padding: 0.75rem 1.25rem; /* Relleno */
-    border-radius: 9999px; /* Botones redondeados (píldora) */
+    padding: 0.75rem 1.25rem;
+    border-radius: 9999px;
     font-size: 1.125rem;
-    font-weight: 500; /* Medium weight */
-    transition: all 0.2s ease-in-out; /* Transición suave */
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
     cursor: pointer;
     border: none;
     outline: none;
-    width: 100%; /* Ocupa todo el ancho disponible */
+    width: 100%;
+    margin-bottom: 1rem;
+    box-sizing: border-box;
 }
 
 .option-button.default {
-    background-color: #3b82f6; /* Azul por defecto */
+    background-color: #3b82f6;
     color: white;
 }
 .option-button.default:hover:not(:disabled) {
-    background-color: #2563eb; /* Azul más oscuro al pasar el ratón */
-    transform: translateY(-2px); /* Efecto flotante */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra al pasar el ratón */
+    background-color: #2563eb;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .option-button.correct {
-    background-color: #22c55e; /* Verde si es la respuesta correcta */
+    background-color: #22c55e;
     color: white;
-    box-shadow: 0 4px 8px rgba(34, 197, 94, 0.4); /* Sombra verde */
+    box-shadow: 0 4px 8px rgba(34, 197, 94, 0.4);
 }
 .option-button.incorrect {
-    background-color: #ef4444; /* Rojo si es la respuesta incorrecta seleccionada */
+    background-color: #ef4444;
     color: white;
-    box-shadow: 0 4px 8px rgba(239, 68, 68, 0.4); /* Sombra roja */
+    box-shadow: 0 4px 8px rgba(239, 68, 68, 0.4);
 }
 .option-button:disabled {
     opacity: 0.7;
@@ -72,26 +75,55 @@
     box-shadow: none;
 }
 
-/* Estilos para el botón de Reiniciar */
 .reset-button {
-    background-color: #9b59b6; /* Morado */
+    background-color: #9b59b6;
     color: white;
-    padding: 0.75rem 2rem; /* Relleno */
-    border-radius: 9999px; /* Completamente redondeado */
+    padding: 0.75rem 2rem;
+    border-radius: 9999px;
     font-size: 1.125rem;
     font-weight: bold;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
     border: none;
     outline: none;
-    box-shadow: 0 4px 8px rgba(155, 89, 182, 0.3); /* Sombra */
+    box-shadow: 0 4px 8px rgba(155, 89, 182, 0.3);
+    margin-top: 1.5rem;
 }
 .reset-button:hover {
-    background-color: #8e44ad; /* Morado más oscuro al pasar el ratón */
-    transform: translateY(-2px); /* Efecto flotante */
-    box-shadow: 0 6px 12px rgba(155, 89, 182, 0.4); /* Sombra más grande */
+    background-color: #8e44ad;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(155, 89, 182, 0.4);
 }
 .reset-button:active {
-    transform: translateY(0); /* Efecto de "presionar" */
-    box-shadow: 0 2px 4px rgba(155, 89, 182, 0.2); /* Sombra más pequeña */
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(155, 89, 182, 0.2);
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 700px) {
+    .trivia-container {
+        width: 98vw;
+        max-width: 100vw;
+        padding: 1.2rem 0.5rem;
+        border-radius: 0.7rem;
+        margin: 1rem auto;
+    }
+    .question-text {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+    }
+    .option-button {
+        font-size: 1rem;
+        padding: 0.6rem 0.7rem;
+        margin-bottom: 0.7rem;
+    }
+    .reset-button {
+        font-size: 1rem;
+        padding: 0.6rem 1.2rem;
+        margin-top: 1rem;
+    }
+    .feedback-message {
+        font-size: 1rem;
+        margin-top: 0.7rem;
+    }
 }

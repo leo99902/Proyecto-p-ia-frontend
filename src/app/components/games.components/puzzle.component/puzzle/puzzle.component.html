@@ -1,0 +1,11 @@
+<div class="puzzle-container">
+    <h1>Juego de Puzzle</h1>
+    <div id="puzzle-board" #puzzleBoard>
+        <!-- Las piezas del puzzle se generarán aquí con JavaScript/TypeScript -->
+    </div>
+    <div id="win-message" #winMessage class="win-message">¡Felicidades! ¡Has resuelto el puzzle!</div>
+    <div class="button-group">
+        <button id="shuffle-button" class="action-button" (click)="shufflePuzzle()">Barajar</button>
+        <button id="reset-button" class="action-button" (click)="initializePuzzle()">Reiniciar</button>
+    </div>
+</div>

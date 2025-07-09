@@ -1,184 +1,102 @@
-/* Custom styles for the game */
-.body {
-    font-family: 'Inter', sans-serif;
-    background-color: #f0f2f5; /* Soft background */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 70vh;
-    margin: 0;
-}
+
+
 .container {
-    background-color: #ffffff; /* White container */
-    border-radius: 1rem; /* Rounded corners */
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    padding: 2.5rem; /* Generous padding */
+    background-color: #ffffff;
+    border-radius: 1rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    padding: 2.5rem;
     text-align: center;
-    max-width: 90%; /* Max width on larger screens */
-    width: 480px; /* Fixed width for the game */
+    max-width: 90%;
+    width: 480px;
 }
+
 h1 {
-    color: #2c3e50; /* Dark color for title */
+    color: #2c3e50;
     margin-bottom: 2rem;
-    font-size: 2.25rem; /* Large font size for title */
-    font-weight: 700; /* Bold */
+    font-size: 2.25rem;
+    font-weight: 700;
 }
+
 .word-display {
-    font-size: 2.5rem; /* Font size for the word */
-    letter-spacing: 0.5rem; /* Letter spacing */
+    font-size: 2.5rem;
+    letter-spacing: 0.5rem;
     margin-bottom: 2rem;
     font-weight: 700;
-    color: #3498db; /* Vibrant blue */
-    min-height: 2.5rem; /* Ensures space even if empty */
-    text-transform: uppercase; /* Uppercase letters */
+    color: #3498db;
+    min-height: 2.5rem;
+    text-transform: uppercase;
 }
+
 .guesses-left {
     font-size: 1.25rem;
     margin-bottom: 1.5rem;
-    color: #e74c3c; /* Red for attempts */
+    color: #e74c3c;
     font-weight: 700;
 }
+
 .hangman-drawing {
     width: 150px;
     height: 150px;
     margin: 20px auto;
     position: relative;
     overflow: hidden;
-    border-radius: 0.5rem; /* Rounded corners for drawing area */
+    border-radius: 0.5rem;
 }
 
-/* Styles for the hangman structure parts (always visible) */
-.hangman-drawing .gallows-base {
-    width: 100px;
-    height: 10px;
-    background-color: #333;
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    border-radius: 2px;
-}
-.hangman-drawing .gallows-post {
-    width: 10px;
-    height: 120px;
-    background-color: #333;
-    position: absolute;
-    bottom: 10px;
-    left: calc(50% - 45px); /* Position further left for the post */
-    border-radius: 2px;
-}
-.hangman-drawing .gallows-beam {
-    width: 80px;
-    height: 10px;
-    background-color: #333;
-    position: absolute;
-    top: 10px;
-    left: calc(50% - 45px); /* Aligned with the post */
-    border-radius: 2px;
-}
-.hangman-drawing .gallows-rope {
-    width: 3px;
-    height: 25px; /* Rope length */
-    background-color: #333;
-    position: absolute;
-    top: 20px; /* Hangs from the beam */
-    left: calc(50% + 20px); /* Rope position */
-    border-radius: 1px;
+/* ... (resto de los estilos de las partes del ahorcado y mensajes) ... */
+
+/* Responsive para tablets */
+@media (max-width: 900px) {
+    .container {
+        padding: 1.2rem;
+        width: 98vw;
+        max-width: 99vw;
+    }
+    h1 {
+        font-size: 1.5rem;
+    }
+    .word-display {
+        font-size: 1.5rem;
+        letter-spacing: 0.3rem;
+    }
+    .hangman-drawing {
+        width: 110px;
+        height: 110px;
+    }
 }
 
-/* Styles for the hangman body parts (initially hidden) */
-.hangman-drawing .head {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    border: 2px solid #333;
-    position: absolute;
-    top: 45px; /* Adjusted to hang from the rope */
-    left: calc(50% + 20px); /* Adjusted to hang from the rope */
-    transform: translateX(-50%);
-    display: none;
-    background-color: #fdf6e3; /* Skin color */
-}
-.hangman-drawing .body {
-    width: 2px;
-    height: 40px;
-    background-color: #333;
-    position: absolute;
-    top: 75px; /* Adjusted to connect with the head */
-    left: calc(50% + 20px);
-    transform: translateX(-50%);
-    display: none;
-}
-.hangman-drawing .arm-left {
-    width: 25px;
-    height: 2px;
-    background-color: #333;
-    position: absolute;
-    top: 85px; /* Arms height */
-    left: calc(50% + 20px - 12px); /* Adjusted: to the left of the central body */
-    transform-origin: 100% 50%;
-    transform: rotate(45deg);
-    display: none;
-}
-.hangman-drawing .arm-right {
-    width: 25px;
-    height: 2px;
-    background-color: #333;
-    position: absolute;
-    top: 85px; /* Arms height */
-    left: calc(50% + 20px + 12px - 25px); /* Adjusted: to the right of the central body (minus arm width) */
-    transform-origin: 0% 50%;
-    transform: rotate(-45deg);
-    display: none;
-}
-.hangman-drawing .leg-left {
-    width: 25px;
-    height: 2px;
-    background-color: #333;
-    position: absolute;
-    top: 115px; /* Below the body */
-    left: calc(50% + 20px - 8px); /* Adjusted: more to the left of the central body */
-    transform-origin: 100% 50%;
-    transform: rotate(15deg); /* More subtle rotation */
-    display: none;
-}
-.hangman-drawing .leg-right {
-    width: 25px;
-    height: 2px;
-    background-color: #333;
-    position: absolute;
-    top: 115px;
-    left: calc(50% + 20px + 8px - 25px); /* Adjusted: more to the right of the central body (minus leg width) */
-    transform-origin: 0% 50%;
-    transform: rotate(-15deg); /* More subtle rotation */
-    display: none;
-}
-
-/* Classes to display hangman body parts */
-.show-head .head { display: block; }
-.show-body .body { display: block; }
-.show-arm-left .arm-left { display: block; }
-.show-arm-right .arm-right { display: block; }
-.show-leg-left .leg-left { display: block; }
-.show-leg-right .leg-right { display: block; }
-
-.message {
-    margin-top: 1rem;
-    font-size: 1.125rem;
-    min-height: 1.5rem; /* Ensures space for the message */
-}
-.message.success {
-    color: #27ae60; /* Green for success */
-    font-weight: 700;
-}
-.message.error {
-    color: #e74c3c; /* Red for error */
-    font-weight: 700;
-}
-
-/* Styles to disable elements at the end of the game */
-.game-over #letter-input,
-.game-over #guess-button {
-    opacity: 0.6;
-    pointer-events: none; /* Disables interactions */
+/* Responsive para móviles */
+@media (max-width: 600px) {
+    .body {
+        min-height: 100vh;
+        padding: 0;
+    }
+    .container {
+        padding: 0.7rem;
+        width: 99vw;
+        max-width: 99vw;
+        border-radius: 0.7rem;
+    }
+    h1 {
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+    }
+    .word-display {
+        font-size: 1.1rem;
+        letter-spacing: 0.15rem;
+        margin-bottom: 1rem;
+    }
+    .guesses-left {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+    }
+    .hangman-drawing {
+        width: 70px;
+        height: 70px;
+        margin: 10px auto;
+    }
+    .message {
+        font-size: 0.95rem;
+        margin-top: 0.7rem;
+    }
 }

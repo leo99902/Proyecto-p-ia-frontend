@@ -1,366 +1,276 @@
-        :root {
-            --primary-background: #f8f8f8; /* Fondo principal muy claro, casi blanco */
-            --secondary-element-bg: #ffffff; /* Blanco para tarjetas y elementos principales */
-            --accent-color: #5a67d8; /* Un azul/púrpura para acentos y botones, similar a la imagen */
-            --text-dark: #333333; /* Color de texto oscuro para el contenido principal */
-            --text-muted: #777777; /* Color de texto atenuado para información secundaria */
-            --border-light: #eeeeee; /* Color de borde muy claro */
-            --card-shadow: rgba(0, 0, 0, 0.05); /* Sombra sutil para las tarjetas */
-            --pending-color: #ffc107; /* Amarillo para citas pendientes (no usado directamente en este diseño, pero útil) */
-            --completed-color: #28a745; /* Verde para citas completadas (no usado directamente en este diseño, pero útil) */
-            --cancelled-color: #dc3545; /* Rojo para citas canceladas (no usado directamente en este diseño, pero útil) */
-        }
+/* HEADER */
+.header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  border-radius: 0 0 12px 12px;
+  min-height: 56px;
+  gap: 1rem;
+}
 
+/* BOTÓN AGENDAR CITA */
+.add-appointment-btn {
+  background-color: #5a67d8;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  font-weight: 600;
+  gap: 0.5rem;
+  box-shadow: 0 2px 8px rgba(90,103,216,0.08);
+}
+.add-appointment-btn:hover {
+  background-color: #4a55a8; /* darken($accent-color, 10%) */
+}
+.add-appointment-btn .material-icons {
+  margin-right: 8px;
+  font-size: 1.3em;
+}
 
-        /* Estilos para el encabezado superior */
-        .header {
-            display: flex;
-            justify-content: flex-end; /* Alinea el contenido a la derecha */
-            align-items: center;
-            padding: 20px;
-            background-color: var(--secondary-element-bg); /* Fondo blanco */
-            box-shadow: 0 2px 4px var(--card-shadow); /* Sombra sutil */
-        }
+/* CONTENEDOR PRINCIPAL */
+.container {
+  flex-grow: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: #f8f8f8;
+  min-height: 100vh;
+}
 
-        /* Estilos para el botón "Agendar cita" */
-        .add-appointment-btn {
-            background-color: var(--accent-color); /* Color de acento azul/púrpura */
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px; /* Bordes redondeados */
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            font-size: 16px;
-            transition: background-color 0.3s ease; /* Transición suave al pasar el ratón */
-        }
+/* TARJETAS DE RESUMEN */
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+}
+.summary-card {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px 0 2px 4px rgba(0,0,0,0.05); /* Nota: El `box-shadow` aquí toma el valor completo */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100px;
+  font-size: 1rem;
+  transition: box-shadow 0.2s;
+}
+.summary-card h4 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #777777;
+  font-size: 14px;
+}
+.summary-card p {
+  margin: 0;
+  font-size: 24px;
+  font-weight: bold;
+}
+.summary-card.estimated-income {
+  background-color: #5a67d8;
+  color: white;
+  text-align: right;
+}
+.summary-card.estimated-income h4 {
+  color: rgba(255,255,255,0.8);
+}
 
-        .add-appointment-btn:hover {
-            background-color: #4a54b3; /* Azul/púrpura más oscuro al pasar el ratón */
-        }
+/* FILTROS */
+.filters {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  flex-wrap: wrap;
+  background-color: #ffffff;
+  padding: 15px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px 0 2px 4px rgba(0,0,0,0.05); /* Nota: El `box-shadow` aquí toma el valor completo */
+}
+.filters h4 {
+  margin: 0;
+  color: #777777;
+  font-size: 14px;
+}
+.filters select {
+  padding: 8px 10px;
+  border-radius: 5px;
+  border: 1px solid #eeeeee;
+  background-color: #f8f8f8;
+  color: #333333;
+  font-size: 1em;
+  appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg fill="%23777777" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 20px;
+  cursor: pointer;
+}
+.filters .material-icons {
+  margin-left: auto;
+  cursor: pointer;
+  color: #777777;
+  font-size: 24px;
+  transition: color 0.3s ease;
+}
+.filters .material-icons:hover {
+  color: #333333;
+}
 
-        .add-appointment-btn .material-icons {
-            margin-right: 8px; /* Espacio entre el icono y el texto */
-        }
+/* LISTA DE CITAS */
+.appointments-list {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px 0 2px 4px rgba(0,0,0,0.05); /* Nota: El `box-shadow` aquí toma el valor completo */
+  flex-grow: 1;
+}
+.appointment-item {
+  display: flex;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid #eeeeee;
+  gap: 1rem;
+}
+.appointment-item:last-child {
+  border-bottom: none;
+}
+.appointment-item input[type="radio"] {
+  margin-right: 15px;
+  transform: scale(1.2);
+  accent-color: #5a67d8;
+  cursor: pointer;
+}
+.appointment-info {
+  flex-grow: 1;
+}
+.appointment-info p {
+  margin: 0;
+  font-size: 16px;
+}
+.appointment-info .details {
+  font-size: 14px;
+  color: #777777;
+}
 
-        /* Contenedor principal del contenido */
-        .container {
-            flex-grow: 1; /* Permite que el contenedor crezca y ocupe el espacio disponible */
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px; /* Espacio entre los elementos hijos */
-        }
+/* BOTÓN CARGAR MÁS */
+.load-more-btn-wrapper {
+  text-align: center;
+  padding: 20px 0;
+}
+.load-more-btn {
+  background-color: #ffffff;
+  color: #333333;
+  border: 1px solid #eeeeee;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  box-shadow: 0 2px 4px 0 2px 4px rgba(0,0,0,0.05); /* Nota: El `box-shadow` aquí toma el valor completo */
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+.load-more-btn:hover {
+  background-color: #f8f8f8;
+  border-color: #5a67d8;
+}
 
-        /* Contenedor para las tarjetas de resumen */
-        .summary-cards {
-            display: grid;
-            /* Crea una cuadrícula responsiva: columnas que se ajustan automáticamente, mínimo 180px, máximo 1fr */
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 20px;
-        }
+/* RESPONSIVE TABLET */
+@media (max-width: 768px) {
+  .summary-cards {
+    grid-template-columns: 1fr;
+  }
+  .filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .filters select {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .filters .material-icons {
+    margin-left: 0;
+    align-self: flex-end;
+  }
+}
 
-        /* Estilos para cada tarjeta de resumen individual */
-        .summary-card {
-            background-color: var(--secondary-element-bg); /* Fondo blanco */
-            padding: 20px;
-            border-radius: 8px; /* Bordes redondeados */
-            box-shadow: 0 4px 8px var(--card-shadow);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            min-height: 100px; /* Altura mínima para consistencia */
-        }
-
-        .summary-card h4 {
-            margin-top: 0;
-            margin-bottom: 10px;
-            color: var(--text-muted); /* Color de texto atenuado para el título */
-            font-size: 14px;
-        }
-
-        .summary-card p {
-            margin: 0;
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        /* Estilo específico para la tarjeta de "Ingresos estimados" */
-        .summary-card.estimated-income {
-            background-color: var(--accent-color); /* Fondo de color de acento */
-            color: white; /* Texto blanco */
-            text-align: right; /* Alinea el texto a la derecha */
-        }
-
-        .summary-card.estimated-income h4 {
-            color: rgba(255, 255, 255, 0.8); /* Título ligeramente transparente */
-        }
-
-        /* Estilos para la sección de filtros */
-        .filters {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-            flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas pequeñas */
-            background-color: var(--secondary-element-bg); /* Fondo blanco */
-            padding: 15px 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px var(--card-shadow);
-        }
-
-        .filters h4 {
-            margin: 0; /* Elimina el margen por defecto del h4 */
-            color: var(--text-muted);
-            font-size: 14px;
-        }
-
-        /* Estilos para los selectores (dropdowns) de filtro */
-        .filters select {
-            padding: 8px 10px;
-            border-radius: 5px;
-            border: 1px solid var(--border-light); /* Borde sutil y claro */
-            background-color: var(--primary-background); /* Fondo claro para los selectores */
-            color: var(--text-dark);
-            appearance: none; /* Elimina la flecha por defecto del navegador */
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            /* Añade una flecha SVG personalizada para consistencia visual */
-            background-image: url('data:image/svg+xml;utf8,<svg fill="%23777777" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
-            background-repeat: no-repeat;
-            background-position: right 8px center;
-            background-size: 20px;
-            cursor: pointer;
-        }
-
-        /* Estilos para el icono de "refresh" en los filtros */
-        .filters .material-icons {
-            margin-left: auto; /* Empuja el icono al final de la línea */
-            cursor: pointer;
-            color: var(--text-muted);
-            font-size: 24px;
-            transition: color 0.3s ease;
-        }
-
-        .filters .material-icons:hover {
-            color: var(--text-dark); /* Cambia de color al pasar el ratón */
-        }
-
-        /* Contenedor para la lista de citas */
-        .appointments-list {
-            background-color: var(--secondary-element-bg); /* Fondo blanco */
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px var(--card-shadow);
-            flex-grow: 1; /* Permite que la lista crezca y ocupe el espacio disponible */
-        }
-
-        /* Estilos para cada elemento individual de la cita */
-        .appointment-item {
-            display: flex;
-            align-items: center;
-            padding: 15px 0;
-            border-bottom: 1px solid var(--border-light); /* Separador claro entre citas */
-        }
-
-        .appointment-item:last-child {
-            border-bottom: none; /* Elimina el borde inferior del último elemento */
-        }
-
-        /* Estilos para el radio button de cada cita */
-        .appointment-item input[type="radio"] {
-            margin-right: 15px;
-            transform: scale(1.2); /* Aumenta ligeramente el tamaño del radio button */
-            accent-color: var(--accent-color); /* Color del radio button cuando está seleccionado */
-            cursor: pointer;
-        }
-
-        /* Contenedor de la información de la cita */
-        .appointment-info {
-            flex-grow: 1;
-        }
-
-        .appointment-info p {
-            margin: 0;
-            font-size: 16px;
-        }
-
-        .appointment-info .details {
-            font-size: 14px;
-            color: var(--text-muted); /* Color atenuado para los detalles */
-        }
-
-        /* Contenedor para el botón "Cargar más" */
-        .load-more-btn-wrapper {
-            text-align: center;
-            padding: 20px 0;
-        }
-
-        /* Estilos para el botón "Cargar más" */
-        .load-more-btn {
-            background-color: var(--secondary-element-bg); /* Fondo blanco */
-            color: var(--text-dark); /* Texto oscuro */
-            border: 1px solid var(--border-light); /* Borde claro */
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            box-shadow: 0 2px 4px var(--card-shadow);
-            transition: background-color 0.3s ease, border-color 0.3s ease;
-        }
-
-        .load-more-btn:hover {
-            background-color: var(--primary-background); /* Fondo más claro al pasar el ratón */
-            border-color: var(--accent-color); /* Borde de color de acento al pasar el ratón */
-        }
-
-        /* Ajustes responsivos para pantallas más pequeñas (tabletas y móviles) */
-        @media (max-width: 768px) {
-            .summary-cards {
-                grid-template-columns: 1fr; /* Una sola columna para las tarjetas de resumen */
-            }
-            .filters {
-                flex-direction: column; /* Apila los filtros verticalmente */
-                align-items: stretch; /* Estira los elementos para ocupar el ancho completo */
-            }
-            .filters select {
-                width: 100%; /* Los selectores ocupan todo el ancho */
-                margin-bottom: 10px; /* Espacio entre selectores apilados */
-            }
-            .filters .material-icons {
-                margin-left: 0; /* Elimina el margen izquierdo automático */
-                align-self: flex-end; /* Alinea el icono de refresh a la derecha */
-            }
-        }
-
-
-
-
-        @media (max-width: 600px) {
+/* RESPONSIVE MÓVIL */
+@media (max-width: 600px) {
   .header {
     flex-direction: column;
     align-items: stretch;
     padding: 12px;
+    min-height: 44px;
+    gap: 0.7rem;
   }
-
   .add-appointment-btn {
     width: 100%;
     justify-content: center;
     font-size: 15px;
     padding: 10px 0;
+    border-radius: 7px;
   }
-
   .container {
-    padding: 10px;
-    gap: 12px;
-  }
-
-  .summary-cards {
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-
-  .summary-card {
-    padding: 12px;
-    min-height: 70px;
-    font-size: 14px;
-  }
-
-  .filters {
-    flex-direction: column;
-    align-items: stretch;
-    padding: 10px;
-    gap: 10px;
-  }
-
-  .filters select {
-    width: 100%;
-    margin-bottom: 8px;
-    font-size: 14px;
-    padding: 8px 8px;
-  }
-
-  .appointments-list {
-    padding: 10px;
-    border-radius: 6px;
-  }
-
-  .appointment-item {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 10px 0;
-  }
-
-  .appointment-info p,
-  .appointment-info .details {
-    font-size: 14px;
-  }
-
-  .load-more-btn-wrapper {
-    padding: 10px 0;
-  }
-
-  .load-more-btn {
-    width: 100%;
-    font-size: 15px;
-    padding: 10px 0;
-  }
-}
-
-
-@media (max-width: 600px) {
-  .container {
-    padding: 14px 6px;
+    padding: 10px 2px;
+    gap: 8px;
     border-radius: 0;
     box-shadow: none;
     width: 100vw;
     min-width: 0;
     max-width: 100vw;
   }
-
-  .header {
+  .summary-cards {
+    grid-template-columns: 1fr;
+    gap: 7px;
+  }
+  .summary-card {
+    padding: 9px;
+    min-height: 56px;
+    font-size: 0.95em;
+    border-radius: 7px;
+  }
+  .filters {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 8px 4px;
+    gap: 7px;
+    border-radius: 7px;
+  }
+  .filters select {
+    width: 100%;
+    margin-bottom: 7px;
+    font-size: 0.97em;
+    padding: 8px 8px;
+    border-radius: 6px;
+  }
+  .appointments-list {
+    padding: 7px;
+    border-radius: 6px;
+  }
+  .appointment-item {
     flex-direction: column;
     align-items: flex-start;
-    padding: 10px 0 15px 0;
-    margin-bottom: 18px;
+    padding: 8px 0;
+    gap: 0.3rem;
   }
-
-  .header h1 {
-    font-size: 1.3em;
-    text-align: left;
+  .appointment-info p,
+  .appointment-info .details {
+    font-size: 0.97em;
+  }
+  .load-more-btn-wrapper {
+    padding: 7px 0;
+  }
+  .load-more-btn {
     width: 100%;
-  }
-
-  .form-section {
-    margin-bottom: 18px;
+    font-size: 0.97em;
     padding: 10px 0;
-  }
-
-  .form-section h2 {
-    font-size: 1.1em;
-    margin-bottom: 10px;
-  }
-
-  .input-group {
-    margin-bottom: 15px;
-  }
-
-  .input-group label {
-    font-size: 0.95em;
-    margin-bottom: 6px;
-  }
-
-  .input-group input,
-  .input-group select,
-  .input-group textarea {
-    padding: 10px 8px;
-    font-size: 0.95em;
-  }
-
-  .submit-button {
-    font-size: 1em;
-    padding: 12px 10px;
-    margin-top: 20px;
+    border-radius: 7px;
   }
 }
-

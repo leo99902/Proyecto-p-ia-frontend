@@ -1,9 +1,5 @@
 <!-- Sección principal de la lista de juegos -->
 <div id="games-section" class="content-games bg-white rounded-2xl shadow-2xl p-6 w-full h-[95vh] flex flex-col border border-gray-200">
-  <h2 class="text-2xl font-bold text-gray-800 mb-6 pb-2 border-b border-gray-200 text-center">
-    Elige un <span class="text-green-600">Juego</span>
-  </h2>
-
   <!-- Contenedor de las tarjetas de juego -->
   <div class="flex-grow overflow-y-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
     <!-- Game Card 1: Puzzle -->
@@ -67,13 +63,8 @@
             <!-- Renderiza el juego "Trivia" (TriviaGameComponent) si activeGameId es 'trivia-game' -->
             <app-trivia-game *ngIf="activeGameId === 'trivia-game'"></app-trivia-game>
 
-            <!-- Puedes añadir más *ngIf para otros juegos aquí, si no tienes componentes específicos -->
-            <div *ngIf="activeGameId === 'puzzle-game'" class="p-6 text-center text-gray-700">
-                <h3 class="text-xl font-semibold mb-3">¡Bienvenido al Juego de Puzzle!</h3>
-                <p class="text-base">Arrastra y suelta las piezas para completar la imagen. ¡Diviértete!</p>
-                
-                <p class="text-sm text-gray-500">Este es un placeholder para el juego real de puzzle.</p>
-            </div>
+            <!-- Renderiza el juego "Puzzle" (PuzzleGameComponent) si activeGameId es 'puzzle-game' -->
+            <app-puzzle *ngIf="activeGameId=== 'puzzle-game'"></app-puzzle>
 
             <!-- Si no hay ningún juego activo y no es uno de los componentes dedicados, se muestra el placeholder general -->
             <div *ngIf="!activeGameId && activeGameId !== 'guess-word' && activeGameId !== 'memory-game' && activeGameId !== 'puzzle-game' && activeGameId !== 'trivia-game'" class="text-gray-500 text-lg">

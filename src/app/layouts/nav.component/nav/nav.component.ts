@@ -5,6 +5,15 @@ import { ChangePasswordService } from '../../../services/change.password.service
 import { NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
+function decodeJwt(token: string): any {
+  try {
+    const payload = token.split('.')[1];
+    return JSON.parse(atob(payload));
+  } catch {
+    return {};
+  }
+}
+
 @Component({
   selector: 'app-nav',
   imports: [NgIf, FormsModule],
@@ -34,8 +43,13 @@ export class NavComponent implements OnDestroy {
   public changePasswordService = inject(ChangePasswordService);
 
   constructor() {
-    const user = this.authService.getUser();
-    this.userName = user?.name || 'Usuario';
+    const token = this.authService.getToken?.() || localStorage.getItem('token');
+    if (token) {
+      const payload = decodeJwt(token);
+      this.userName = payload.name || payload.username || payload.email || 'Usuario';
+    } else {
+      this.userName = 'Usuario';
+    }
   }
 
   toggleMenu(event: MouseEvent) {
