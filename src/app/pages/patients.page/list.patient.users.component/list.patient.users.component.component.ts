@@ -212,7 +212,6 @@ export class ListPatientUsersComponentComponent implements OnInit {
 
     this.editPatientService.editPatient(finalDataToSend).subscribe({
       next: (response) => {
-        console.log('Patient edited successfully:', response);
         this.showAlertMessage('success', 'Paciente actualizado correctamente');
         this.closeEditPatientModal();
         this.loadPatients();
@@ -250,6 +249,5 @@ export class ListPatientUsersComponentComponent implements OnInit {
   }
 
   onNewPatientClick(): void {
-    console.log('New Patient button clicked.');
   }
 }

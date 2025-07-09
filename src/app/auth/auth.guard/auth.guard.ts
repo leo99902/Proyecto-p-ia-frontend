@@ -13,7 +13,6 @@ export const authGuard: CanActivateFn = (route, state) => {
   if (!token) {
     if (isBrowser) {
       router.navigate(['/']);
-      console.log('No puede entrar sin usuario y contrasena goty')
     }
     return false;
   }

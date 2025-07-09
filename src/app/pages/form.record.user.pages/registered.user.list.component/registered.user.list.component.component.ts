@@ -155,7 +155,6 @@ export class RegisteredUserListComponentComponent implements OnInit {
         this.user.password = data.password;
       },
       error: (e) => {
-        console.error('Error al obtener usuario:', e);
       }
     })
   }
@@ -206,7 +205,6 @@ export class RegisteredUserListComponentComponent implements OnInit {
         this.displayedUsers = this.usuarios.value;
       },
       error: (e) => {
-        console.error('Error al cargar usuarios:', e);
       }
     });
   }

@@ -47,7 +47,6 @@ export class GuessTheWordComponent implements OnInit {
    * Initializes the game state for a new round.
    */
   initializeGame(): void {
-    console.log("Initializing game...");
     // Select a random word from the array of words
     this.selectedWord = this.words[Math.floor(Math.random() * this.words.length)];
     // Initialize guessedWord with underscores for each letter of the word
@@ -62,7 +61,6 @@ export class GuessTheWordComponent implements OnInit {
 
     // Clear hangman drawing classes
     // Angular's template binding will handle reapplying initial state
-    console.log("Game initialized with word:", this.selectedWord);
   }
 
   /**
@@ -78,30 +76,25 @@ export class GuessTheWordComponent implements OnInit {
    * Checks the letter guessed by the user.
    */
   checkGuess(): void {
-    console.log("Guess button clicked.");
     // Get the letter from the input and convert it to uppercase
     const guess = this.guessedLetterInput.toUpperCase();
     this.guessedLetterInput = ''; // Clear the input field after guessing
 
-    console.log("Guessed letter:", guess);
 
     // Validation: Ensure the input is a single letter
     if (!guess.match(/^[A-Z]$/)) {
       this.showMessage('Por favor, ingresa solo una letra válida (A-Z).', 'error');
-      console.log("Invalid input.");
       return;
     }
 
     // Validation: Check if the letter has already been guessed
     if (this.guessedLetters.includes(guess)) {
       this.showMessage(`Ya adivinaste la letra "${guess}".`, 'error');
-      console.log("Letter already guessed.");
       return;
     }
 
     // Add the letter to the list of guessed letters
     this.guessedLetters.push(guess);
-    console.log("Guessed letters so far:", this.guessedLetters);
 
     let found = false; // Flag to know if the letter was found in the word
     // Iterate over the selected word to see if the letter matches
@@ -113,18 +106,15 @@ export class GuessTheWordComponent implements OnInit {
     }
 
     // Update the word display (handled by Angular's data binding: {{ guessedWord.join(' ') }})
-    console.log("Current word display:", this.guessedWord.join(' '));
 
     if (found) {
       // If the letter was correct
       this.showMessage('¡Bien hecho! La letra es correcta.', 'success');
-      console.log("Correct letter.");
     } else {
       // If the letter was incorrect
       this.attempts--; // Reduce remaining attempts
       this.showMessage(`La letra "${guess}" no está en la palabra.`, 'error');
       // The drawing updates automatically via [ngClass] based on `attempts`
-      console.log("Incorrect letter. Attempts remaining:", this.attempts);
     }
 
     // Check the current game status (won/lost)
@@ -135,25 +125,18 @@ export class GuessTheWordComponent implements OnInit {
    * Checks if the game has ended (won or lost).
    */
   checkGameStatus(): void {
-    console.log("Checking game status...");
     // If the guessed word (joined) is equal to the selected word, the player wins
     if (this.guessedWord.join('') === this.selectedWord) {
       this.showMessage('¡Felicidades! ¡Adivinaste la palabra!', 'success');
-      console.log("Game won!");
       this.endGame(); // End the game
     } else if (this.attempts === 0) {
       // If no attempts left, the player loses
       this.showMessage(`¡Perdiste! La palabra era "${this.selectedWord}".`, 'error');
-      console.log("Game lost!");
       this.endGame(); // End the game
     }
   }
 
-  /**
-   * Displays a message to the user with specific styling.
-   * @param msg - The message to display.
-   * @param type - The type of message ('success' or 'error') to apply styles.
-   */
+
   showMessage(msg: string, type: 'success' | 'error'): void {
     this.message = msg;
     this.messageType = type;
@@ -163,7 +146,6 @@ export class GuessTheWordComponent implements OnInit {
    * Ends the game, disabling input and showing the reset button.
    */
   endGame(): void {
-    console.log("Game ended.");
     this.isGameOver = true; // Set game over flag
   }
 }

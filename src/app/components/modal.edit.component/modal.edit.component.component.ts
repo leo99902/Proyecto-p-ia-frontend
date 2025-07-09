@@ -87,7 +87,6 @@ export class ModalEditComponentComponent {
 
       },
       error: (e) => {
-        console.error('Error al obtener usuarios:', e);
       }
     })
 
