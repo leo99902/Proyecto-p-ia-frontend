@@ -79,22 +79,21 @@ export class NavComponent implements OnDestroy {
       return;
     }
     if (this.newPassword !== this.confirmPassword) {
-      this.passwordError = 'Las contraseñas nuevas no coinciden.';
+      this.passwordError = 'Las contrasenas nuevas no coinciden.';
       return;
     }
 
-    // Envía los campos con los nombres correctos
     this.changePasswordService.changePassword({
       currentPassword: this.currentPassword,
       newPassword: this.newPassword,
       confirmNewPassword: this.confirmPassword
     }).subscribe({
       next: (res) => {
-        this.passwordSuccess = res?.message || '¡Contraseña cambiada exitosamente!';
+        this.passwordSuccess = res?.message || '¡Contrasena cambiada exitosamente!';
         setTimeout(() => this.closeChangePasswordModal(), 1500);
       },
       error: (err) => {
-        this.passwordError = err.error?.message || 'Error al cambiar la contraseña.';
+        this.passwordError = err.error?.message || 'Error al cambiar la contrasena.';
       }
     });
   }
