@@ -3,8 +3,6 @@ import { GetListUserService } from '../../../services/get.list.user.service/get.
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GetUserService } from '../../../services/get.user.service/get.user.service.service';
-import { ModalEditComponentComponent } from '../../../components/modal.edit.component/modal.edit.component.component';
-import { RecordUserService } from '../../../services/record.user.service/record.user.service.service';
 import { UserEditServiceService } from '../../../services/user.edit.service/user.edit.service.service';
 
 @Component({

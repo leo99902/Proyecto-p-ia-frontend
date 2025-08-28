@@ -3,11 +3,14 @@ import { CommonModule, NgIf, NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ShowListPatientsService } from '../../../services/show.list.patients.service/show.list.patients.service';
 import { EditPatientService } from '../../../services/edit.patient.service/edit.patient.service';
+import { ModalToEditComponent } from '../../../components/modal.to.edit/modal.to.edit.component';
 
 @Component({
   selector: 'app-list-patient',
   standalone: true,
-  imports: [CommonModule, FormsModule, NgIf, NgFor],
+  imports: [CommonModule, FormsModule, NgIf, NgFor,
+    ModalToEditComponent
+  ],
   templateUrl: './list.patient.users.component.component.html',
   styleUrl: './list.patient.users.component.component.scss'
 })
