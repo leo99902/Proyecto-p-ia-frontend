@@ -7,14 +7,17 @@
 <div class="content-main" style="
   display: flex;
   width: 100vw;
-  max-width: 100vw;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   overflow-x: hidden;
     justify-content: center;
   align-items: center;
+  flex-direction: column;
   ">
+@if(getRute() !== "/"){
+  <app-nav></app-nav>
+}
 <router-outlet></router-outlet>
 </div>
 </div>

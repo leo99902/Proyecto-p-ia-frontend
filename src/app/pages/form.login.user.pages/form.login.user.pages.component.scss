@@ -1,49 +1,47 @@
-/* Estilos generales del cuerpo */
-body {
-    font-family: 'Inter', sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: hsl(220, 5%, 96%); /* --background-body */
-    color: hsl(220, 15%, 25%); /* --text-dark */
-    overflow: hidden;
-}
-
 /* Contenedor principal */
 .content-login {
-    width: 100vw;
     min-height: 100vh;
+    width: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 1rem;
+    padding: 0;
     box-sizing: border-box;
+    background: #f8fafc;
+    padding: 1rem;
 }
 
 .container {
     width: 100%;
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
 }
 
 .row {
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: stretch;
-    width: 100%;
+    align-items: center;
+    min-height: 70vh;
 }
 
 .col-xl-10 {
     width: 100%;
-    max-width: 1000px;
+    max-width: 900px;
+    margin: 0 auto;
 }
 
 .col-lg-6 {
     width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 @media (min-width: 992px) {
     .col-lg-6 {
@@ -53,15 +51,27 @@ body {
 
 /* Estilos de la tarjeta principal (login-container) */
 .card {
-    background-color: #FFFFFF; /* --form-background */
+    background-color: #fff;
     border-radius: 1rem;
-    color: hsl(220, 15%, 25%); /* --text-dark */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06); /* --shadow-subtle */
+    color: hsl(220, 15%, 25%);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
     display: flex;
     flex-direction: row;
     width: 100%;
     min-width: 0;
     overflow: visible;
+    align-items: stretch;
+}
+
+@media (max-width: 991px) {
+    .card {
+        flex-direction: column;
+        border-radius: 1rem;
+        min-width: 0;
+    }
+    .col-lg-6 {
+        width: 100%;
+    }
 }
 
 .row.g-0 {
@@ -71,15 +81,16 @@ body {
 
 /* Columna del formulario */
 .card-body {
-    padding: 2rem 1.5rem;
+    padding: 2rem 1.2rem;
     flex: 1 1 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    min-width: 0;
 }
 @media (min-width: 768px) {
     .card-body {
-        padding: 3rem 4rem;
+        padding: 3rem 3rem;
     }
 }
 
@@ -91,7 +102,7 @@ body {
 }
 
 .text-center img {
-    width: 150px;
+    width: 105px;
     height: auto;
     display: block;
     max-width: 100%;
@@ -187,10 +198,13 @@ body {
     align-items: center;
     justify-content: center;
     padding: 2.5rem;
+    min-height: 100%;
 }
 @media (max-width: 991px) {
     .gradient-custom-2 {
-        display: none;
+        border-radius: 0 0 1rem 1rem;
+        padding: 2rem 1rem;
+        min-height: 200px;
     }
 }
 
@@ -302,16 +316,9 @@ body {
     padding: 0 1.5rem 2rem;
 }
 
-.modal-title-custom {
-    font-size: 1.4rem;
-    font-weight: 600;
-    color: #333; /* --modal-image-text-color */
-    margin-bottom: 1rem;
-}
-
 .modal-message-custom {
-    font-size: 1rem;
-    color: #333; /* --modal-image-text-color */
+    font-size: 1.2rem;
+    color: #333;
     line-height: 1.5;
     margin-bottom: 0;
 }
@@ -368,4 +375,45 @@ body {
         max-width: 100vw;
         padding: 0;
     }
+}
+
+/* --- Nuevas reglas para la animación de los inputs --- */
+
+/* Estilos base para los elementos que van a transicionar */
+.fade-css {
+    /* Estado visible por defecto */
+    opacity: 1; /* Completamente visible */
+    max-height: 150px; /* Suficiente altura para el input y su etiqueta */
+    margin-bottom: 1.5rem; /* Margen por defecto, para que colapse con la altura */
+    overflow: hidden; /* Oculta el contenido si se desborda durante la animación */
+    transform: translateY(0); /* Posición inicial para la animación de deslizamiento */
+
+    /* Define las transiciones para suavizar los cambios */
+    transition:
+        opacity 0.3s ease-out,        /* Transición de opacidad más rápida */
+        max-height 0.3s ease-out,     /* Transición de altura máxima más rápida */
+        margin-bottom 0.3s ease-out,  /* Transición del margen inferior más rápida */
+        transform 0.3s ease-out;      /* Transición de transformación */
+
+    /* Asegura que los elementos sean interactuables cuando están visibles */
+    pointer-events: auto;
+    visibility: visible;
+}
+
+/* Estilos para el estado oculto */
+.fade-css.hide {
+    opacity: 0; /* Completamente transparente (desvanecer) */
+    max-height: 0; /* Colapsa la altura a cero */
+    margin-bottom: 0; /* Elimina el margen para que no ocupe espacio */
+    transform: translateY(-20px); /* Desliza hacia arriba al ocultarse */
+
+    /* Evita que se pueda interactuar con el elemento cuando está oculto */
+    pointer-events: none;
+    /* Oculta el elemento de los lectores de pantalla también */
+    visibility: hidden;
+}
+
+/* Botones: Asegurar que también tengan una transición de opacidad al aparecer */
+.text-center.pt-1.mb-3.flex-column button {
+    transition: opacity 0.3s ease-out; /* Hace que el botón aparezca con un fade más rápido */
 }

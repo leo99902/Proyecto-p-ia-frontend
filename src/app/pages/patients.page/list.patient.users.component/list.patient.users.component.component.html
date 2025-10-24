@@ -1,211 +1,170 @@
-
-            <!-- Main Table Content (patient-list-section adapted to table-card) -->
-            <div class="table-card">
-                <p>Filtros de busqueda</p>
-                <!-- Filter Section (from previous HTML, integrated) -->
-                <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                    <!-- Filter by Estado -->
-                    <div class="content-select">
-                    <select  name="filtroEstado" [(ngModel)]="filtro.filtroEstado" (change)="filterGetUserEstado()" class="form-select">
-                        <option value="" disabled selected hidden>Estado</option>
-                        <option value="" selected>Todos los Estados</option>
-                        <option value="activo">Usuario activo</option>
-                        <option value="inactivo">Usuario inactivo</option>
-                    </select>
-
-                    </div>
-
-                    <!-- Search Input -->
-                    <div class="search-input-container">
-                        <input [(ngModel)]="filterSeekerValue" (input)="filterGetUserSeeker()" id="search" type="search" placeholder="Buscar Usuario..." autofocus required />
-                        <button type="button" class="search-button">
-                            Buscar
-                        </button>
-                    </div>
-                </div>
-
-
-                <div class="table-responsive"> <!-- Formerly .table-container -->
-                    <table class="table-custom"> <!-- Formerly .patients-table -->
-                        <thead>
-                            <tr>
-                                <th>Nombre Completo</th>
-                                <th>Cedula</th>
-                                <th>Teléfono</th>
-                                <th>Estado</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Loading indicator -->
-                            <tr *ngIf="isLoadingPatients">
-                                <td colspan="5" style="text-align: center; padding: 20px;">Cargando pacientes...</td>
-                            </tr>
-                            <!-- Error message -->
-                            <tr *ngIf="!isLoadingPatients && patientsErrorMessage">
-                                <td colspan="5" class="error-message">Error: {{ patientsErrorMessage }}</td>
-                            </tr>
-                            <!-- List of patients -->
-                            <tr *ngFor="let patient of patients">
-                                <td>{{ patient.name }}</td>
-                                <td>{{ patient.cedula || patient.ci }}</td>
-                                <td>{{ patient.phone }}</td>
-                                <td>{{ patient.state }}</td>
-                                <td class="action-buttons">
-                                    <!-- Button to open edit modal (with btn-edit styling) -->
-                                    <button class="btn btn-edit" (click)="openEditPatientModal(patient)">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                                            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-                                        </svg>
-                                        Editar
-                                    </button>
-                                    <!-- Button to open view details modal (with btn-view styling) -->
-                                    <button class="btn btn-view" (click)="openViewPatientModal(patient)">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
-                                            <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
-                                            <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
-                                        </svg>
-                                        Ver
-                                    </button>
-                                </td>
-                            </tr>
-                            <!-- Message if no patients -->
-                            <tr *ngIf="!isLoadingPatients && !patientsErrorMessage && patients.length === 0">
-                                <td colspan="5" class="no-data-message">No hay pacientes registrados.</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- Pagination (from previous HTML, integrated) -->
-                <div class="pagination-section">
-                    <nav class="pagination-nav" aria-label="Navegación de página">
-                        <ul class="pagination-list">
-                            <li (click)="setpagedecrease()" class="pagination-item">
-                                <button class="pagination-link pagination-link--arrow" aria-label="Página anterior">
-                                    &laquo; Regresar
-                                </button>
-                            </li>
-                            <li class="pagination-info">
-                                <span>Página {{pageValue}} de {{cantidadPages}}</span>
-                                <span>Total registros: {{dashboardData.totalPatients}}</span> <!-- Using totalPatients for total records -->
-                            </li>
-                            <li (click)="setpageincrease()" class="pagination-item">
-                                <button class="pagination-link pagination-link--arrow" aria-label="Página siguiente">
-                                    Siguiente &raquo;
-                                </button>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-
-
-
-
-
-
-
-
-    <!-- Modal for editing patient (remains as is) -->
-    <div class="modal-backdrop" *ngIf="showEditPatientModal" (click)="closeEditPatientModal()">
-        <div class="modal-content" (click)="$event.stopPropagation()">
-            <h3 class="modal-title">Editar Paciente</h3>
-            <form (ngSubmit)="onEditPatientSubmit()">
-                <div class="modal-form-grid">
-                    <div class="form-group">
-                        <label for="editName">Nombre Completo</label>
-                        <input type="text" id="editName" name="name" [(ngModel)]="selectedPatientForEdit.name" required class="modal-input">
-                    </div>
-                    <div class="form-group">
-                        <label for="editEmail">Email</label>
-                        <input type="email" id="editEmail" name="email" [(ngModel)]="selectedPatientForEdit.email" required class="modal-input">
-                    </div>
-                    <div class="form-group">
-                        <label for="editCi">Cédula de Identidad (CI)</label>
-                        <input type="text" id="editCi" name="ci" [(ngModel)]="selectedPatientForEdit.ci" required class="modal-input" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label for="editAge">Edad</label>
-                        <input type="number" id="editAge" name="age" [(ngModel)]="selectedPatientForEdit.age" required class="modal-input">
-                    </div>
-                    <div class="form-group">
-                        <label for="editAddress">Dirección</label>
-                        <input type="text" id="editAddress" name="address" [(ngModel)]="selectedPatientForEdit.address" class="modal-input">
-                    </div>
-                    <div class="form-group">
-                        <label for="editOccupation">Ocupación</label>
-                        <input type="text" id="editOccupation" name="occupation" [(ngModel)]="selectedPatientForEdit.occupation" class="modal-input">
-                    </div>
-                    <div class="form-group">
-                        <label for="editPhone">Teléfono</label>
-                        <input type="text" id="editPhone" name="phone" [(ngModel)]="selectedPatientForEdit.phone" class="modal-input">
-                    </div>
-                    
-                    <div style="width: 100%;">
-                        <label for="editInfoDisease">Información de la Enfermedad</label>
-                        <textarea id="editInfoDisease" name="infoDisease" [(ngModel)]="selectedPatientForEdit.infoDisease" rows="3" class="modal-input"></textarea>
-                    </div>
-
-                    <div class="form-group">
-                    </div>
-                </div>
-                
-                <div class="modal-actions">
-                    <button type="button" class="modal-btn-cancel" (click)="closeEditPatientModal()">Cancelar</button>
-                    <button type="submit" class="modal-btn-save">Guardar Cambios</button>
-                </div>
-            </form>
+<!-- Main Table Content -->
+<div class="table-card">
+    <!-- Global Message Container -->
+    <div *ngIf="showMessage && !showEditPatientModal" class="global-message-container">
+        <div [class]="'alert alert-' + messageType">
+            {{ messageText }}
         </div>
     </div>
 
-    <!-- NEW Modal for Viewing Patient Details -->
-    <div class="modal-backdrop" *ngIf="showViewPatientModal" (click)="closeViewPatientModal()">
-        <div class="modal-content" (click)="$event.stopPropagation()">
-            <h3 class="modal-title">Detalles del Paciente</h3>
-            <div class="modal-form-grid" *ngIf="viewedPatientDetails">
-                <div class="form-group">
-                    <label>ID</label>
-                    <input type="text" [value]="viewedPatientDetails.id" readonly class="modal-input readonly">
-                </div>
-                <div class="form-group">
-                    <label>Nombre Completo</label>
-                    <input type="text" [value]="viewedPatientDetails.name" readonly class="modal-input readonly">
-                </div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" [value]="viewedPatientDetails.email" readonly class="modal-input readonly">
-                </div>
-                <div class="form-group">
-                    <label>Cédula de Identidad (CI)</label>
-                    <input type="text" [value]="viewedPatientDetails.cedula || viewedPatientDetails.ci" readonly class="modal-input readonly">
-                </div>
-                <div class="form-group">
-                    <label>Edad</label>
-                    <input type="number" [value]="viewedPatientDetails.age" readonly class="modal-input readonly">
-                </div>
-                <div class="form-group">
-                    <label>Dirección</label>
-                    <input type="text" [value]="viewedPatientDetails.address" readonly class="modal-input readonly">
-                </div>
-                <div class="form-group">
-                    <label>Ocupación</label>
-                    <input type="text" [value]="viewedPatientDetails.occupation" readonly class="modal-input readonly">
-                </div>
-                <div class="form-group">
-                    <label>Teléfono</label>
-                    <input type="text" [value]="viewedPatientDetails.phone" readonly class="modal-input readonly">
-                </div>
-                
-                <div class="form-group" *ngIf="viewedPatientDetails.disease">
-                    <label>Información de la Enfermedad</label>
-                    <textarea [value]="viewedPatientDetails.infoDisease || 'N/A'" rows="3" readonly class="modal-input readonly"></textarea>
-                </div>
+    <p>Filtros de busqueda</p>
+    <!-- Filter Section -->
+    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+        <!-- Filter by Estado -->
+        <div class="content-select">
+            <select name="filtroEstado" [(ngModel)]="filtro.filtroEstado" (change)="filterGetUserEstado()" class="form-select">
+                <option value="" disabled selected hidden>Estado</option>
+                <option value="" selected>Todos los Estados</option>
+                <option value="activo">Usuario activo</option>
+                <option value="inactivo">Usuario inactivo</option>
+            </select>
+        </div>
+
+        <!-- Search Input -->
+        <div class="search-input-container">
+            <input [(ngModel)]="filterSeekerValue" (input)="filterGetUserSeeker()" id="search" type="search" placeholder="Buscar Usuario..." autofocus required />
+            <button type="button" class="search-button">
+                Buscar
+            </button>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table-custom">
+            <thead>
+                <tr>
+                    <th>Nombre Completo</th>
+                    <th>Cedula</th>
+                    <th>Teléfono</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Loading indicator -->
+                <tr *ngIf="isLoadingPatients">
+                    <td colspan="5" style="text-align: center; padding: 20px;">Cargando pacientes...</td>
+                </tr>
+                <!-- Error message -->
+                <tr *ngIf="!isLoadingPatients && patientsErrorMessage">
+                    <td colspan="5" class="error-message">Error: {{ patientsErrorMessage }}</td>
+                </tr>
+                <!-- List of patients -->
+                <tr *ngFor="let patient of patients">
+                    <td>{{ patient.name }}</td>
+                    <td>{{ patient.cedula || patient.ci }}</td>
+                    <td>{{ patient.phone }}</td>
+                    <td>{{ patient.state }}</td>
+                    <td class="action-buttons">
+                        <button class="btn btn-edit" (click)="openEditPatientModal(patient)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                            </svg>
+                            Editar
+                        </button>
+                        <button class="btn btn-view" (click)="openViewPatientModal(patient)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                                <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                            </svg>
+                            Ver
+                        </button>
+                    </td>
+                </tr>
+                <!-- Message if no patients -->
+                <tr *ngIf="!isLoadingPatients && !patientsErrorMessage && patients.length === 0">
+                    <td colspan="5" class="no-data-message">No hay pacientes registrados.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination-section">
+        <nav class="pagination-nav" aria-label="Navegación de página">
+            <ul class="pagination-list">
+                <li (click)="setpagedecrease()" class="pagination-item">
+                    <button class="pagination-link pagination-link--arrow" aria-label="Página anterior">
+                        &laquo; Regresar
+                    </button>
+                </li>
+                <li class="pagination-info">
+                    <span>Página {{pageValue}} de {{cantidadPages}}</span>
+                    <span>Total registros: {{dashboardData.totalPatients}}</span>
+                </li>
+                <li (click)="setpageincrease()" class="pagination-item">
+                    <button class="pagination-link pagination-link--arrow" aria-label="Página siguiente">
+                        Siguiente &raquo;
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<!-- Modal para editar paciente -->
+ <!-- Se encuentra en el componente components/modal.to.edit -->
+
+
+ <app-modal-to-edit
+ [selectedPatientForEdit]="selectedPatientForEdit";
+ [showEditPatientModal]="showEditPatientModal";
+ [showMessage]="showMessage";
+ [messageText]="messageText";
+ [messageType]="messageType";
+ (saveEdit)="onEditPatientSubmit()";
+ (closeModal)="closeEditPatientModal();"
+ ></app-modal-to-edit>
+
+
+
+
+
+<!-- Modal para editar paciente -->
+ <!-- Se encuentra en el componente components/modal.to.edit -->
+
+<div class="modal-backdrop" *ngIf="showViewPatientModal" (click)="closeViewPatientModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <h3 class="modal-title">Detalles del Paciente</h3>
+        <div class="modal-form-grid" *ngIf="viewedPatientDetails">
+            <div class="form-group">
+                <label>Nombre Completo</label>
+                <input type="text" [value]="viewedPatientDetails.name" readonly class="modal-input readonly">
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" [value]="viewedPatientDetails.email" readonly class="modal-input readonly">
+            </div>
+            <div class="form-group">
+                <label>Cédula de Identidad (CI)</label>
+                <input type="text" [value]="viewedPatientDetails.cedula || viewedPatientDetails.ci" readonly class="modal-input readonly">
+            </div>
+            <div class="form-group">
+                <label>Edad</label>
+                <input type="number" [value]="viewedPatientDetails.age" readonly class="modal-input readonly">
+            </div>
+            <div class="form-group">
+                <label>Dirección</label>
+                <input type="text" [value]="viewedPatientDetails.address" readonly class="modal-input readonly">
+            </div>
+            <div class="form-group">
+                <label>Ocupación</label>
+                <input type="text" [value]="viewedPatientDetails.occupation" readonly class="modal-input readonly">
+            </div>
+            <div class="form-group">
+                <label>Teléfono</label>
+                <input type="text" [value]="viewedPatientDetails.phone" readonly class="modal-input readonly">
             </div>
             
-            <div class="modal-actions">
-                <button type="button" class="modal-btn-cancel" (click)="closeViewPatientModal()">Cerrar</button>
+            <div class="form-group" *ngIf="viewedPatientDetails.disease">
+                <label>Información de la Enfermedad</label>
+                <textarea [value]="viewedPatientDetails.infoDisease || 'N/A'" rows="3" readonly class="modal-input readonly"></textarea>
             </div>
         </div>
+        
+        <div class="modal-actions">
+            <button type="button" class="modal-btn-cancel" (click)="closeViewPatientModal()">Cerrar</button>
+        </div>
     </div>
+</div>

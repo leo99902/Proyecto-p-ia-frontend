@@ -75,10 +75,7 @@ export class AuthService {
     });
   }
 
-  /**
-   * Actualiza el estado de autenticación del usuario.
-   * @param value `true` si el usuario está logueado, `false` en caso contrario.
-   */
+
   setLoggedIn(value: boolean): void {
     this._isLoggedIn.next(value);
   }
@@ -91,10 +88,6 @@ export class AuthService {
     return this._tokenFromLocalStorage; // Usar el getter seguro
   }
 
-  /**
-   * Decodifica el token JWT almacenado y devuelve su payload.
-   * @returns El payload decodificado del token o `null` si no hay token o si falla la decodificación.
-   */
   getDecodedToken(): DecodedTokenPayload | null {
     const token = this.getToken();
     if (token) {
@@ -102,7 +95,6 @@ export class AuthService {
         const decoded = jwtDecode<DecodedTokenPayload>(token); // Uso de jwtDecode
         return decoded;
       } catch (error) {
-        console.error('Error decodificando el token:', error);
         return null;
       }
     }
@@ -146,7 +138,6 @@ export class AuthService {
       });
 
       this._userMenus.next(filteredMenus); // Emite la lista de menús filtrados
-      console.log('Menús filtrados desde token:', filteredMenus);
     } else {
       this._userMenus.next([]); // Si no hay token o la información de menú es inválida, emite un array vacío
     }
@@ -165,4 +156,12 @@ export class AuthService {
     this.setLoggedIn(false); // Actualiza el estado de login a false
     this._userMenus.next([]); // Limpia los menús de la UI
   }
+
+
+  getUser() {
+  // Devuelve el usuario autenticado, por ejemplo desde localStorage o un BehaviorSubject
+  return JSON.parse(localStorage.getItem('user') || '{}');
+}
+
+
 }

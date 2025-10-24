@@ -6,12 +6,13 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NavComponent } from './layouts/nav.component/nav/nav.component';
 
 @Component({
   selector: 'app-root',
   imports: [
     HeaderNavigationComponentComponent, RouterOutlet, RouterModule,
-    MatButtonModule, MatDividerModule, MatIconModule
+    MatButtonModule, MatDividerModule, MatIconModule, NavComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

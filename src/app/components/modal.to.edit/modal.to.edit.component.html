@@ -1,0 +1,55 @@
+<div class="modal-backdrop" *ngIf="showEditPatientModal" (click)="closeEditPatientModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <h3 class="modal-title">Editar Paciente</h3>
+        
+        <!-- Message Container inside Modal -->
+        <div *ngIf="showMessage" class="message-container">
+            <div [class]="'alert alert-' + messageType">
+                {{ messageText }}
+            </div>
+        </div>
+        
+        <form (ngSubmit)="onEditPatientSubmit()">
+            <div class="modal-form-grid">
+                <div class="form-group">
+                    <label for="editName">Nombre Completo</label>
+                    <input type="text" id="editName" name="name" [(ngModel)]="selectedPatientForEdit.name" required class="modal-input">
+                </div>
+                <div class="form-group">
+                    <label for="editEmail">Email</label>
+                    <input type="email" id="editEmail" name="email" [(ngModel)]="selectedPatientForEdit.email" required class="modal-input">
+                </div>
+                <div class="form-group">
+                    <label for="editCi">Cédula de Identidad (CI)</label>
+                    <input type="text" id="editCi" name="ci" [(ngModel)]="selectedPatientForEdit.ci" required class="modal-input" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="editAge">Edad</label>
+                    <input type="number" id="editAge" name="age" [(ngModel)]="selectedPatientForEdit.age" required class="modal-input">
+                </div>
+                <div class="form-group">
+                    <label for="editAddress">Dirección</label>
+                    <input type="text" id="editAddress" name="address" [(ngModel)]="selectedPatientForEdit.address" class="modal-input">
+                </div>
+                <div class="form-group">
+                    <label for="editOccupation">Ocupación</label>
+                    <input type="text" id="editOccupation" name="occupation" [(ngModel)]="selectedPatientForEdit.occupation" class="modal-input">
+                </div>
+                <div class="form-group">
+                    <label for="editPhone">Teléfono</label>
+                    <input type="text" id="editPhone" name="phone" [(ngModel)]="selectedPatientForEdit.phone" class="modal-input">
+                </div>
+                
+                <div style="width: 100%;">
+                    <label for="editInfoDisease">Información de la Enfermedad</label>
+                    <textarea id="editInfoDisease" name="infoDisease" [(ngModel)]="selectedPatientForEdit.infoDisease" rows="3" class="modal-input"></textarea>
+                </div>
+            </div>
+            
+            <div class="modal-actions">
+                <button type="button" class="modal-btn-cancel" (click)="closeEditPatientModal()">Cancelar</button>
+                <button type="submit" class="modal-btn-save">Guardar Cambios</button>
+            </div>
+        </form>
+    </div>
+</div>

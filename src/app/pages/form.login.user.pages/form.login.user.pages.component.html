@@ -1,6 +1,8 @@
-<section class="content-login" style="width: 100%; display: flex; justify-content: center; padding: 1rem;">
+<section class="content-login
+min-h-[100vh] w-[vw] flex justify-center items-center p-0 bg-[#f8fafc]
+">
   <div class="container py-1" style="height: 30%; width: 100%;">
-    <div class="row d-flex justify-content-center align-items-center h-100 content-login">
+    <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-xl-10">
         <div class="card rounded-3 text-black">
           <div class="row g-0">
@@ -9,24 +11,57 @@
                 <div class="text-center" style="display: flex; justify-content: center;">
                   <img src="logo-login.png" alt="Login Logo" style="width: 105px;">
                 </div>
+
+
+                
                 <form>
                   <div class="d-flex justify-content-center align-items-center">
-                    <p class="">Por favor, Inicie sesión en su cuenta</p>
+                    <p *ngIf="!forgotPasswordMode">Por favor, Inicie sesión en su cuenta</p>
+                    <p *ngIf="forgotPasswordMode">Recupera tu contraseña</p>
                   </div>
-                  <div data-mdb-input-init class="form-outline mb-2">
+
+                  <!-- Input de usuario -->
+                  <div class="form-outline mb-2 fade-css" [class.hide]="forgotPasswordMode">
                     <label class="form-label" for="form2Example11">Usuario</label>
-                    <input [(ngModel)]="name" [ngModelOptions]="{standalone: true}" type="email" id="form2Example11" class="form-control"
-                      placeholder="Usuario o Correo eletronico" />
+                    <input [(ngModel)]="name" [ngModelOptions]="{standalone: true}" type="text" id="form2Example11" class="form-control"
+                      placeholder="Usuario o Correo electrónico" />
                   </div>
-                  <div data-mdb-input-init class="form-outline mb-2">
-                    <label class="form-label" for="form2Example22">Contrasena</label>
+
+                  <!-- Input de recuperación -->
+                  <div class="form-outline mb-2 fade-css" [class.show]="forgotPasswordMode" [class.hide]="!forgotPasswordMode">
+                    <label class="form-label" for="recoverEmail">Ingresa tu Usuario</label>
+                    <input [(ngModel)]="recoverEmail" [ngModelOptions]="{standalone: true}" type="email" id="recoverEmail" class="form-control"
+                      placeholder="Ingresa para recuperar contraseña" />
+                  </div>
+
+                  <!-- Input de contraseña -->
+                  <div class="form-outline mb-2 fade-css" [class.hide]="forgotPasswordMode">
+                    <label class="form-label" for="form2Example22">Contraseña</label>
                     <input placeholder="Ingrese su Contraseña" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" type="password" id="form2Example22" class="form-control" />
                   </div>
+
                   <div class="text-center pt-1 mb-3 flex-column">
                     <div>
-                      <button (click)="httpHome()" type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3 mt-2 py-2 px-5" type="button">Iniciar Seccion</button>
+                      <button
+                        *ngIf="!forgotPasswordMode"
+                        (click)="httpHome(); $event.preventDefault()"
+                        type="button"
+                        class="btn btn-primary"
+                      >Iniciar Sesión</button>
+                      <button
+                        *ngIf="forgotPasswordMode"
+                        (click)="recoverPassword(); $event.preventDefault()"
+                        type="button"
+                        class="btn btn-primary"
+                      >Recuperar Contraseña</button>
                     </div>
-                    <a class="text-muted" href="#!">¿Has olvidado tu contraseña?</a>
+                    <a
+                      class="text-muted"
+                      href="javascript:void(0)"
+                      (click)="toggleForgotPassword()"
+                    >
+                      {{ forgotPasswordMode ? 'Regresar a iniciar sesión' : '¿Has olvidado tu contraseña?' }}
+                    </a>
                   </div>
                 </form>
               </div>
@@ -44,26 +79,23 @@
   </div>
 </section>
 
+
+
+
+
+
+<!-- Modal de alerta del login -->
+
+
+
 <div class="custom-modal-overlay" *ngIf="modalAlertLogin" (click)="closeModal()">
   <div style="padding: 1.5rem;" class="custom-modal-content animate-drop" (click)="$event.stopPropagation()">
     <div class="modal-header-custom">
-      <div class="icon-circle-custom">
-        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-triangle">
-          <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
-          <line x1="12" y1="9" x2="12" y2="13"></line>
-          <line x1="12" y1="17" x2="12.01" y2="17"></line>
-        </svg>
-      </div>
-      <!-- <button class="close-button-custom" (click)="closeModal()">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
-          <line x1="18" y1="6" x2="6" y2="18"></line>
-          <line x1="6" y1="6" x2="18" y2="18"></line>
-        </svg>
-      </button> -->
+    
+   
     </div>
 
     <div class="modal-body-custom">
-      <h3 class="modal-title-custom">Error de inicio de sesión</h3>
       <p class="modal-message-custom">{{modalMessage}}</p>
     </div>
 

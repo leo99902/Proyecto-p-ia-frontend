@@ -86,7 +86,6 @@ export class RecordUserComponentComponent implements OnInit { // Agregamos imple
           window.location.reload();
         }, 3000);
 
-        console.log('Respuesta de éxito:', data);
       },
       error: (e) => {
         // Lógica para el error
@@ -95,7 +94,6 @@ export class RecordUserComponentComponent implements OnInit { // Agregamos imple
         this.modalOpen.isSuccess = false; // Es un error
         this.modalOpen.canCloseOnClickOutside = true; // El modal de error SÍ se cierra al hacer clic fuera
 
-        console.error('Error al registrar usuario:', e);
       },
     });
     // Eliminamos las líneas que mostraban el modal incondicionalmente aquí
