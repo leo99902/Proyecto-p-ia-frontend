@@ -1,0 +1,202 @@
+<!-- Main Table Content -->
+<div class="table-card">
+    <p>Filtros de busqueda</p>
+    <div style="display: flex; justify-content: space-between;">
+      
+      <div style="display: flex; gap: 10px;">
+        <select name="filtroEstado" [(ngModel)]="filtro.filtroEstado" (change)="filterGetUserEstado()" class="form-select">
+            <option value="" disabled selected hidden>Estado</option>
+            <option value="" selected>Todos los Estados</option>
+            <option value="activo">Usuario activo</option>
+            <option value="inactivo">Usuario inactivo</option>
+        </select>
+
+        <select name="filtroRol" [(ngModel)]="filtro.filtroRole" (change)="filterGetUserRole()" class="form-select">
+            <option value="" disabled selected hidden>Rol</option>
+            <option value="" selected>Todos los roles</option>
+            <option value="Administrador">Administrador</option>
+            <option value="Secretario">Secretario</option>
+        </select>
+      </div>
+
+      <div style="width: 90%;" class="search-input-container">
+          <input [(ngModel)]="filterSeekerValue" id="search" type="search" placeholder="Buscar Usuario..." autofocus required />
+          <button type="button" class="search-button" (click)="filterGetUserSeekerByButton()">
+              Buscar  
+          </button>
+      </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table-custom">
+            <thead>
+                <tr>
+                    <th>Usuario</th>
+                    <th>Cédula</th>
+                    <th>Rol</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (user of displayedUsers; track user._id) {
+                    <tr>
+                        <td>{{user.user}}</td>
+                        <td>{{user.cedula}}</td>
+                        <td>{{user.role}}</td>
+                        <td>{{user.state}}</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button type="button" (click)="openModalEdit(); getReturnIdEdit(user._id)" class="btn btn-edit">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                                    </svg>
+                                    Editar
+                                </button>
+                                <button (click)="openModal(); getReturnId(user._id)" type="button" class="btn btn-view">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                        <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
+                                        <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
+                                    </svg>
+                                    Ver
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="pagination-section" *ngIf="cantidadPages > 1">
+        <nav class="pagination-nav" aria-label="Navegación de página">
+            <ul class="pagination-list">
+                <li (click)="setpagedecrease()" class="pagination-item" [class.disabled]="pageValue === 1">
+                    <button class="pagination-link pagination-link--arrow" aria-label="Página anterior" [disabled]="pageValue === 1">
+                        &laquo; Regresar
+                    </button>
+                </li>
+                <li class="pagination-info">
+                    <span>Página {{pageValue}} de {{cantidadPages}}</span>
+                    <span>Total registros: {{cantidaUser}}</span>
+                </li>
+                <li (click)="setpageincrease()" class="pagination-item" [class.disabled]="pageValue === cantidadPages">
+                    <button class="pagination-link pagination-link--arrow" aria-label="Página siguiente" [disabled]="pageValue === cantidadPages">
+                        Siguiente &raquo;
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<!-- Modal para detalles del usuario -->
+<div class="custom-modal-overlay" *ngIf="modalDetails" (click)="closeModal()">
+  <div class="custom-modal-content animate-drop" (click)="$event.stopPropagation()">
+    <div class="custom-modal-close" (click)="closeModal()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+        </svg>
+    </div>
+    <div class="custom-modal-title">
+      <h6>Detalles del usuario</h6>
+    </div>
+    <div class="custom-modal-body">
+      <div class="content-input">
+        <p><b>Nombre:</b></p>
+        <span class="input-display">{{user.name}}</span>
+      </div>
+      <div class="content-input">
+        <p><b>Cédula:</b></p>
+        <span class="input-display">{{user.cedula}}</span>
+      </div>
+      <div class="content-input">
+        <p><b>Usuario:</b></p>
+        <span class="input-display">{{user.user}}</span>
+      </div>
+      <div class="content-input">
+        <p><b>Email:</b></p>
+        <span class="input-display">{{user.email}}</span>
+      </div>
+      <div class="content-input">
+        <p><b>Rol:</b></p>
+        <span class="input-display">{{user.role}}</span>
+      </div>
+      <div class="content-input">
+        <p><b>Estado:</b></p>
+        <span class="input-display">{{user.state}}</span>
+      </div>
+      <div style="display: flex; width: 100%; justify-content: center; margin-top: 20px;">
+        <button (click)="closeModal()" style="width: 100%;" type="button" class="btn btn-primary">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<!-- Modal para editar usuarios -->
+<div class="custom-modal-overlay" *ngIf="modalEdit" (click)="closeModalEdit()">
+  <div style="padding: 2rem; width: 600px;" class="custom-modal-content animate-drop" (click)="$event.stopPropagation()">
+    <div class="custom-modal-close" (click)="closeModalEdit()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+        </svg>
+    </div>
+    
+    <div style="margin-bottom: 0;" class="mt-2 custom-modal-title d-flex justify-content-center">
+      <h6>Modificar usuario</h6>
+    </div>
+        
+    <div class="custom-modal-body" style="margin-top: 20px;">
+      <form action="">
+        <div class="content-input">
+          <p>Nombre: </p>
+          <input [(ngModel)]="userEdit.name" [ngModelOptions]="{standalone: true}" class="input-edit" type="text">
+          <p>Cedula: </p>
+          <input [(ngModel)]="userEdit.cedula" [ngModelOptions]="{standalone: true}" class="input-edit" type="text">
+        </div>
+        <div class="content-input">
+          <p>Usuario: </p>
+          <input [(ngModel)]="userEdit.user" [ngModelOptions]="{standalone: true}" class="input-edit" type="text">
+          <p>Correo: </p>
+          <input [(ngModel)]="userEdit.email" [ngModelOptions]="{standalone: true}" class="input-edit" type="text">
+        </div>
+
+        <div class="content-input">
+          <p>Role:</p>
+          <select [(ngModel)]="userEdit.role" [ngModelOptions]="{standalone: true}" class="input-edit">
+            <option value="Administrador">Administrador</option>
+            <option value="Secretario">Secretario</option>
+          </select>
+        </div>
+
+        <div class="content-input">
+          <p>Estado:</p>
+          <select [(ngModel)]="userEdit.state" [ngModelOptions]="{standalone: true}" class="input-edit">
+            <option value="activo"> Activo </option>
+            <option value="inactivo"> Inactivo </option>
+          </select>
+        </div>
+
+        <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
+            <!-- Mensaje de estado -->
+    <div *ngIf="showMessage" class="message-container">
+      <div [class]="'alert alert-' + messageType">
+        {{ menssageEdit }}
+      </div>
+    </div>
+    </div>
+
+
+        <div class="mt-4 d-flex justify-content-between">
+          <button (click)="closeModalEdit()" type="button" class="btn btn-secondary">Cancelar</button>
+          <button (click)="saveUser('')" type="button" class="btn btn-primary">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

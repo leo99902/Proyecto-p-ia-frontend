@@ -1,0 +1,154 @@
+<div class="container">
+  <div class="header">
+    <h1>Agregar nuevo paciente</h1>
+  </div>
+
+  <!-- Formulario para agregar paciente -->
+  <form class="patient-form" (ngSubmit)="onAddPatientSubmit()">
+    <section class="form-section">
+      <h2>Información básica del paciente</h2>
+      <div class="input-group">
+        <label for="name">Nombre completo</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Ingrese el nombre completo de paciente"
+          [(ngModel)]="newPatient.name"
+          required
+        />
+      </div>
+      <div class="input-group">
+        <label for="age">Edad</label>
+        <input
+          type="number"
+          id="age"
+          name="age"
+          placeholder="Edad que tiene el paciente"
+          [(ngModel)]="newPatient.age"
+        />
+      </div>
+      <!-- Campo Dirección - Agregado -->
+      <div class="input-group">
+        <label for="address">Dirección</label>
+        <input
+          type="text"
+          id="address"
+          name="address"
+          placeholder="Dirección del paciente"
+          [(ngModel)]="newPatient.address"
+          required
+        />
+      </div>
+    </section>
+
+    <section class="form-section">
+      <h2>Contacto</h2>
+      <div class="input-group">
+        <label for="phone">Teléfono</label>
+        <input
+          type="tel"
+          id="phone"
+          name="phone"
+          placeholder="Ej: +58 412 1234567"
+          [(ngModel)]="newPatient.phone"
+        />
+      </div>
+
+      <div class="input-group">
+        <label for="email">Correo electrónico</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="Correo electrónico del paciente"
+          [(ngModel)]="newPatient.email"
+          required
+        />
+      </div>
+    </section>
+
+    <section class="form-section">
+      <h2>Identificación</h2>
+      <div class="input-group">
+        <label for="cedula">Cédula</label>
+        <input
+          type="text"
+          id="cedula"
+          name="cedula"
+          placeholder="Número de cédula o identificación"
+          [(ngModel)]="newPatient.cedula"
+          required
+        />
+      </div>
+    </section>
+
+    <section class="form-section">
+      <h2>Información Adicional</h2>
+      <div class="input-group">
+        <label for="occupation">Ocupación</label>
+        <input
+          type="text"
+          id="occupation"
+          name="occupation"
+          placeholder="Ocupación que tiene el paciente"
+          [(ngModel)]="newPatient.occupation"
+        />
+      </div>
+
+      <!-- Campo Estado - Agregado -->
+      <div class="input-group">
+        <label for="disease">¿Sufre de alguna enfermedad?</label>
+        <input
+          type="checkbox"
+          id="disease"
+          name="disease"
+          [(ngModel)]="newPatient.disease"
+          style="margin-left: 0.5rem;"
+        />
+      </div>
+
+      <div
+        class="input-group enfermedad-animada"
+        [class.show]="newPatient.disease"
+      >
+        <label for="infoDisease">Describa la enfermedad (opcional)</label>
+        <textarea
+          style="margin-left: 0.5rem"
+          id="infoDisease"
+          name="infoDisease"
+          rows="4"
+          placeholder="Especifique una descripción detallada de la enfermedad..."                                                         
+          [(ngModel)]="newPatient.infoDisease"
+        ></textarea>
+      </div>
+
+        <div class="input-group">
+        <label for="password">Contraseña (Obligatorio)</label>
+        <input
+          type="text"
+          id="password"
+          name="password"
+          placeholder="Contraseña para el paciente"
+          [(ngModel)]="newPatient.password"
+          required
+        />
+      </div>
+    </section>
+
+    <button type="submit" class="submit-button">Guardar paciente</button>
+  </form>
+</div>
+
+<!-- Modal de Alerta Genérica -->
+<div class="modal-backdrop" *ngIf="showAlertModal" (click)="closeAlertModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()" [ngClass]="{'modal-success': alertType === 'success', 'modal-error': alertType === 'error'}">
+    <h3 class="modal-title">{{ alertType === 'success' ? 'Éxito' : 'Error' }}</h3>
+    <div class="modal-body">
+      <p>{{ alertMessage }}</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn" [ngClass]="{'btn-success': alertType === 'success', 'btn-error': alertType === 'error'}" (click)="closeAlertModal()">Aceptar</button>
+    </div>
+  </div>
+</div>

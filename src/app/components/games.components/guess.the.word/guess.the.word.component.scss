@@ -1,0 +1,102 @@
+
+
+.container {
+    background-color: #ffffff;
+    border-radius: 1rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    padding: 2.5rem;
+    text-align: center;
+    max-width: 90%;
+    width: 480px;
+}
+
+h1 {
+    color: #2c3e50;
+    margin-bottom: 2rem;
+    font-size: 2.25rem;
+    font-weight: 700;
+}
+
+.word-display {
+    font-size: 2.5rem;
+    letter-spacing: 0.5rem;
+    margin-bottom: 2rem;
+    font-weight: 700;
+    color: #3498db;
+    min-height: 2.5rem;
+    text-transform: uppercase;
+}
+
+.guesses-left {
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+    color: #e74c3c;
+    font-weight: 700;
+}
+
+.hangman-drawing {
+    width: 150px;
+    height: 150px;
+    margin: 20px auto;
+    position: relative;
+    overflow: hidden;
+    border-radius: 0.5rem;
+}
+
+/* ... (resto de los estilos de las partes del ahorcado y mensajes) ... */
+
+/* Responsive para tablets */
+@media (max-width: 900px) {
+    .container {
+        padding: 1.2rem;
+        width: 98vw;
+        max-width: 99vw;
+    }
+    h1 {
+        font-size: 1.5rem;
+    }
+    .word-display {
+        font-size: 1.5rem;
+        letter-spacing: 0.3rem;
+    }
+    .hangman-drawing {
+        width: 110px;
+        height: 110px;
+    }
+}
+
+/* Responsive para móviles */
+@media (max-width: 600px) {
+    .body {
+        min-height: 100vh;
+        padding: 0;
+    }
+    .container {
+        padding: 0.7rem;
+        width: 99vw;
+        max-width: 99vw;
+        border-radius: 0.7rem;
+    }
+    h1 {
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+    }
+    .word-display {
+        font-size: 1.1rem;
+        letter-spacing: 0.15rem;
+        margin-bottom: 1rem;
+    }
+    .guesses-left {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+    }
+    .hangman-drawing {
+        width: 70px;
+        height: 70px;
+        margin: 10px auto;
+    }
+    .message {
+        font-size: 0.95rem;
+        margin-top: 0.7rem;
+    }
+}

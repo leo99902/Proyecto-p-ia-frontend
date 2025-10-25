@@ -1,0 +1,119 @@
+/* Estilos generales del contenedor del juego */
+.puzzle-container {
+    background-color: #ffffff;
+    border-radius: 1.5rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    text-align: center;
+    width: 90%;
+    max-width: 450px;
+    margin: 2rem auto;
+}
+
+h1 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    font-size: clamp(1.8rem, 4vw, 2.25rem);
+    font-weight: 700;
+}
+
+/* Tablero del puzzle */
+#puzzle-board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 6px;
+    width: 100%;
+    max-width: 300px;
+    aspect-ratio: 1/1;
+    margin: 0 auto 1.5rem auto;
+    border: 4px solid #3498db;
+    border-radius: 0.75rem;
+    background-color: #ecf0f1;
+}
+
+/* Piezas del puzzle - Estilos principales */
+.puzzle-tile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: clamp(2rem, 5vw, 2.5rem);
+    font-weight: bold;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    width: 100%;
+    height: 100%;
+}
+
+/* Colores basados en el valor del tile */
+.puzzle-tile[data-value="1"] { background-color: #3498db; }
+.puzzle-tile[data-value="2"] { background-color: #2980b9; }
+.puzzle-tile[data-value="3"] { background-color: #5dade2; }
+.puzzle-tile[data-value="4"] { background-color: #2471a3; }
+.puzzle-tile[data-value="5"] { background-color: #85c1e9; }
+.puzzle-tile[data-value="6"] { background-color: #2e86c1; }
+.puzzle-tile[data-value="7"] { background-color: #2874a6; }
+.puzzle-tile[data-value="8"] { background-color: #5499c7; }
+
+.puzzle-tile:hover:not(.empty) {
+    transform: scale(1.05);
+    z-index: 1;
+}
+
+.puzzle-tile.empty {
+    background-color: transparent;
+    cursor: default;
+}
+
+/* Mensaje de victoria */
+.win-message {
+    font-size: clamp(1.5rem, 4vw, 1.8rem);
+    font-weight: bold;
+    color: #27ae60;
+    margin: 1rem 0 1.5rem 0;
+    display: none;
+}
+
+/* Botones de acción */
+.action-button {
+    background: #9b59b6;
+    color: white;
+    padding: 0.8rem 1.8rem;
+    border: none;
+    border-radius: 0.75rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 0.5rem;
+}
+
+.action-button:hover {
+    background: #8e44ad;
+    transform: translateY(-2px);
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+/* Responsive para móviles */
+@media (max-width: 480px) {
+    .puzzle-container {
+        padding: 1.5rem;
+    }
+    
+    #puzzle-board {
+        max-width: 280px;
+    }
+    
+    .action-button {
+        padding: 0.7rem 1.5rem;
+    }
+}

@@ -1,0 +1,46 @@
+<aside class="sidebar" [class.sidebar-open]="navVisible">
+  <div class="sidebar-header" style="display: flex; align-items: center; justify-content: center; padding: 1rem; margin-bottom: 3rem;">
+    <div class="content-cabecera">
+      <img src="logo.png">
+      <h2>ATI</h2>
+    </div>
+  </div>
+  <nav class="sidebar-content">
+    <ul class="nav-list">
+      <ng-container *ngIf="menuItems$ | async as menus">
+        <li *ngFor="let item of menus">
+          <a [routerLink]="item.path" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{ exact: true }" class="nav-link">
+            <i class="bx {{ item.icon }} icon"></i>
+            <span>{{ item.name }}</span>
+          </a>
+        </li>
+      </ng-container>
+      </ul>
+  </nav>
+</aside>
+
+<nav class="tab-link">
+  <ng-container *ngIf="menuItems$ | async as menus">
+    <a [routerLink]="item.path" routerLinkActive="active" *ngFor="let item of menus">
+      <i class="bx {{ item.icon }}"></i>
+      <span>{{ item.name }}</span>
+    </a>
+  </ng-container>
+</nav>
+
+
+<div class="modal-overlay" *ngIf="showModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 class="modal-title">Confirmar Cierre de Sesión</h3>
+    </div>
+    <div class="modal-body">
+      <p>¿Estás seguro de que deseas cerrar tu sesión?</p>
+      <p class="timer">Tiempo restante: <span class="timer-count">{{ timerCount }}</span> segundos</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-cancel" (click)="cancelLogout()">Cancelar</button>
+      <button class="btn btn-confirm" (click)="confirmLogout()">Cerrar Sesión</button>
+    </div>
+  </div>
+</div>

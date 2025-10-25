@@ -1,0 +1,106 @@
+<section class="content-login
+min-h-[100vh] w-[vw] flex justify-center items-center p-0 bg-[#f8fafc]
+">
+  <div class="container py-1" style="height: 30%; width: 100%;">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-xl-10">
+        <div class="card rounded-3 text-black">
+          <div class="row g-0">
+            <div class="col-lg-6">
+              <div class="card-body p-md-5 mx-md-4">
+                <div class="text-center" style="display: flex; justify-content: center;">
+                  <img src="logo-login.png" alt="Login Logo" style="width: 105px;">
+                </div>
+
+
+                
+                <form>
+                  <div class="d-flex justify-content-center align-items-center">
+                    <p *ngIf="!forgotPasswordMode">Por favor, Inicie sesión en su cuenta</p>
+                    <p *ngIf="forgotPasswordMode">Recupera tu contraseña</p>
+                  </div>
+
+                  <!-- Input de usuario -->
+                  <div class="form-outline mb-2 fade-css" [class.hide]="forgotPasswordMode">
+                    <label class="form-label" for="form2Example11">Usuario</label>
+                    <input [(ngModel)]="name" [ngModelOptions]="{standalone: true}" type="text" id="form2Example11" class="form-control"
+                      placeholder="Usuario o Correo electrónico" />
+                  </div>
+
+                  <!-- Input de recuperación -->
+                  <div class="form-outline mb-2 fade-css" [class.show]="forgotPasswordMode" [class.hide]="!forgotPasswordMode">
+                    <label class="form-label" for="recoverEmail">Ingresa tu Usuario</label>
+                    <input [(ngModel)]="recoverEmail" [ngModelOptions]="{standalone: true}" type="email" id="recoverEmail" class="form-control"
+                      placeholder="Ingresa para recuperar contraseña" />
+                  </div>
+
+                  <!-- Input de contraseña -->
+                  <div class="form-outline mb-2 fade-css" [class.hide]="forgotPasswordMode">
+                    <label class="form-label" for="form2Example22">Contraseña</label>
+                    <input placeholder="Ingrese su Contraseña" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" type="password" id="form2Example22" class="form-control" />
+                  </div>
+
+                  <div class="text-center pt-1 mb-3 flex-column">
+                    <div>
+                      <button
+                        *ngIf="!forgotPasswordMode"
+                        (click)="httpHome(); $event.preventDefault()"
+                        type="button"
+                        class="btn btn-primary"
+                      >Iniciar Sesión</button>
+                      <button
+                        *ngIf="forgotPasswordMode"
+                        (click)="recoverPassword(); $event.preventDefault()"
+                        type="button"
+                        class="btn btn-primary"
+                      >Recuperar Contraseña</button>
+                    </div>
+                    <a
+                      class="text-muted"
+                      href="javascript:void(0)"
+                      (click)="toggleForgotPassword()"
+                    >
+                      {{ forgotPasswordMode ? 'Regresar a iniciar sesión' : '¿Has olvidado tu contraseña?' }}
+                    </a>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
+              <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+                <h4 class="mb-4" style="text-align: center;"> Bienvenido/a </h4>
+                <p class="small mb-0" style="text-align: center;"> Aplicación de terapia digital con IA para fomentar el cuidado emocional inteligente para el consultorio psicológico "lic. Génesis Moreno" </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+<!-- Modal de alerta del login -->
+
+
+
+<div class="custom-modal-overlay" *ngIf="modalAlertLogin" (click)="closeModal()">
+  <div style="padding: 1.5rem;" class="custom-modal-content animate-drop" (click)="$event.stopPropagation()">
+    <div class="modal-header-custom">
+    
+   
+    </div>
+
+    <div class="modal-body-custom">
+      <p class="modal-message-custom">{{modalMessage}}</p>
+    </div>
+
+    <div class="modal-footer-custom">
+      <button class="modal-button-custom" (click)="closeModal()">Entendido</button>
+    </div>
+  </div>
+</div>

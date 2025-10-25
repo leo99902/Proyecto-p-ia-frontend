@@ -1,0 +1,100 @@
+.content-games {
+    margin-right: 7rem;
+    margin-left: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    min-height: 80vh;
+}
+
+@media (max-width: 900px) {
+    .content-games {
+        margin-right: 1rem;
+        margin-left: 1rem;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        min-height: 70vh;
+    }
+}
+
+@media (max-width: 600px) {
+    .content-games {
+        margin: 0.5rem 0.2rem;
+        min-height: 60vh;
+    }
+}
+
+.game-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100000000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+.game-modal.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.game-modal-content {
+    background-color: #ffffff;
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    width: 95vw;
+    height: 95vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow-y: auto;
+    max-width: 900px;
+    max-height: 700px;
+}
+
+@media (max-width: 900px) {
+    .game-modal-content {
+        max-width: 98vw;
+        max-height: 90vh;
+        padding: 1rem;
+        border-radius: 1rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .game-modal-content {
+        width: 99vw;
+        height: 99vh;
+        max-width: 99vw;
+        max-height: 99vh;
+        padding: 0.5rem;
+        border-radius: 0.7rem;
+    }
+}
+
+.game-modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #4a5568;
+    transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+    z-index: 10;
+}
+.game-modal-close:hover {
+    color: #ef4444;
+    transform: scale(1.1);
+}

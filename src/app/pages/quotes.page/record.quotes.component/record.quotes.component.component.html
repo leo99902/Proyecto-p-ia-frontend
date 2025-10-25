@@ -1,0 +1,72 @@
+ <div class="container">
+        <div class="header">
+            <h1>Registrar Nueva Cita</h1>
+        </div>
+
+        <form class="appointment-form">
+            <section class="form-section">
+                <h2>Información de la Cita</h2>
+                <div class="input-group">
+                    <label for="appointment-date">Fecha de la Cita</label>
+                    <input type="date" id="appointment-date">
+                </div>
+                <div class="input-group">
+                    <label for="appointment-time">Hora de la Cita</label>
+                    <input type="time" id="appointment-time">
+                </div>
+                <div class="input-group">
+                    <label for="appointment-type">Tipo de Consulta</label>
+                    <select id="appointment-type">
+                        <option value="">Seleccione</option>
+                        <option value="presencial">Presencial</option>
+                        <option value="online">Online</option>
+                        <option value="telefonica">Telefónica</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="duration">Duración Estimada (minutos)</label>
+                    <input type="number" id="duration" placeholder="60" min="15" step="15">
+                </div>
+            </section>
+
+            <section class="form-section">
+                <h2>Detalles del Paciente</h2>
+                <div class="input-group">
+                    <label for="patient-select">Seleccionar Paciente</label>
+                    <select id="patient-select">
+                        <option value="">-- Seleccione un paciente --</option>
+                        <option value="paciente1">Ana García (ID: P001)</option>
+                        <option value="paciente2">Luis Martínez (ID: P002)</option>
+                        <option value="paciente3">María Rodríguez (ID: P003)</option>
+                        <option value="paciente4">Carlos Sánchez (ID: P004)</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="patient-contact-phone">Teléfono de Contacto</label>
+                    <input type="tel" id="patient-contact-phone" value="+58 412 1234567" readonly>
+                </div>
+                <div class="input-group">
+                    <label for="patient-contact-email">Correo Electrónico</label>
+                    <input type="email" id="patient-contact-email" value="ana.garcia@example.com" readonly>
+                </div>
+                <div class="input-group">
+                    <label for="patient-primary-concern">Motivo Principal (del registro)</label>
+                    <textarea id="patient-primary-concern" rows="2" readonly>Ansiedad generalizada y estrés laboral.</textarea>
+                </div>
+            </section>
+
+            <section class="form-section">
+                <h2>Detalles de la Consulta</h2>
+                <div class="input-group">
+                    <label for="consultation-reason">Motivo de la Cita Actual</label>
+                    <textarea id="consultation-reason" rows="4" placeholder="Breve descripción del motivo de la consulta..."></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="internal-notes">Notas Internas (solo para el terapeuta)</label>
+                    <textarea id="internal-notes" rows="3" placeholder="Información adicional relevante para la sesión..."></textarea>
+                </div>
+            </section>
+
+            <button type="submit" class="submit-button">Guardar Cita</button>
+        </form>
+    </div>

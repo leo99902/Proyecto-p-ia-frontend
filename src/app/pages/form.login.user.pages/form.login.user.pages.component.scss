@@ -1,0 +1,419 @@
+/* Contenedor principal */
+.content-login {
+    min-height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    box-sizing: border-box;
+    background: #f8fafc;
+    padding: 1rem;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.row {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+}
+
+.col-xl-10 {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.col-lg-6 {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+@media (min-width: 992px) {
+    .col-lg-6 {
+        width: 50%;
+    }
+}
+
+/* Estilos de la tarjeta principal (login-container) */
+.card {
+    background-color: #fff;
+    border-radius: 1rem;
+    color: hsl(220, 15%, 25%);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    min-width: 0;
+    overflow: visible;
+    align-items: stretch;
+}
+
+@media (max-width: 991px) {
+    .card {
+        flex-direction: column;
+        border-radius: 1rem;
+        min-width: 0;
+    }
+    .col-lg-6 {
+        width: 100%;
+    }
+}
+
+.row.g-0 {
+    display: flex;
+    width: 100%;
+}
+
+/* Columna del formulario */
+.card-body {
+    padding: 2rem 1.2rem;
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+}
+@media (min-width: 768px) {
+    .card-body {
+        padding: 3rem 3rem;
+    }
+}
+
+/* Estilos del logo dentro del formulario */
+.text-center {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.text-center img {
+    width: 105px;
+    height: auto;
+    display: block;
+    max-width: 100%;
+}
+
+/* Estilos del párrafo de bienvenida */
+.card-body p {
+    font-size: 1rem;
+    color: hsl(220, 10%, 55%); /* --text-medium */
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+/* Estilos de los campos de formulario */
+.form-outline {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.form-label {
+    display: block;
+    font-size: 0.95rem;
+    color: hsl(220, 10%, 55%); /* --text-medium */
+    margin-bottom: 0.5rem;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px;
+    background-color: hsl(210, 5%, 96%); /* --input-background */
+    border: 1px solid #000;
+    border-radius: 8px;
+    color: hsl(220, 15%, 25%); /* --text-dark */
+    font-size: 1rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    box-sizing: border-box;
+}
+
+.form-control::placeholder {
+    color: hsl(220, 10%, 55%); /* --text-medium */
+    opacity: 0.8;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: hsl(210, 80%, 50%); /* --primary-blue */
+    box-shadow: 0 0 0 4px hsla(210, 80%, 50%, 0.25); /* --shadow-input-focus */
+}
+
+/* Estilos del botón de iniciar sesión */
+.btn.btn-primary {
+    width: 100%;
+    padding: 14px;
+    background-color: hsl(210, 80%, 50%); /* --primary-blue */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 15px hsla(210, 80%, 50%, 0.2);
+    margin-top: 1.5rem;
+    margin-bottom: 0.8rem;
+    display: block;
+}
+
+.btn.btn-primary:hover {
+    background-color: hsl(210, 80%, 45%); /* --button-hover */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px hsla(210, 80%, 50%, 0.3);
+}
+
+/* Estilos del enlace "Olvidaste tu contraseña" */
+.text-muted {
+    font-size: 0.9rem;
+    color: hsl(220, 10%, 55%); /* --text-medium */
+    text-decoration: none;
+    display: block;
+    transition: color 0.2s ease;
+}
+
+.text-muted:hover {
+    color: hsl(210, 80%, 50%); /* --primary-blue */
+    text-decoration: underline;
+}
+
+/* Estilos de la columna derecha (gradient-custom-2) */
+.gradient-custom-2 {
+    background: linear-gradient(to right, hsl(210, 80%, 50%), hsl(190, 80%, 60%));
+    border-radius: 0 1rem 1rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5rem;
+    min-height: 100%;
+}
+@media (max-width: 991px) {
+    .gradient-custom-2 {
+        border-radius: 0 0 1rem 1rem;
+        padding: 2rem 1rem;
+        min-height: 200px;
+    }
+}
+
+.text-white {
+    color: white;
+}
+
+.px-3 { padding-left: 1rem; padding-right: 1rem; }
+.py-4 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+.p-md-5 { padding: 3rem; }
+.mx-md-4 { margin-left: 1.5rem; margin-right: 1.5rem; }
+
+.mb-4 { margin-bottom: 1.5rem; }
+.mb-0 { margin-bottom: 0; }
+.small { font-size: 0.875em; }
+
+.gradient-custom-2 h4 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.gradient-custom-2 p {
+    line-height: 1.6;
+}
+
+/* -------------------------------------- */
+/* ESTILOS DEL MODAL (SIMILAR A LA IMAGEN) */
+/* -------------------------------------- */
+
+.custom-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3); /* --modal-image-overlay-bg */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.custom-modal-content {
+    background-color: #FFFFFF; /* --modal-image-content-bg */
+    border-radius: 12px; /* --modal-image-border-radius */
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1); /* --modal-image-shadow */
+    max-width: 400px;
+    width: 100%;
+    padding: 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Cabecera del modal personalizada */
+.modal-header-custom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1.5rem 1rem;
+    position: relative;
+}
+
+.icon-circle-custom {
+    width: 70px;
+    height: 70px;
+    background-color: #e6f7ff; /* --modal-image-icon-bg */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.icon-circle-custom svg {
+    color: #2196f3; /* --modal-image-icon-color */
+    width: 40px;
+    height: 40px;
+}
+
+/* Botón de cerrar en la esquina superior derecha */
+.close-button-custom {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+}
+
+.close-button-custom:hover {
+    background-color: #f0f0f0;
+}
+
+.close-button-custom svg {
+    width: 24px;
+    height: 24px;
+    color: #777; /* --modal-image-close-color */
+}
+
+/* Cuerpo del modal personalizado */
+.modal-body-custom {
+    padding: 0 1.5rem 2rem;
+}
+
+.modal-message-custom {
+    font-size: 1.2rem;
+    color: #333;
+    line-height: 1.5;
+    margin-bottom: 0;
+}
+
+/* Pie de página del modal personalizado */
+.modal-footer-custom {
+    border-top: 1px solid hsl(210, 10%, 90%); /* --modal-border */
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.modal-button-custom {
+    padding: 10px 20px;
+    background-color: #f0f0f0; /* --modal-image-button-bg */
+    color: #555; /* --modal-image-button-text */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.modal-button-custom:hover {
+    background-color: #e0e0e0; /* --modal-image-button-hover-bg */
+    transform: translateY(-1px);
+}
+
+/* Clases de utilidad */
+.openModal { display: flex; }
+.closeModal { display: none; }
+
+/* Animación */
+.animate-drop {
+    animation: dropIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+@keyframes dropIn {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Responsividad extra para móvil */
+@media (max-width: 600px) {
+    .card {
+        flex-direction: column;
+        border-radius: 1rem;
+        min-width: 0;
+    }
+    .card-body {
+        padding: 1.5rem 0.7rem;
+    }
+    .container, .col-xl-10 {
+        max-width: 100vw;
+        padding: 0;
+    }
+}
+
+/* --- Nuevas reglas para la animación de los inputs --- */
+
+/* Estilos base para los elementos que van a transicionar */
+.fade-css {
+    /* Estado visible por defecto */
+    opacity: 1; /* Completamente visible */
+    max-height: 150px; /* Suficiente altura para el input y su etiqueta */
+    margin-bottom: 1.5rem; /* Margen por defecto, para que colapse con la altura */
+    overflow: hidden; /* Oculta el contenido si se desborda durante la animación */
+    transform: translateY(0); /* Posición inicial para la animación de deslizamiento */
+
+    /* Define las transiciones para suavizar los cambios */
+    transition:
+        opacity 0.3s ease-out,        /* Transición de opacidad más rápida */
+        max-height 0.3s ease-out,     /* Transición de altura máxima más rápida */
+        margin-bottom 0.3s ease-out,  /* Transición del margen inferior más rápida */
+        transform 0.3s ease-out;      /* Transición de transformación */
+
+    /* Asegura que los elementos sean interactuables cuando están visibles */
+    pointer-events: auto;
+    visibility: visible;
+}
+
+/* Estilos para el estado oculto */
+.fade-css.hide {
+    opacity: 0; /* Completamente transparente (desvanecer) */
+    max-height: 0; /* Colapsa la altura a cero */
+    margin-bottom: 0; /* Elimina el margen para que no ocupe espacio */
+    transform: translateY(-20px); /* Desliza hacia arriba al ocultarse */
+
+    /* Evita que se pueda interactuar con el elemento cuando está oculto */
+    pointer-events: none;
+    /* Oculta el elemento de los lectores de pantalla también */
+    visibility: hidden;
+}
+
+/* Botones: Asegurar que también tengan una transición de opacidad al aparecer */
+.text-center.pt-1.mb-3.flex-column button {
+    transition: opacity 0.3s ease-out; /* Hace que el botón aparezca con un fade más rápido */
+}
