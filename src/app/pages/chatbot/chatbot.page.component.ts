@@ -19,7 +19,7 @@ export class ChatbotPageComponent implements AfterViewChecked {
 
   // Usamos Signals para un manejo de estado más moderno y reactivo
   readonly messages = signal<ChatMessage[]>([
-    { sender: 'bot', text: '¡Hola! Soy tu asistente virtual. ¿En qué puedo ayudarte hoy?' }
+    { sender: 'bot', text: 'Hola. Soy tu asistente de apoyo emocional. Estoy aquí para escucharte y ofrecerte herramientas de bienestar. Recuerda, nuestra conversación es privada. ¿Cómo te sientes hoy y qué te gustaría explorar' }
   ]);
   readonly userMessage = signal('');
   readonly isLoading = signal(false);
