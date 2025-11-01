@@ -6,13 +6,4 @@ import { routes } from './app.routes';
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
-
-@NgModule({
-  imports: [
-    // ...otros módulos
-    AppRoutingModule
-  ],
-  // ...otros metadatos
-})
-export class AppModule {}
+export class AppRoutingModule { }

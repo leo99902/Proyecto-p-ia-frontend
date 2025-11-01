@@ -9,13 +9,17 @@ import { QuotesPagesComponent } from './pages/quotes.page/quotes.page';
 // Importa el guard
 import { authGuard } from './auth/auth.guard/auth.guard';
 import { GamesPatientsPageComponent } from './pages/games.patients.page/games.patients.page.component';
+import { NotesPageComponent } from './pages/notes/notes.page.component';
+import { ChatbotPageComponent } from './pages/chatbot/chatbot.page.component';
 
 export const routes: Routes = [
     { path: '', component: FormLoginUserPagesComponent, title: 'ATI' },
     { path: 'home', component: HomeUserPagesComponent, title: 'ATI', canActivate: [authGuard] },
     { path: 'usuarios', component: FormRecordUserPagesComponent, title: 'ATI', canActivate: [authGuard] },
     { path: 'pacientes', component: PatientsPageComponent, title: 'ATI', canActivate: [authGuard] },
+    { path: 'chatbot', component: ChatbotPageComponent, title: 'ATI', canActivate: [authGuard] },
     { path: 'citas', component: QuotesPagesComponent, title: 'ATI', canActivate: [authGuard] },
     { path: 'juegos', component: GamesPatientsPageComponent, title: 'ATI', canActivate: [authGuard] },
+    { path: 'notas', component: NotesPageComponent, title: 'ATI', canActivate: [authGuard] },
     { path: '**', component: User404PagesComponent, title: 'ATI' }
 ];

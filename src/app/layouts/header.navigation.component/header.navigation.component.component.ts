@@ -1,6 +1,6 @@
 // src/app/modules/layout/header.navigation.component.component.ts
 
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, Output, EventEmitter } from '@angular/core';
 import { CommonModule, NgFor, NgIf } from '@angular/common'; // Asegúrate de incluir NgFor
 import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 
@@ -33,6 +33,8 @@ export class HeaderNavigationComponentComponent implements OnInit, OnDestroy {
 
   public isLoggedIn: boolean = false; // Estado del login para mostrar/ocultar elementos
   public menuItems$: Observable<MenuItem[]>; // Observable que contendrá los menús filtrados
+
+  @Output() toggleChatbot = new EventEmitter<void>();
 
   constructor() {
     // Escuchar cambios en el estado de login desde el AuthService
@@ -68,6 +70,10 @@ export class HeaderNavigationComponentComponent implements OnInit, OnDestroy {
 
   closeNav() {
     this.navVisible = false;
+  }
+
+  onChatbotClick(): void {
+    this.toggleChatbot.emit();
   }
 
   public showLogoutModal() {
