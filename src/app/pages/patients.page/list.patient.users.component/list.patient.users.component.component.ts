@@ -3,14 +3,28 @@ import { CommonModule, NgIf, NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ShowListPatientsService } from '../../../services/show.list.patients.service/show.list.patients.service';
 import { EditPatientService } from '../../../services/edit.patient.service/edit.patient.service';
-import { ModalToEditComponent } from '../../../components/modal.to.edit/modal.to.edit.component';
+import { HttpErrorResponse } from '@angular/common/http';
+
+interface Patient {
+  _id: string;
+  name: string;
+  cedula: string;
+  ci: string;
+  age: number;
+  address: string;
+  email: string;
+  occupation: string;
+  phone: string;
+  disease: string;
+  infoDisease?: string;
+  state: string;
+  password?: string;
+}
 
 @Component({
   selector: 'app-list-patient',
   standalone: true,
-  imports: [CommonModule, FormsModule, NgIf, NgFor,
-    ModalToEditComponent
-  ],
+  imports: [CommonModule, FormsModule, NgIf, NgFor],
   templateUrl: './list.patient.users.component.component.html',
   styleUrl: './list.patient.users.component.component.scss'
 })
@@ -22,16 +36,16 @@ export class ListPatientUsersComponentComponent implements OnInit {
     patientsDescription: 'Pacientes activos',
   };
 
-  public patients: any[] = [];
+  public patients: Patient[] = [];
   public isLoadingPatients: boolean = true;
   public patientsErrorMessage: string | null = null;
 
   public showEditPatientModal: boolean = false;
-  public selectedPatientForEdit: any = null;
+  public selectedPatientForEdit: Patient | null = null;
   private originalPatientPassword: string = '';
 
   public showViewPatientModal: boolean = false;
-  public viewedPatientDetails: any = null;
+  public viewedPatientDetails: Partial<Patient> | null = null;
 
   // Propiedades para mensajes de estado
   public showMessage: boolean = false;
@@ -40,7 +54,7 @@ export class ListPatientUsersComponentComponent implements OnInit {
   private messageTimeout: any;
 
   // Properties for filtering and pagination
-  public pageValue: number = 1;
+  public pageValue: number = 1; // Initialized here
   public cantidadPages: number = 0;
   public filtro = {
     filtroRole: '',
@@ -54,10 +68,8 @@ export class ListPatientUsersComponentComponent implements OnInit {
 
   constructor() { }
 
+  
   ngOnInit(): void {
-    this.filtro.filtroRole = '';
-    this.filtro.filtroEstado = '';
-    this.pageValue = 1;
     this.loadPatients();
   }
 
@@ -107,7 +119,7 @@ export class ListPatientUsersComponentComponent implements OnInit {
     this.showListPatientsService.listUsers(params).subscribe({
       next: (response) => {
         if (response && Array.isArray(response.value)) {
-          this.patients = response.value.map((patient: any) => ({
+          this.patients = response.value.map((patient: Patient) => ({
             ...patient,
             ci: patient.ci || patient.cedula,
             cedula: patient.cedula || patient.ci
@@ -125,7 +137,7 @@ export class ListPatientUsersComponentComponent implements OnInit {
         }
         this.isLoadingPatients = false;
       },
-      error: (error) => {
+      error: (error: HttpErrorResponse) => {
         console.error('Error loading patients:', error);
         this.patientsErrorMessage = 'Could not load patients. Please try again later.';
         this.isLoadingPatients = false;
@@ -148,22 +160,12 @@ export class ListPatientUsersComponentComponent implements OnInit {
     }
   }
 
-  filterGetUserRole(): void {
+  applyFilter(): void {
     this.pageValue = 1;
     this.loadPatients();
   }
 
-  filterGetUserEstado(): void {
-    this.pageValue = 1;
-    this.loadPatients();
-  }
-
-  filterGetUserSeeker(): void {
-    this.pageValue = 1;
-    this.loadPatients();
-  }
-
-  openEditPatientModal(patient: any): void {
+  openEditPatientModal(patient: Patient): void {
     this.originalPatientPassword = patient.password || '';
     this.selectedPatientForEdit = {
       ...patient,
@@ -189,7 +191,7 @@ export class ListPatientUsersComponentComponent implements OnInit {
       return;
     }
 
-    const patientDataForNestedObject: any = {
+    const patientDataForNestedObject: Partial<Patient> = {
       name: this.selectedPatientForEdit.name,
       cedula: this.selectedPatientForEdit.cedula || this.selectedPatientForEdit.ci,
       age: this.selectedPatientForEdit.age,
@@ -219,11 +221,11 @@ export class ListPatientUsersComponentComponent implements OnInit {
         this.closeEditPatientModal();
         this.loadPatients();
       },
-      error: (error) => {
+      error: (error: HttpErrorResponse) => {
         console.error('Error editing patient:', error);
         let errorMessage = 'Error al actualizar el paciente';
         
-        if (error.error && typeof error.error === 'object') {
+        if (error.error && typeof error.error === 'object' && error.error.message) {
           errorMessage = error.error.message || error.error.error || errorMessage;
         } else if (typeof error.error === 'string') {
           errorMessage = error.error;
@@ -231,16 +233,18 @@ export class ListPatientUsersComponentComponent implements OnInit {
           errorMessage = error.message;
         }
         
+
         if (error.status) {
           errorMessage += ` (Código: ${error.status})`;
         }
         
+
         this.showAlertMessage('error', errorMessage);
       }
     });
   }
 
-  openViewPatientModal(patient: any): void {
+  openViewPatientModal(patient: Patient): void {
     this.viewedPatientDetails = { ...patient };
     delete this.viewedPatientDetails.password;
     this.showViewPatientModal = true;

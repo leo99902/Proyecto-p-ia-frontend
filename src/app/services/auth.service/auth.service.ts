@@ -57,7 +57,9 @@ export class AuthService {
     { id: 'users', name: 'Usuarios', icon: 'bx-user', path: '/usuarios' },   // <-- VERIFICA ID, ICONO Y RUTA
     // Ejemplo: Si tu token devuelve "juegos" para los juegos, el id debe ser "juegos".
     { id: 'games', name: 'Juegos', icon: 'bx-joystick', path: '/juegos' },   // <-- VERIFICA ID, ICONO Y RUTA (ej. bx-joystick o bx-game)
+    { id: 'notes', name: 'Notas', icon: 'bx-note', path: '/notas' },       // <-- VERIFICA ID, ICONO Y RUTA
     // Agrega aquí más ítems de menú según las necesidades de tu aplicación
+    
   ];
 
   constructor() {

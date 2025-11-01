@@ -1,0 +1,31 @@
+<div class="chat-page-container">
+  <div class="chat-window">
+    <div class="chat-header">
+      <h2>Asistente Virtual</h2>
+    </div>
+    <div class="chat-messages" #chatContainer>
+      @for (message of messages(); track message; let i = $index) {
+        <div class="message" [ngClass]="{'user-message': message.sender === 'user', 'bot-message': message.sender === 'bot'}">
+          <div class="message-content">
+            @if (message.sender === 'bot') {
+              <p [innerHTML]="message.text | safeHtml"></p>
+            } @else {
+              <p>{{ message.text }}</p>
+            }
+          </div>
+        </div>
+      }
+      @if (isLoading()) {
+        <div class="message bot-message">
+          <div class="message-content typing-indicator">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+      }
+    </div>
+    <div class="chat-input">
+      <input type="text" placeholder="Escribe tu mensaje aquí..." [(ngModel)]="userMessage" (keyup.enter)="sendMessage()" />
+      <button (click)="sendMessage()" [disabled]="!userMessage().trim() || isLoading()">Enviar</button>
+    </div>
+  </div>
+</div>

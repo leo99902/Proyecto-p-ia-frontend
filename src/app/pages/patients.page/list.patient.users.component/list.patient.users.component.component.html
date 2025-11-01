@@ -7,27 +7,29 @@
         </div>
     </div>
 
-    <p>Filtros de busqueda</p>
     <!-- Filter Section -->
-    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-        <!-- Filter by Estado -->
-        <div class="content-select">
-            <select name="filtroEstado" [(ngModel)]="filtro.filtroEstado" (change)="filterGetUserEstado()" class="form-select">
-                <option value="" disabled selected hidden>Estado</option>
-                <option value="" selected>Todos los Estados</option>
-                <option value="activo">Usuario activo</option>
-                <option value="inactivo">Usuario inactivo</option>
-            </select>
+    <fieldset class="filter-fieldset">
+        <legend class="sr-only">Filtros de búsqueda</legend>
+        <div class="filter-controls">
+            <!-- Filter by Estado -->
+            <div class="content-select">
+                <select name="filtroEstado" [(ngModel)]="filtro.filtroEstado" (change)="applyFilter()" class="form-select" aria-label="Filtrar por estado">
+                    <option value="" disabled selected hidden>Estado</option>
+                    <option value="" selected>Todos los Estados</option>
+                    <option value="activo">Usuario activo</option>
+                    <option value="inactivo">Usuario inactivo</option>
+                </select>
+            </div>
+    
+            <!-- Search Input -->
+            <div class="search-input-container">
+                <input [(ngModel)]="filterSeekerValue" (keyup.enter)="applyFilter()" id="search" type="search" placeholder="Buscar Usuario..." autofocus required aria-label="Buscar por nombre, cédula o teléfono" />
+                <button type="button" class="search-button" (click)="applyFilter()">
+                    Buscar
+                </button>
+            </div>
         </div>
-
-        <!-- Search Input -->
-        <div class="search-input-container">
-            <input [(ngModel)]="filterSeekerValue" (input)="filterGetUserSeeker()" id="search" type="search" placeholder="Buscar Usuario..." autofocus required />
-            <button type="button" class="search-button">
-                Buscar
-            </button>
-        </div>
-    </div>
+    </fieldset>
 
     <div class="table-responsive">
         <table class="table-custom">
@@ -84,8 +86,8 @@
     <div class="pagination-section">
         <nav class="pagination-nav" aria-label="Navegación de página">
             <ul class="pagination-list">
-                <li (click)="setpagedecrease()" class="pagination-item">
-                    <button class="pagination-link pagination-link--arrow" aria-label="Página anterior">
+                <li class="pagination-item">
+                    <button (click)="setpagedecrease()" class="pagination-link pagination-link--arrow" aria-label="Página anterior" [disabled]="pageValue <= 1">
                         &laquo; Regresar
                     </button>
                 </li>
@@ -93,8 +95,8 @@
                     <span>Página {{pageValue}} de {{cantidadPages}}</span>
                     <span>Total registros: {{dashboardData.totalPatients}}</span>
                 </li>
-                <li (click)="setpageincrease()" class="pagination-item">
-                    <button class="pagination-link pagination-link--arrow" aria-label="Página siguiente">
+                <li class="pagination-item">
+                    <button (click)="setpageincrease()" class="pagination-link pagination-link--arrow" aria-label="Página siguiente" [disabled]="pageValue >= cantidadPages">
                         Siguiente &raquo;
                     </button>
                 </li>
@@ -104,22 +106,65 @@
 </div>
 
 <!-- Modal para editar paciente -->
- <!-- Se encuentra en el componente components/modal.to.edit -->
+<div class="modal-backdrop" *ngIf="showEditPatientModal" (click)="closeEditPatientModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()" *ngIf="selectedPatientForEdit">
+        <h3 class="modal-title">Editar Paciente</h3>
 
+        <!-- Mensajes de alerta dentro del modal -->
+        <div *ngIf="showMessage" class="global-message-container">
+            <div [class]="'alert alert-' + messageType">
+                {{ messageText }}
+            </div>
+        </div>
 
- <app-modal-to-edit
- [selectedPatientForEdit]="selectedPatientForEdit";
- [showEditPatientModal]="showEditPatientModal";
- [showMessage]="showMessage";
- [messageText]="messageText";
- [messageType]="messageType";
- (saveEdit)="onEditPatientSubmit()";
- (closeModal)="closeEditPatientModal();"
- ></app-modal-to-edit>
+        <form (ngSubmit)="onEditPatientSubmit()" class="modal-form-grid">
+            <div class="form-group">
+                <label for="edit-name">Nombre Completo</label>
+                <input id="edit-name" type="text" [(ngModel)]="selectedPatientForEdit.name" name="name" class="modal-input" required>
+            </div>
+            <div class="form-group">
+                <label for="edit-email">Email</label>
+                <input id="edit-email" type="email" [(ngModel)]="selectedPatientForEdit.email" name="email" class="modal-input" required>
+            </div>
+            <div class="form-group">
+                <label for="edit-cedula">Cédula de Identidad (CI)</label>
+                <input id="edit-cedula" type="text" [(ngModel)]="selectedPatientForEdit.cedula" name="cedula" class="modal-input" required>
+            </div>
+            <div class="form-group">
+                <label for="edit-age">Edad</label>
+                <input id="edit-age" type="number" [(ngModel)]="selectedPatientForEdit.age" name="age" class="modal-input" required>
+            </div>
+            <div class="form-group">
+                <label for="edit-address">Dirección</label>
+                <input id="edit-address" type="text" [(ngModel)]="selectedPatientForEdit.address" name="address" class="modal-input" required>
+            </div>
+            <div class="form-group">
+                <label for="edit-occupation">Ocupación</label>
+                <input id="edit-occupation" type="text" [(ngModel)]="selectedPatientForEdit.occupation" name="occupation" class="modal-input" required>
+            </div>
+            <div class="form-group">
+                <label for="edit-phone">Teléfono</label>
+                <input id="edit-phone" type="text" [(ngModel)]="selectedPatientForEdit.phone" name="phone" class="modal-input" required>
+            </div>
+            <div class="form-group">
+                <label for="edit-state">Estado</label>
+                <select id="edit-state" [(ngModel)]="selectedPatientForEdit.state" name="state" class="modal-input" required>
+                    <option value="activo">Activo</option>
+                    <option value="inactivo">Inactivo</option>
+                </select>
+            </div>
+            <div class="form-group" style="grid-column: 1 / -1;">
+                <label for="edit-infoDisease">Información de la Enfermedad</label>
+                <textarea id="edit-infoDisease" [(ngModel)]="selectedPatientForEdit.infoDisease" name="infoDisease" rows="3" class="modal-input"></textarea>
+            </div>
+        </form>
 
-
-
-
+        <div class="modal-actions">
+            <button type="button" class="modal-btn-cancel" (click)="closeEditPatientModal()">Cancelar</button>
+            <button type="submit" class="modal-btn-save" (click)="onEditPatientSubmit()">Guardar Cambios</button>
+        </div>
+    </div>
+</div>
 
 <!-- Modal para editar paciente -->
  <!-- Se encuentra en el componente components/modal.to.edit -->
