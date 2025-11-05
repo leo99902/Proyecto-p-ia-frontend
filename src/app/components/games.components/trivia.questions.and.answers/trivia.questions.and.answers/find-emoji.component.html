@@ -1,0 +1,19 @@
+<div class="memory-game-container">
+  <!-- Mensaje de victoria -->
+  <div *ngIf="gameWon" class="win-message">
+    <h2 class="win-title">¡Felicidades, has ganado!</h2>
+    <p class="win-subtitle">¡Excelente trabajo de memoria!</p>
+  </div>
+
+  <!-- Tablero de juego -->
+  <div class="game-board" [class.game-over]="gameWon">
+    <div *ngFor="let card of cards" class="card" (click)="cardClicked(card)" [class.flipped]="card.state !== 'default'" [class.matched]="card.state === 'matched'">
+      <div class="card-inner">
+        <div class="card-front">?</div>
+        <div class="card-back">{{ card.emoji }}</div>
+      </div>
+    </div>
+  </div>
+
+  <button (click)="setupGame()" class="restart-button">Reiniciar Juego</button>
+</div>

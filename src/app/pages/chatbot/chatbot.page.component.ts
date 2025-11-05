@@ -44,34 +44,51 @@ export class ChatbotPageComponent implements AfterViewChecked {
     this.scrollToBottom();
   }
 
-  sendMessage(): void {
-    const messageText = this.userMessage().trim();
-    if (!messageText) return;
+sendMessage(): void {
+  // 1. Obtener y validar el mensaje
+  const messageText = this.userMessage().trim();
+  if (!messageText) return;
 
-    const decodedToken = this.authService.getDecodedToken();
-    if (!decodedToken || !decodedToken.user) {
-      // Opcional: Manejar el caso en que el usuario no esté logueado.
-      console.error("No se puede enviar el mensaje: Usuario no autenticado.");
-      // Podrías mostrar un mensaje al usuario aquí.
-      return;
-    }
-
-    this.messages.update(currentMessages => [ ...currentMessages, { sender: 'user', text: messageText } ]);
-    this.isLoading.set(true);
-    this.userMessage.set('');
-
-    this.chatbotService.sendMessage(messageText,)
-      .pipe(
-        catchError(error => {
-          console.error('Error en la llamada a la API:', error);
-          return of('Lo siento, ocurrió un error. Por favor, inténtalo más tarde.');
-        }),
-        finalize(() => this.isLoading.set(false))
-      )
-      .subscribe(botResponse => {
-        this.messages.update(msgs => [ ...msgs, { sender: 'bot', text: botResponse } ]);
-      });
+  // 2. Validación de Autenticación (Mantenida)
+  const decodedToken = this.authService.getDecodedToken();
+  if (!decodedToken || !decodedToken.user) {
+    console.error("No se puede enviar el mensaje: Usuario no autenticado.");
+    // NOTA: Considera notificar al usuario en el UI aquí.
+    return;
   }
+
+  // 3. Actualizar UI antes de la llamada a la API
+  this.messages.update(currentMessages => [ ...currentMessages, { sender: 'user', text: messageText } ]);
+  this.isLoading.set(true);
+  this.userMessage.set('');
+
+  // 4. Llamada al servicio con manejo de errores y finalización
+  this.chatbotService.sendMessage(messageText)
+    .pipe(
+      // Manejo de Errores: Captura el error y lo reemplaza con un Observable que emite un objeto de error.
+      // NOTA: Para una mejor tipificación, es útil tener un tipo para la respuesta de la API, por ejemplo: type ChatResponse = { response: string }
+      catchError(error => {
+        console.error('Error en la llamada a la API:', error);
+        // Devolvemos un objeto que simula la estructura de la respuesta de éxito para que el subscribe no falle.
+        return of({ response: 'Lo siento, ocurrió un error. Por favor, inténtalo más tarde.' });
+      }),
+      // Finalización: Se ejecuta después de que el Observable completa o arroja un error (y es manejado).
+      finalize(() => this.isLoading.set(false))
+    )
+    // 5. Suscripción y Actualización de Mensajes
+    // La respuesta ahora siempre será un objeto { response: string } gracias a 'catchError'.
+    .subscribe(botResponse => {
+      let responseText: string;
+      // Comprobamos si botResponse es un string (éxito del servicio) o un objeto (error manejado por catchError).
+      if (typeof botResponse === 'string') {
+        responseText = botResponse;
+      } else {
+        responseText = botResponse?.response || 'Respuesta de error inesperada.';
+      }
+
+      this.messages.update(msgs => [ ...msgs, { sender: 'bot', text: responseText } ]);
+    });
+}
 
   private scrollToBottom(): void {
     try {

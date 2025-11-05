@@ -112,6 +112,56 @@ export class TriviaQuestionsAndAnswersComponent implements OnInit {
                 question: "¿Cuál es el opuesto de 'frío'?",
                 options: ["Húmedo", "Mojado", "Caliente", "Seco"],
                 answer: "Caliente"
+            },
+            {
+                question: "¿Qué planeta es conocido como el 'Planeta Rojo'?",
+                options: ["Venus", "Marte", "Júpiter", "Saturno"],
+                answer: "Marte"
+            },
+            {
+                question: "¿Cuál es el metal más precioso?",
+                options: ["Oro", "Plata", "Platino", "Cobre"],
+                answer: "Oro"
+            },
+            {
+                question: "¿Cuántas patas tiene una araña?",
+                options: ["6", "8", "10", "12"],
+                answer: "8"
+            },
+            {
+                question: "¿Qué instrumento musical tiene teclas blancas y negras?",
+                options: ["Guitarra", "Violín", "Piano", "Batería"],
+                answer: "Piano"
+            },
+            {
+                question: "¿En qué continente se encuentra Egipto?",
+                options: ["Asia", "Europa", "África", "América"],
+                answer: "África"
+            },
+            {
+                question: "¿Qué animal maúlla?",
+                options: ["Perro", "Gato", "Pájaro", "Caballo"],
+                answer: "Gato"
+            },
+            {
+                question: "¿Cuál es el resultado de 2 + 2?",
+                options: ["3", "4", "5", "22"],
+                answer: "4"
+            },
+            {
+                question: "¿Qué objeto usas para protegerte de la lluvia?",
+                options: ["Sombrero", "Gafas de sol", "Paraguas", "Bufanda"],
+                answer: "Paraguas"
+            },
+            {
+                question: "¿Qué día de la semana sigue al viernes?",
+                options: ["Jueves", "Sábado", "Domingo", "Lunes"],
+                answer: "Sábado"
+            },
+            {
+                question: "¿De qué color es el cielo en un día despejado?",
+                options: ["Verde", "Rojo", "Azul", "Amarillo"],
+                answer: "Azul"
             }
   ];
 
@@ -166,11 +216,22 @@ export class TriviaQuestionsAndAnswersComponent implements OnInit {
    * Reinicia el juego al estado inicial.
    */
   resetGame(): void {
+    this.shuffleQuestions(); // Barajamos las preguntas
     this.currentQuestionIndex = 0; // Vuelve a la primera pregunta
     this.score = 0; // Resetea la puntuación
     this.selectedOption = null; // Limpia la opción seleccionada
     this.showResult = false; // Oculta el resultado final
     this.feedbackMessage = ''; // Limpia el mensaje de feedback
+  }
+  
+  /**
+   * Baraja el array de preguntas usando el algoritmo de Fisher-Yates.
+   */
+  shuffleQuestions(): void {
+    for (let i = this.questions.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [this.questions[i], this.questions[j]] = [this.questions[j], this.questions[i]];
+    }
   }
 
   /**

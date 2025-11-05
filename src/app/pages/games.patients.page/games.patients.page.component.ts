@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FindTheEmojiComponentComponent } from '../../components/games.components/find.the.emoji.component/find.the.emoji.component.component';
+import { FindEmojiComponent } from '../../components/games.components/trivia.questions.and.answers/trivia.questions.and.answers/find-emoji.component';
 import { GuessTheWordComponent } from '../../components/games.components/guess.the.word/guess.the.word.component';
 import { TriviaQuestionsAndAnswersComponent } from '../../components/games.components/trivia.questions.and.answers/trivia.questions.and.answers/trivia.questions.and.answers.component';
 import { PuzzleComponent } from '../../components/games.components/puzzle.component/puzzle/puzzle.component';
@@ -10,7 +10,7 @@ import { PuzzleComponent } from '../../components/games.components/puzzle.compon
   standalone: true,
   imports: [
     CommonModule,
-    FindTheEmojiComponentComponent,
+    FindEmojiComponent,
     GuessTheWordComponent,
     TriviaQuestionsAndAnswersComponent,
     PuzzleComponent
