@@ -11,7 +11,7 @@ interface Tile {
   standalone: true,
   imports: [CommonModule],
   templateUrl: './puzzle.component.html',
-  styleUrl: './puzzle.component.scss'
+  styleUrls: ['./puzzle.component.scss']
 })
 export class PuzzleComponent implements OnInit {
 

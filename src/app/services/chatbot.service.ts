@@ -12,8 +12,8 @@ export interface ChatMessage {
 
 // Asegúrate de que esta interfaz coincida con la respuesta JSON de tu backend.
 // Si tu backend devuelve { "texto": "..." }, deberías cambiar "reply" por "texto".
-interface GeminiResponse {
-  reply: string;
+interface ApiResponse {
+  response: string;
 }
 
 @Injectable({
@@ -30,12 +30,12 @@ export class ChatbotService {
     const payload = { prompt: message };
     console.log(payload)
 
-    return this.http.post<GeminiResponse>(this.apiUrl, payload).pipe(
+    return this.http.post<ApiResponse>(this.apiUrl, payload).pipe(
       // Imprimimos la respuesta completa de la API en la consola para depuración.
       tap(response => console.log('Respuesta completa de la API:', response)),
-      // Esto asume que la respuesta de tu backend es un JSON con una propiedad "reply".
-      // Si la respuesta es diferente, ajusta "response.reply" según corresponda.
-      map(response => response.reply)
+      // La respuesta de tu backend es un JSON con una propiedad "response".
+      // Extraemos el texto de esa propiedad.
+      map(apiResponse => apiResponse.response)
       
     );
   }
