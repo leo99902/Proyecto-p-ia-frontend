@@ -13,7 +13,7 @@
         <div class="filter-controls">
             <!-- Filter by Estado -->
             <div class="content-select">
-                <select name="filtroEstado" [(ngModel)]="filtro.filtroEstado" (change)="applyFilter()" class="form-select" aria-label="Filtrar por estado">
+                <select user="filtroEstado" [(ngModel)]="filtro.filtroEstado" (change)="applyFilter()" class="form-select" aria-label="Filtrar por estado">
                     <option value="" disabled selected hidden>Estado</option>
                     <option value="" selected>Todos los Estados</option>
                     <option value="activo">Usuario activo</option>
@@ -53,8 +53,8 @@
                 </tr>
                 <!-- List of patients -->
                 <tr *ngFor="let patient of patients">
-                    <td>{{ patient.name }}</td>
-                    <td>{{ patient.cedula || patient.ci }}</td>
+                    <td>{{ patient.user }}</td>
+                    <td>{{ patient.cedula || patient.cedula}}</td>
                     <td>{{ patient.phone }}</td>
                     <td>{{ patient.state }}</td>
                     <td class="action-buttons">
@@ -119,43 +119,43 @@
 
         <form (ngSubmit)="onEditPatientSubmit()" class="modal-form-grid">
             <div class="form-group">
-                <label for="edit-name">Nombre Completo</label>
-                <input id="edit-name" type="text" [(ngModel)]="selectedPatientForEdit.name" name="name" class="modal-input" required>
+                <label for="edit-user">Nombre Completo</label>
+                <input id="edit-user" type="text" [(ngModel)]="selectedPatientForEdit.user" user="user" class="modal-input" required>
             </div>
             <div class="form-group">
                 <label for="edit-email">Email</label>
-                <input id="edit-email" type="email" [(ngModel)]="selectedPatientForEdit.email" name="email" class="modal-input" required>
+                <input id="edit-email" type="email" [(ngModel)]="selectedPatientForEdit.email" user="email" class="modal-input" required>
             </div>
             <div class="form-group">
                 <label for="edit-cedula">Cédula de Identidad (CI)</label>
-                <input id="edit-cedula" type="text" [(ngModel)]="selectedPatientForEdit.cedula" name="cedula" class="modal-input" required>
+                <input id="edit-cedula" type="text" [(ngModel)]="selectedPatientForEdit.cedula" user="cedula" class="modal-input" required>
             </div>
             <div class="form-group">
                 <label for="edit-age">Edad</label>
-                <input id="edit-age" type="number" [(ngModel)]="selectedPatientForEdit.age" name="age" class="modal-input" required>
+                <input id="edit-age" type="number" [(ngModel)]="selectedPatientForEdit.age" user="age" class="modal-input" required>
             </div>
             <div class="form-group">
                 <label for="edit-address">Dirección</label>
-                <input id="edit-address" type="text" [(ngModel)]="selectedPatientForEdit.address" name="address" class="modal-input" required>
+                <input id="edit-address" type="text" [(ngModel)]="selectedPatientForEdit.address" user="address" class="modal-input" required>
             </div>
             <div class="form-group">
                 <label for="edit-occupation">Ocupación</label>
-                <input id="edit-occupation" type="text" [(ngModel)]="selectedPatientForEdit.occupation" name="occupation" class="modal-input" required>
+                <input id="edit-occupation" type="text" [(ngModel)]="selectedPatientForEdit.occupation" user="occupation" class="modal-input" required>
             </div>
             <div class="form-group">
                 <label for="edit-phone">Teléfono</label>
-                <input id="edit-phone" type="text" [(ngModel)]="selectedPatientForEdit.phone" name="phone" class="modal-input" required>
+                <input id="edit-phone" type="text" [(ngModel)]="selectedPatientForEdit.phone" user="phone" class="modal-input" required>
             </div>
             <div class="form-group">
                 <label for="edit-state">Estado</label>
-                <select id="edit-state" [(ngModel)]="selectedPatientForEdit.state" name="state" class="modal-input" required>
-                    <option value="activo">Activo</option>
-                    <option value="inactivo">Inactivo</option>
+                <select id="edit-state" [(ngModel)]="selectedPatientForEdit.state" user="state" class="modal-input" required>
+                    <option value="activo">activo</option>
+                    <option value="inactivo">inactivo</option>
                 </select>
             </div>
             <div class="form-group" style="grid-column: 1 / -1;">
                 <label for="edit-infoDisease">Información de la Enfermedad</label>
-                <textarea id="edit-infoDisease" [(ngModel)]="selectedPatientForEdit.infoDisease" name="infoDisease" rows="3" class="modal-input"></textarea>
+                <textarea id="edit-infoDisease" [(ngModel)]="selectedPatientForEdit.infoDisease" user="infoDisease" rows="3" class="modal-input"></textarea>
             </div>
         </form>
 
@@ -175,7 +175,7 @@
         <div class="modal-form-grid" *ngIf="viewedPatientDetails">
             <div class="form-group">
                 <label>Nombre Completo</label>
-                <input type="text" [value]="viewedPatientDetails.name" readonly class="modal-input readonly">
+                <input type="text" [value]="viewedPatientDetails.user" readonly class="modal-input readonly">
             </div>
             <div class="form-group">
                 <label>Email</label>
@@ -183,7 +183,7 @@
             </div>
             <div class="form-group">
                 <label>Cédula de Identidad (CI)</label>
-                <input type="text" [value]="viewedPatientDetails.cedula || viewedPatientDetails.ci" readonly class="modal-input readonly">
+                <input type="text" [value]="viewedPatientDetails.cedula || viewedPatientDetails.cedula" readonly class="modal-input readonly">
             </div>
             <div class="form-group">
                 <label>Edad</label>

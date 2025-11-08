@@ -1,0 +1,55 @@
+<div class="container mx-auto p-4">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-3xl font-bold text-gray-800">Todas las Notas</h1>
+    <!-- Campo de Búsqueda -->
+    <div class="relative">
+      <input
+        type="text"
+        placeholder="Buscar por Nombre..."
+        [value]="searchTerm()"
+        (input)="onSearch($event)"
+        class="w-64 pl-10 pr-4 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+      /> <!-- Corregido: Añadida la barra de auto-cierre -->
+      <svg class="w-5 h-5 text-gray-400 absolute top-1/2 left-3 -translate-y-1/2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+      </svg>
+    </div>
+  </div>
+
+  @if (isLoading()) {
+    <p class="text-center text-gray-500">Cargando notas...</p>
+  }
+
+  @if (error()) {
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+      <strong class="font-bold">Error:</strong>
+      <span class="block sm:inline">{{ error() }}</span>
+    </div>
+  }
+
+  @if (!isLoading() && notes().length === 0 && !error()) {
+    @if (searchTerm()) {
+      <p class="text-center text-gray-500">No se encontraron notas con el Nombre "{{ searchTerm() }}".</p>
+    } @else {
+      <p class="text-center text-gray-500">Aún no hay notas para mostrar. ¡Crea una!</p>
+    }
+  }
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    @for (note of notes(); track note._id) {
+      <!-- Tarjeta de Nota -->
+      <div class="bg-white rounded-lg shadow-md overflow-hidden transition-shadow duration-300 hover:shadow-xl flex flex-col">
+        <!-- Cabecera de la tarjeta -->
+        <div class="p-4 border-b border-gray-200">
+          <h2 class="text-xl font-bold text-gray-800 truncate">{{ note.title }}</h2>
+          <div class="text-sm text-gray-500 mt-1 flex justify-between">
+            <span>Por: <strong class="font-medium">{{ note.createdBy }}</strong></span>
+            <span>{{ note.createdAt | date:'short' }}</span>
+          </div>
+        </div>
+        <!-- Cuerpo de la tarjeta -->
+        <div class="p-4 flex-grow prose max-w-none" [innerHTML]="note.content | safeHtml"></div>
+      </div>
+    }
+  </div>
+</div>

@@ -4,6 +4,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
+import { API_URL } from '../../shared/constants/app.constants';
 
 export interface ChatMessage {
   sender: 'user' | 'bot';
@@ -23,7 +24,7 @@ export class ChatbotService {
   private http = inject(HttpClient);
   
   // URL actualizada para apuntar a tu API del chatbot
-  private apiUrl = 'http://localhost:6060/gemini/generate';
+  private apiUrl = `${API_URL}/gemini/generate`;
 
   sendMessage(message: string): Observable<string> {
     // El backend espera un objeto con la clave "prompt".

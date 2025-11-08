@@ -46,5 +46,13 @@ export class NotesService {
     return this.http.post(`${this.BASE_URL}/deleteNote`, { _id: noteId });
   }
 
+  listAllNotes(name?: string): Observable<Note[]> {
+    const payload = name ? { name } : {};
+    // La petición POST ahora espera un objeto NotesApiResponse.
+    return this.http.post<NotesApiResponse>(`${this.BASE_URL}/listAllNotes`, payload).pipe(
+      tap(response => console.log('Respuesta cruda de la API de todas las notas:', response)),
+      map(response => response.notes || []) // Extraemos el array de la propiedad 'notes'.
+    );
+  }
 
 }
