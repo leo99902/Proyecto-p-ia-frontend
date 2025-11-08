@@ -1,6 +1,6 @@
 /* Contenedor principal de todo el contenido del dashboard */
 .content-home-wrapper {
-    width: 100vw;
+    width: 100%; /* Cambiado de 100vw a 100% para evitar overflow si hay scrollbars */
     min-height: 100vh;
     height: 100%;
     box-sizing: border-box;
@@ -8,6 +8,9 @@
     flex-direction: column;
     align-items: stretch;
     background: #f8fafc;
+    padding-top: 70px; /* Añadido: Ajusta este valor a la altura de tu barra de navegación */
+    padding-left: 1rem; /* Espaciado lateral opcional */
+    padding-right: 1rem; /* Espaciado lateral opcional */
 }
 
 /* Contenedor de la cuadrícula de tarjetas */

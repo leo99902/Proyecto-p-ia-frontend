@@ -7,7 +7,8 @@
 
 :host {
   display: block;
-  height: 100vh;
+  /* Usamos 100dvh (dynamic viewport height) para compatibilidad con barras de navegador en móviles */
+  height: 100dvh;
   width: 100vw;
   background-color: #f4f5f7; /* Un fondo neutro y suave */
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -26,7 +27,7 @@
 
 .chat-window {
   width: 100%;
-  height: 100%;
+  height: 100%; /* Ocupa el 100% de su contenedor padre (.chat-page-container) */
   max-width: 1200px; /* Aumentamos el ancho para una vista más amplia en escritorio */
   background: #ffffff;
   border-radius: 12px; /* Bordes sutilmente redondeados */
@@ -185,17 +186,30 @@
   }
 
   .chat-window {
-    height: 100%;
+    height: 100%; /* Hereda la altura del padre que ya es 100dvh */
     max-width: 100%;
     border-radius: 0;
     box-shadow: none;
+    position: relative;
   }
 
   .chat-messages {
     padding: 1rem;
+    /* Añadimos espacio en la parte inferior para que el último mensaje no quede oculto por el input */
+    /* Ajustamos el padding para que coincida con la nueva altura y posición del input */
+    padding-bottom: calc(100px + 80px + env(safe-area-inset-bottom));
   }
 
   .chat-input {
+    /* Posicionamiento absoluto para anclarlo abajo */
+    position: absolute;
+    bottom: 100px; /* Levantamos el input 100px desde el borde inferior */
+    left: 0;
+    width: 100%;
+    box-sizing: border-box; /* Crucial para que el padding no aumente el ancho */
     padding: 0.75rem 1rem;
+    /* Añadimos padding-bottom para respetar la barra de navegación del móvil (ej. home bar de iPhone) */
+    padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
+    background-color: #ffffff; /* Aseguramos que tenga fondo propio */
   }
 }

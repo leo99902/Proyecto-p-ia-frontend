@@ -1,25 +1,9 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule, NgIf, NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ShowListPatientsService } from '../../../services/show.list.patients.service/show.list.patients.service';
+import { ShowListPatientsService, Patient } from '../../../services/show.list.patients.service/show.list.patients.service';
 import { EditPatientService } from '../../../services/edit.patient.service/edit.patient.service';
 import { HttpErrorResponse } from '@angular/common/http';
-
-interface Patient {
-  _id: string;
-  name: string;
-  cedula: string;
-  ci: string;
-  age: number;
-  address: string;
-  email: string;
-  occupation: string;
-  phone: string;
-  disease: string;
-  infoDisease?: string;
-  state: string;
-  password?: string;
-}
 
 @Component({
   selector: 'app-list-patient',
@@ -119,7 +103,7 @@ export class ListPatientUsersComponentComponent implements OnInit {
     this.showListPatientsService.listUsers(params).subscribe({
       next: (response) => {
         if (response && Array.isArray(response.value)) {
-          this.patients = response.value.map((patient: Patient) => ({
+          this.patients = response.value.map((patient: any) => ({
             ...patient,
             ci: patient.ci || patient.cedula,
             cedula: patient.cedula || patient.ci
@@ -192,8 +176,8 @@ export class ListPatientUsersComponentComponent implements OnInit {
     }
 
     const patientDataForNestedObject: Partial<Patient> = {
-      name: this.selectedPatientForEdit.name,
-      cedula: this.selectedPatientForEdit.cedula || this.selectedPatientForEdit.ci,
+      user: this.selectedPatientForEdit.user,
+      cedula: this.selectedPatientForEdit.cedula || this.selectedPatientForEdit.cedula,
       age: this.selectedPatientForEdit.age,
       address: this.selectedPatientForEdit.address,
       email: this.selectedPatientForEdit.email,
