@@ -7,7 +7,7 @@ import { jwtDecode } from 'jwt-decode'; // Importación correcta de la librería
 
 // Interfaz que define la estructura del payload de tu token JWT
 export interface DecodedTokenPayload {
-  user: string;
+  id: string; // <-- CAMBIO: Renombramos 'user' a '_id' para que coincida con el ID del usuario.
   name: string;
   email: string;
   oxcj: string; // Campo 'oxcj' del token que parece ser el rol/tipo de usuario
@@ -15,6 +15,7 @@ export interface DecodedTokenPayload {
   menu: string[]; // El array 'menu' que contiene los IDs de los menús permitidos
   iat: number;
   exp: number;
+  user: string;
   [key: string]: any; // Permite otras propiedades si tu token las tiene
 }
 
@@ -103,6 +104,16 @@ export class AuthService {
       }
     }
     return null;
+  }
+
+  /**
+   * Obtiene el ID del usuario del token decodificado.
+   * @returns El ID del usuario como string o `null` si no está disponible.
+   */
+  getUserId(): string | null {
+    const decodedToken = this.getDecodedToken();
+    // El token contiene la propiedad '_id' para el ID de usuario.
+    return decodedToken ? decodedToken.id : null;
   }
 
   /**

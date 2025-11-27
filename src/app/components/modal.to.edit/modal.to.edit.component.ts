@@ -1,6 +1,7 @@
 import { NgIf } from '@angular/common';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Patient } from '../../pages/patients.page/list.patient.users.component/list.patient.users.component.component';
 
 @Component({
   selector: 'app-modal-to-edit',
@@ -11,7 +12,7 @@ import { FormsModule } from '@angular/forms';
 export class ModalToEditComponent {
 
   @Input()
-  selectedPatientForEdit: any;
+  selectedPatientForEdit: Patient | null = null;
 
   @Input()
   showEditPatientModal: any;

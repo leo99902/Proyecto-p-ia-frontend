@@ -50,9 +50,9 @@ sendMessage(): void {
   if (!messageText) return;
 
   // 2. Validación de Autenticación (Mantenida)
-  const decodedToken = this.authService.getDecodedToken();
-  if (!decodedToken || !decodedToken.user) {
-    console.error("No se puede enviar el mensaje: Usuario no autenticado.");
+  const userId = this.authService.getUserId();
+  if (!userId) {
+    console.error("No se puede enviar el mensaje: Usuario no autenticado o ID no encontrado.");
     // NOTA: Considera notificar al usuario en el UI aquí.
     return;
   }
@@ -63,7 +63,7 @@ sendMessage(): void {
   this.userMessage.set('');
 
   // 4. Llamada al servicio con manejo de errores y finalización
-  this.chatbotService.sendMessage(messageText)
+  this.chatbotService.sendMessage(messageText, userId)
     .pipe(
       // Manejo de Errores: Captura el error y lo reemplaza con un Observable que emite un objeto de error.
       // NOTA: Para una mejor tipificación, es útil tener un tipo para la respuesta de la API, por ejemplo: type ChatResponse = { response: string }

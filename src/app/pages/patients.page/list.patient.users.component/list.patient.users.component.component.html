@@ -53,11 +53,11 @@
                 </tr>
                 <!-- List of patients -->
                 <tr *ngFor="let patient of patients">
-                    <td>{{ patient.user }}</td>
-                    <td>{{ patient.cedula || patient.cedula}}</td>
-                    <td>{{ patient.phone }}</td>
-                    <td>{{ patient.state }}</td>
-                    <td class="action-buttons">
+                    <td data-label="Nombre">{{ patient.user }}</td>
+                    <td data-label="Cédula">{{ patient.cedula || patient.cedula}}</td>
+                    <td data-label="Teléfono">{{ patient.phone }}</td>
+                    <td data-label="Estado">{{ patient.state }}</td>
+                    <td data-label="Acciones" class="action-buttons">
                         <button class="btn btn-edit" (click)="openEditPatientModal(patient)">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                                 <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
@@ -71,6 +71,13 @@
                                 <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
                             </svg>
                             Ver
+                        </button>
+                        <button class="btn btn-notes" (click)="openNotesModal(patient)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal-text" viewBox="0 0 16 16">
+                                <path d="M5 10.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+                                <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/>
+                            </svg>
+                            Notas
                         </button>
                     </td>
                 </tr>
@@ -120,42 +127,49 @@
         <form (ngSubmit)="onEditPatientSubmit()" class="modal-form-grid">
             <div class="form-group">
                 <label for="edit-user">Nombre Completo</label>
-                <input id="edit-user" type="text" [(ngModel)]="selectedPatientForEdit.user" user="user" class="modal-input" required>
+                <input id="edit-user" type="text" [(ngModel)]="selectedPatientForEdit.user" name="user" class="modal-input" required>
             </div>
             <div class="form-group">
                 <label for="edit-email">Email</label>
-                <input id="edit-email" type="email" [(ngModel)]="selectedPatientForEdit.email" user="email" class="modal-input" required>
+                <input id="edit-email" type="email" [(ngModel)]="selectedPatientForEdit.email" name="email" class="modal-input" required>
             </div>
             <div class="form-group">
                 <label for="edit-cedula">Cédula de Identidad (CI)</label>
-                <input id="edit-cedula" type="text" [(ngModel)]="selectedPatientForEdit.cedula" user="cedula" class="modal-input" required>
+                <input id="edit-cedula" type="number" [(ngModel)]="selectedPatientForEdit.cedula" name="cedula" class="modal-input" required>
             </div>
             <div class="form-group">
-                <label for="edit-age">Edad</label>
-                <input id="edit-age" type="number" [(ngModel)]="selectedPatientForEdit.age" user="age" class="modal-input" required>
+                <label for="edit-birthDate">Fecha de nacimiento</label>
+                <input
+          type="date"
+          id="birthDate"
+          name="birthDate"
+          min="1900-01-01"
+          max="2021-12-31"
+          [(ngModel)]="selectedPatientForEdit.birthDate"
+        />
             </div>
             <div class="form-group">
                 <label for="edit-address">Dirección</label>
-                <input id="edit-address" type="text" [(ngModel)]="selectedPatientForEdit.address" user="address" class="modal-input" required>
+                <input id="edit-address" type="text" [(ngModel)]="selectedPatientForEdit.address" name="address" class="modal-input" required>
             </div>
             <div class="form-group">
                 <label for="edit-occupation">Ocupación</label>
-                <input id="edit-occupation" type="text" [(ngModel)]="selectedPatientForEdit.occupation" user="occupation" class="modal-input" required>
+                <input id="edit-occupation" type="text" [(ngModel)]="selectedPatientForEdit.occupation" name="occupation" class="modal-input" required>
             </div>
             <div class="form-group">
                 <label for="edit-phone">Teléfono</label>
-                <input id="edit-phone" type="text" [(ngModel)]="selectedPatientForEdit.phone" user="phone" class="modal-input" required>
+                <input id="edit-phone" type="text" [(ngModel)]="selectedPatientForEdit.phone" name="phone" class="modal-input" required>
             </div>
             <div class="form-group">
                 <label for="edit-state">Estado</label>
-                <select id="edit-state" [(ngModel)]="selectedPatientForEdit.state" user="state" class="modal-input" required>
+                <select id="edit-state" [(ngModel)]="selectedPatientForEdit.state" name="state" class="modal-input" required>
                     <option value="activo">activo</option>
                     <option value="inactivo">inactivo</option>
                 </select>
             </div>
             <div class="form-group" style="grid-column: 1 / -1;">
                 <label for="edit-infoDisease">Información de la Enfermedad</label>
-                <textarea id="edit-infoDisease" [(ngModel)]="selectedPatientForEdit.infoDisease" user="infoDisease" rows="3" class="modal-input"></textarea>
+                <textarea id="edit-infoDisease" [(ngModel)]="selectedPatientForEdit.infoDisease" name="infoDisease" rows="3" class="modal-input"></textarea>
             </div>
         </form>
 
@@ -186,8 +200,8 @@
                 <input type="text" [value]="viewedPatientDetails.cedula || viewedPatientDetails.cedula" readonly class="modal-input readonly">
             </div>
             <div class="form-group">
-                <label>Edad</label>
-                <input type="number" [value]="viewedPatientDetails.age" readonly class="modal-input readonly">
+                <label>Fecha de nacimiento</label>
+                <input type="Date" [value]="viewedPatientDetails.birthDate" readonly class="modal-input readonly">
             </div>
             <div class="form-group">
                 <label>Dirección</label>
@@ -201,6 +215,10 @@
                 <label>Teléfono</label>
                 <input type="text" [value]="viewedPatientDetails.phone" readonly class="modal-input readonly">
             </div>
+            <div class="form-group">
+                <label>Consultas al Chatbot</label>
+                <input type="text" [value]="isLoadingPromptsCount ? 'Cargando...' : (promptsCount ?? 'N/A')" readonly class="modal-input readonly">
+            </div>
             
             <div class="form-group" *ngIf="viewedPatientDetails.disease">
                 <label>Información de la Enfermedad</label>
@@ -210,6 +228,73 @@
         
         <div class="modal-actions">
             <button type="button" class="modal-btn-cancel" (click)="closeViewPatientModal()">Cerrar</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para Notas del Paciente -->
+<div class="modal-backdrop" *ngIf="showNotesModal" (click)="closeNotesModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <h3 class="modal-title">Notas del Paciente: {{ selectedPatientForNotes?.user }}</h3>
+
+        <div class="notes-accordion">
+            <!-- Indicador de carga para las notas -->
+            <div *ngIf="isLoadingNotes" class="loading-notes">Cargando notas...</div>
+
+            <!-- Lista de Notas Acordeón -->
+            <div *ngIf="!isLoadingNotes && patientNotes.length > 0">
+                <details *ngFor="let note of patientNotes" class="note-item">
+                    <summary class="note-header">
+                        <span class="note-title">{{ note.title }} - {{ note.createdAt | date:'short' }}</span>
+                        <span class="note-toggle-icon"></span>
+                    </summary>
+                    <div class="note-content">
+                        <p>{{ note.content }}</p>
+                        <button class="btn btn-delete-note" (click)="openDeleteConfirmModal(note); $event.stopPropagation();">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                            </svg>
+                            Eliminar
+                        </button>
+                    </div>
+                </details>
+            </div>
+            <p *ngIf="!isLoadingNotes && patientNotes.length === 0">No hay notas para este paciente.</p>
+        </div>
+
+        <!-- Formulario para añadir nueva nota -->
+        <form (ngSubmit)="onSaveNote()" class="new-note-form">
+            <h4 class="new-note-title">Añadir Nueva Nota</h4>
+            <div class="form-group">
+                <label for="note-title">Título</label>
+                <input id="note-title" type="text" [(ngModel)]="newNote.title" name="title" class="modal-input" placeholder="Título de la nota" required>
+            </div>
+            <div class="form-group">
+                <label for="patient-new-note">Contenido</label>
+                <textarea id="patient-new-note" [(ngModel)]="newNote.content" name="content" rows="4" class="modal-input" placeholder="Escribir nueva nota aquí..." required></textarea>
+            </div>
+            <button type="submit" class="modal-btn-save" [disabled]="!newNote.title || !newNote.content">Guardar Nota</button>
+        </form>
+        
+        <div class="modal-actions">
+            <button type="button" class="modal-btn-cancel" (click)="closeNotesModal()">Cerrar</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Confirmación para Eliminar Nota -->
+<div class="modal-backdrop" *ngIf="showDeleteNoteConfirmModal" (click)="closeDeleteConfirmModal()">
+    <div class="modal-content confirmation-modal" (click)="$event.stopPropagation()">
+        <h3 class="modal-title">Confirmar Eliminación</h3>
+        <p>¿Seguro que quieres eliminar la nota "{{ noteToDelete?.title }}"?</p>
+        <div class="modal-actions">
+            <button type="button" class="modal-btn-cancel" (click)="closeDeleteConfirmModal()">
+                Cancelar
+            </button>
+            <button type="button" class="modal-btn-delete" (click)="confirmDeleteNote()">
+                Sí, eliminar
+            </button>
         </div>
     </div>
 </div>
