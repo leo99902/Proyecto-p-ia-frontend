@@ -334,6 +334,23 @@ main.dashboard-container { /* Renombrado de .main-container en el HTML antiguo *
     color: #fff; /* Establecido explícitamente para el relleno del SVG */
 }
 
+.btn-notes {
+    background-color: #28a745; /* Verde para notas */
+    color: white;
+    box-shadow: 0 1px 4px rgba(40, 167, 69, 0.15);
+}
+.btn-notes:hover {
+    background-color: #218838;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(40, 167, 69, 0.25);
+}
+.btn-notes svg {
+    width: 0.9rem;
+    height: 0.9rem;
+    fill: currentColor;
+    color: #fff;
+}
+
 .error-message {
     text-align: center;
     padding: 15px; /* Relleno ligeramente reducido */
@@ -430,11 +447,12 @@ main.dashboard-container { /* Renombrado de .main-container en el HTML antiguo *
 .modal-backdrop {
     position: fixed;
     inset: 0;
-    background: rgba(31, 41, 55, 0.55);
-    display: flex;
+    background: rgba(31, 41, 55, 0.6);
+    display: flex; /* Usar flex para centrar verticalmente */
     align-items: center;
     justify-content: center;
     z-index: 1000;
+    padding: 1rem; /* Añadir padding para evitar que el modal toque los bordes */
     animation: fadeIn 0.2s;
     backdrop-filter: blur(3px);
 }
@@ -448,15 +466,14 @@ main.dashboard-container { /* Renombrado de .main-container en el HTML antiguo *
     background: #fff;
     border-radius: 1rem;
     box-shadow: 0 10px 32px -3px rgba(0,0,0,0.18), 0 4px 12px -2px rgba(0,0,0,0.10);
-    padding: 1.5rem 1.8rem;
-    width: 90%;
+    padding: 1.5rem;
+    width: 100%; /* El ancho será controlado por el max-width */
     max-width: 600px;
-    max-height: 95vh;
+    max-height: 90vh; /* Límite de altura para permitir scroll */
     position: relative;
     animation: modalPop 0.35s cubic-bezier(.68,-0.55,.27,1.55);
     display: flex;
     flex-direction: column;
-    gap: 0.8rem;
     /* Cambio clave para el scroll */
     overflow-y: auto;
 }
@@ -618,6 +635,140 @@ textarea.modal-input {
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
+/* --- Estilos para el Acordeón de Notas --- */
+.notes-accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    width: 100%;
+}
+
+.note-item {
+    border: 1px solid #e0e0e0;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s;
+}
+
+.note-item[open] {
+    background-color: #f9f9f9;
+}
+
+.note-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    font-weight: 600;
+    color: #34495e;
+    list-style: none; /* Oculta el marcador de <summary> */
+}
+
+.note-header::-webkit-details-marker {
+    display: none; /* Oculta el marcador en Chrome/Safari */
+}
+
+.note-toggle-icon {
+    width: 1rem;
+    height: 1rem;
+    transition: transform 0.3s ease;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="%236c757d"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>');
+    background-size: contain;
+}
+
+.note-item[open] > .note-header .note-toggle-icon {
+    transform: rotate(180deg);
+}
+
+.note-content {
+    padding: 0 1rem 1rem 1rem;
+    color: #555;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.note-content p {
+    margin: 0;
+}
+
+/* --- Formulario para Nueva Nota --- */
+.new-note-form {
+    border-top: 1px solid #eee;
+    padding-top: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.new-note-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #34495e;
+    margin: 0;
+}
+
+.new-note-form .modal-btn-save {
+    align-self: flex-end; /* Alinea el botón a la derecha */
+}
+
+/* --- Estilos para la eliminación de notas --- */
+
+/* Botón para eliminar una nota dentro del acordeón */
+.btn-delete-note {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0.3rem 0.7rem;
+    margin-top: -1.2rem; /* Espacio sobre el botón */
+    float: right; /* Alinea el botón a la derecha */
+    border: none;
+    border-radius: 0.3rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    background-color: #ef4444; /* Rojo para eliminar */
+    color: white;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 4px rgba(239, 68, 68, 0.15);
+}
+
+.btn-delete-note:hover {
+    background-color: #dc2626; /* Rojo más oscuro en hover */
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(239, 68, 68, 0.25);
+}
+
+.btn-delete-note svg {
+    width: 0.9rem;
+    height: 0.9rem;
+    fill: currentColor;
+}
+
+/* Modal de confirmación de eliminación */
+.confirmation-modal {
+    max-width: 450px; /* Un modal más pequeño para confirmaciones */
+    text-align: center; /* Centra el contenido */
+}
+
+.confirmation-modal p {
+    font-size: 1rem;
+    color: #4b5563;
+    margin: 1rem 0;
+}
+
+/* Botón de confirmación de eliminación en el modal */
+.modal-btn-delete {
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 0.4rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    background-color: #dc2626; /* Rojo oscuro para confirmar la acción */
+    color: white;
+    transition: all 0.2s ease-in-out;
+}
 
 /* --- Ajustes Responsivos para el Diseño Principal (mantenidos tal cual, pero con valores ajustados) --- */
 @media (max-width: 900px) {
@@ -661,16 +812,46 @@ textarea.modal-input {
         width: 100%;
         max-width: none;
     }
-    .search-input-container input {
-        width: 100%;
-    }
+
     .table-custom {
-        min-width: 100%;
+        thead {
+            display: none; /* Ocultar encabezados de tabla en móvil */
+        }
+
+        tr {
+            display: block;
+            margin-bottom: 1rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        td {
+            display: block;
+            text-align: right; /* Alinear contenido a la derecha */
+            padding-left: 50%; /* Dejar espacio para la etiqueta */
+            position: relative;
+            border-bottom: 1px solid #f0f0f0;
+
+            &::before {
+                content: attr(data-label); /* Usar el atributo data-label como etiqueta */
+                position: absolute;
+                left: 1rem;
+                width: calc(50% - 2rem);
+                text-align: left;
+                font-weight: 600;
+                color: #34495e;
+            }
+
+            &:last-child {
+                border-bottom: none;
+            }
+        }
     }
     /* Ajustes responsivos del modal para 768px e inferiores - sin cambios */
     .modal-content {
-        max-width: 90vw;
         padding: 1.2rem 1.5rem;
+        margin: 0;
         gap: 0.8rem;
     }
     .modal-title {
@@ -750,7 +931,6 @@ textarea.modal-input {
     /* Ajustes responsivos del modal para 500px e inferiores - sin cambios */
     .modal-content {
         padding: 0.8rem 1rem;
-        max-width: 95vw;
         max-height: 90vh;
         gap: 0.6rem;
     }

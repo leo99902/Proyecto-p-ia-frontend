@@ -3,7 +3,10 @@ import { CommonModule, NgIf, NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ShowListPatientsService, Patient } from '../../../services/show.list.patients.service/show.list.patients.service';
 import { EditPatientService } from '../../../services/edit.patient.service/edit.patient.service';
-import { HttpErrorResponse } from '@angular/common/http';
+import { ShowPatientService } from '../../../services/show.patient.service/show.patient.service';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { NewNote, Note, NotesService } from '../../../services/notes.service';
+import { ChatbotService } from '../../../services/chatbot.service';
 
 @Component({
   selector: 'app-list-patient',
@@ -19,7 +22,16 @@ export class ListPatientUsersComponentComponent implements OnInit {
     totalPatients: 0,
     patientsDescription: 'Pacientes activos',
   };
-
+public newNote: Partial<NewNote> = {
+  title: '',
+  content: ''
+};
+public showNotesModal = false;
+public selectedPatientForNotes: any;
+public patientNotes: Note[] = [];
+public isLoadingNotes = false;
+public showDeleteNoteConfirmModal = false;
+public noteToDelete: Note | null = null;
   public patients: Patient[] = [];
   public isLoadingPatients: boolean = true;
   public patientsErrorMessage: string | null = null;
@@ -30,6 +42,9 @@ export class ListPatientUsersComponentComponent implements OnInit {
 
   public showViewPatientModal: boolean = false;
   public viewedPatientDetails: Partial<Patient> | null = null;
+
+  public promptsCount: number | null = null;
+  public isLoadingPromptsCount: boolean = false;
 
   // Propiedades para mensajes de estado
   public showMessage: boolean = false;
@@ -49,6 +64,9 @@ export class ListPatientUsersComponentComponent implements OnInit {
   // Inject services
   private showListPatientsService = inject(ShowListPatientsService);
   private editPatientService = inject(EditPatientService);
+  private showPatientService = inject(ShowPatientService);
+  private notesService = inject(NotesService);
+  private chatbotService = inject(ChatbotService);
 
   constructor() { }
 
@@ -150,21 +168,132 @@ export class ListPatientUsersComponentComponent implements OnInit {
   }
 
   openEditPatientModal(patient: Patient): void {
-    this.originalPatientPassword = patient.password || '';
-    this.selectedPatientForEdit = {
-      ...patient,
-      infoDisease: patient.infoDisease || ''
-    };
-    this.selectedPatientForEdit.password = '';
-    this.showEditPatientModal = true;
-    this.hideAlertMessage(); // Ocultar mensajes previos al abrir el modal
-  }
+    if (!patient._id) {
+      this.showAlertMessage('error', 'El paciente no tiene un ID válido.');
+      return;
+    }
+  
+    this.hideAlertMessage(); // Ocultar mensajes previos
+  
+    this.showPatientService.getUser({ _id: patient._id }).subscribe({
+      next: (patientData) => {
+        if (patientData && patientData._id) {
+          this.originalPatientPassword = patientData.password || '';
+          this.selectedPatientForEdit = {
+            ...patientData,
+            infoDisease: patientData.infoDisease || '',
+            password: '' // Limpiar el campo de contraseña directamente al asignar el objeto
+          };
+          this.showEditPatientModal = true;
+        } else {
+          this.showAlertMessage('error', 'No se pudo obtener una respuesta válida para los detalles del paciente.');
+        }
+        console.log("pacientedata:",patientData)
+      },
+      error: (error: HttpErrorResponse) => {
+        console.error('Error fetching patient details:', error);
+        this.showAlertMessage('error', 'No se pudieron obtener los detalles del paciente. Inténtalo de nuevo.');
+      }
+    });
+  }  
 
   closeEditPatientModal(): void {
     this.showEditPatientModal = false;
     this.selectedPatientForEdit = null;
     this.originalPatientPassword = '';
   }
+
+  openNotesModal(patient: any): void {
+  this.selectedPatientForNotes = patient;
+  this.patientNotes = []; // Limpiar notas anteriores
+  this.showNotesModal = true;
+  if (patient._id) {
+    this.loadPatientNotes(patient._id);
+  }
+}
+
+closeNotesModal(): void {
+  this.showNotesModal = false;
+  this.selectedPatientForNotes = null;
+  this.patientNotes = [];
+}
+
+openDeleteConfirmModal(note: Note): void {
+  this.noteToDelete = note;
+  this.showDeleteNoteConfirmModal = true;
+}
+
+closeDeleteConfirmModal(): void {
+  this.showDeleteNoteConfirmModal = false;
+  this.noteToDelete = null;
+}
+
+confirmDeleteNote(): void {
+  if (!this.noteToDelete || !this.noteToDelete._id) {
+    this.showAlertMessage('error', 'No se ha seleccionado ninguna nota para eliminar.');
+    return;
+  }
+
+  this.notesService.deleteNote(this.noteToDelete._id).subscribe({
+    next: () => {
+      this.showAlertMessage('success', 'Nota eliminada correctamente.');
+      this.closeDeleteConfirmModal();
+      // Recargar las notas para reflejar la eliminación
+      if (this.selectedPatientForNotes?._id) {
+        this.loadPatientNotes(this.selectedPatientForNotes._id);
+      }
+    },
+    error: () => this.showAlertMessage('error', 'Error al eliminar la nota.')
+  });
+}
+
+loadPatientNotes(patientId: string): void {
+  this.isLoadingNotes = true;
+  this.notesService.listNotes(patientId).subscribe({
+    next: (notes) => {
+      this.patientNotes = notes;
+      this.isLoadingNotes = false;
+    },
+    error: (error) => {
+      console.error('Error al cargar las notas del paciente:', error);
+      this.showAlertMessage('error', 'No se pudieron cargar las notas del paciente.');
+      this.isLoadingNotes = false;
+    }
+  });
+}
+
+
+onSaveNote(): void {
+  if (!this.selectedPatientForNotes || !this.selectedPatientForNotes._id) {
+    this.showAlertMessage('error', 'No se ha seleccionado un paciente para añadir la nota.');
+    return;
+  }
+
+  if (!this.newNote.title || !this.newNote.content) {
+    this.showAlertMessage('error', 'El título y el contenido de la nota son obligatorios.');
+    return;
+  }
+
+  const noteToSave: NewNote = {
+    title: this.newNote.title,
+    content: this.newNote.content,
+    noteList: true,
+    idPatient: this.selectedPatientForNotes._id
+  };
+
+  this.notesService.createNote(noteToSave).subscribe({
+    next: () => {
+      this.showAlertMessage('success', 'Nota guardada correctamente.');
+      // Recargar las notas para mostrar la nueva
+      if (this.selectedPatientForNotes?._id) {
+        this.loadPatientNotes(this.selectedPatientForNotes._id);
+      }
+      // Resetear el formulario de nueva nota
+      this.newNote = { title: '', content: '' };
+    },
+    error: () => this.showAlertMessage('error', 'Error al guardar la nota.')
+  });
+}
 
   onEditPatientSubmit(): void {
     const patientId = this.selectedPatientForEdit?._id;
@@ -178,7 +307,7 @@ export class ListPatientUsersComponentComponent implements OnInit {
     const patientDataForNestedObject: Partial<Patient> = {
       user: this.selectedPatientForEdit.user,
       cedula: this.selectedPatientForEdit.cedula || this.selectedPatientForEdit.cedula,
-      age: this.selectedPatientForEdit.age,
+      birthDate: this.selectedPatientForEdit.birthDate,
       address: this.selectedPatientForEdit.address,
       email: this.selectedPatientForEdit.email,
       occupation: this.selectedPatientForEdit.occupation,
@@ -229,14 +358,33 @@ export class ListPatientUsersComponentComponent implements OnInit {
   }
 
   openViewPatientModal(patient: Patient): void {
+    if (!patient._id) {
+      this.showAlertMessage('error', 'El paciente no tiene un ID válido.');
+      return;
+    }
     this.viewedPatientDetails = { ...patient };
     delete this.viewedPatientDetails.password;
     this.showViewPatientModal = true;
+
+    this.isLoadingPromptsCount = true;
+    this.promptsCount = null;
+    this.chatbotService.getNumberOfPrompts(patient._id).subscribe({
+      next: (count) => {
+        // Si count es null o undefined, lo tratamos como 0.
+        this.promptsCount = count ?? 0;
+        this.isLoadingPromptsCount = false;
+      },
+      error: () => {
+        this.promptsCount = 0; // O mostrar un mensaje de error
+        this.isLoadingPromptsCount = false;
+      }
+    });
   }
 
   closeViewPatientModal(): void {
     this.showViewPatientModal = false;
     this.viewedPatientDetails = null;
+    this.promptsCount = null;
   }
 
   onNewPatientClick(): void {

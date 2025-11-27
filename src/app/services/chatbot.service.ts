@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { API_URL } from '../../shared/constants/app.constants';
+import { AuthService } from './auth.service/auth.service';
 
 export interface ChatMessage {
   sender: 'user' | 'bot';
@@ -17,18 +18,24 @@ interface ApiResponse {
   response: string;
 }
 
+interface PromptsCountResponse {
+  // La respuesta real del backend es { "count": N }
+  count: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class ChatbotService {
   private http = inject(HttpClient);
+  private authService = inject(AuthService);
   
   // URL actualizada para apuntar a tu API del chatbot
   private apiUrl = `${API_URL}/gemini/generate`;
 
-  sendMessage(message: string): Observable<string> {
-    // El backend espera un objeto con la clave "prompt".
-    const payload = { prompt: message };
+  sendMessage(message: string, userId: string): Observable<string> {
+    // El backend espera un objeto con la clave "prompt" y el "_id" del usuario.
+    const payload = { prompt: message, _id: userId };
     console.log(payload)
 
     return this.http.post<ApiResponse>(this.apiUrl, payload).pipe(
@@ -38,6 +45,17 @@ export class ChatbotService {
       // Extraemos el texto de esa propiedad.
       map(apiResponse => apiResponse.response)
       
+    );
+  }
+
+  getNumberOfPrompts(userId: string): Observable<number> {
+    const url = `${API_URL}/gemini/number/promts`;
+    const payload = { _id: userId };
+
+    return this.http.post<PromptsCountResponse>(url, payload).pipe(
+      tap(response => console.log('Respuesta de número de prompts:', response)),
+      // Extraemos el valor de la propiedad 'count' que devuelve el backend.
+      map(response => response.count)
     );
   }
 }

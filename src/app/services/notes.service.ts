@@ -15,7 +15,8 @@ export interface Note {
 export interface NewNote {
   title: string;
   content: string;
-  user: string;
+  noteList?: boolean;
+  idPatient: string;
 }
 
 // Interfaz para la respuesta de la API que envuelve la lista de notas.

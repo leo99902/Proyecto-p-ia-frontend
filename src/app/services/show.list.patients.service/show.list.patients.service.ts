@@ -7,7 +7,7 @@ export interface Patient {
   _id: string;
   user: string;
   cedula: string;
-  age: number;
+  birthDate: Date ;
   address: string;
   password?: string; // La contraseña es opcional, ya que no siempre se envía
   email: string;
