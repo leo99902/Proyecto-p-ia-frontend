@@ -13,7 +13,7 @@ import { UserEditServiceService } from '../../../services/user.edit.service/user
   styleUrls: ['./registered.user.list.component.component.scss']
 })
 export class RegisteredUserListComponentComponent implements OnInit {
-  public users: any = {id: 123, name: 'jose'};
+
   public usuarios: any;
   public displayedUsers: any[] = [];
 
@@ -90,10 +90,8 @@ export class RegisteredUserListComponentComponent implements OnInit {
           
           // Configurar temporizador para ocultar mensaje y recargar
           this.messageTimeout = setTimeout(() => {
-            this.closeModalEdit();
-            this.loadUsers();
-            this.resetMessage();
-          }, 5000);
+            window.location.reload();
+          }, 1500); // Recarga la página después de 1.5 segundos para mostrar el mensaje
         }
       },
       error: (e: any) => {

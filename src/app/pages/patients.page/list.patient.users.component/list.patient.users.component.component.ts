@@ -347,9 +347,7 @@ onSaveNote(): void {
         }
         
 
-        if (error.status) {
-          errorMessage += ` (Código: ${error.status})`;
-        }
+        
         
 
         this.showAlertMessage('error', errorMessage);
