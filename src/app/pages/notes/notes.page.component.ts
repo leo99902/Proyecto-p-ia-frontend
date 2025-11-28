@@ -47,7 +47,7 @@ export class NotesPageComponent implements OnInit {
       return;
     }
 
-    this.notesService.listNotes(currentUser)
+    this.notesService.listORNotes(currentUser)
       .pipe(finalize(() => this.isLoading.set(false)))
       .subscribe({
         next: (notes) => this.notes.set(notes),

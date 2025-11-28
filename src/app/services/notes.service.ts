@@ -31,12 +31,23 @@ export class NotesService {
   private http = inject(HttpClient);
   private readonly BASE_URL = API_URL;
 
-  listNotes(user: string): Observable<Note[]> {
+   listNotes(patientId: string): Observable<Note[]> {
+    const payload = { noteList: true, idPatient: patientId };
+    // La petición POST ahora espera un objeto NotesApiResponse.
+    return this.http.post<NotesApiResponse>(`${this.BASE_URL}/listNotes`, payload).pipe(
+      tap(response => console.log('Respuesta cruda de la API de notas:', response)),
+      map(response => response.notes || []) // Extraemos el array de la propiedad 'notes'.
+    );
+  }
+
+
+  listORNotes(user: string): Observable<Note[]> {
     // La petición POST ahora espera un objeto NotesApiResponse.
     return this.http.post<NotesApiResponse>(`${this.BASE_URL}/listNotes`, { user }).pipe(
       tap(response => console.log('Respuesta cruda de la API de notas:', response)),
       map(response => response.notes || []) // Extraemos el array de la propiedad 'notes'.
     );
+  
   }
 
   createNote(note: NewNote): Observable<any> {

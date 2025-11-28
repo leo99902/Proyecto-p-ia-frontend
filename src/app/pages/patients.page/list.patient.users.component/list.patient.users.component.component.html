@@ -242,7 +242,7 @@
             <div *ngIf="isLoadingNotes" class="loading-notes">Cargando notas...</div>
 
             <!-- Lista de Notas Acordeón -->
-            <div *ngIf="!isLoadingNotes && patientNotes.length > 0">
+            <div *ngIf="!isLoadingNotes && patientNotes && patientNotes.length > 0">
                 <details *ngFor="let note of patientNotes" class="note-item">
                     <summary class="note-header">
                         <span class="note-title">{{ note.title }} - {{ note.createdAt | date:'short' }}</span>
@@ -260,7 +260,7 @@
                     </div>
                 </details>
             </div>
-            <p *ngIf="!isLoadingNotes && patientNotes.length === 0">No hay notas para este paciente.</p>
+            <p *ngIf="!isLoadingNotes && (!patientNotes || patientNotes.length === 0)">No hay notas para este paciente.</p>
         </div>
 
         <!-- Formulario para añadir nueva nota -->
